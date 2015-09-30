@@ -1,0 +1,1534 @@
+uiopen('J:\Lab03_PartII.m',1)
+% Modify expression to add input arguments.
+% Example:
+%   a = [1 2 3; 4 5 6]; 
+%   foo(a);
+
+Lab03_PartII
+Enter a value for mass in Kg: .5
+Enter a value for the spring constant in N/m: 1
+Enter a value for the damping coefficient in N-s/m: .24
+Enter a value for the step input: 1
+
+ans =
+
+Peak time Tp = 2.2214 seconds
+
+
+ans =
+
+Percent overshoot %OS = 58.1544 percent
+
+
+ans =
+
+Zeta = 0.17003
+
+
+ans =
+
+Settling time Ts = 16.3923 seconds
+
+
+ans =
+
+Natural frequency Wn = 1.4351
+
+
+ans =
+
+Rise time Tr = 0.84575 seconds
+
+
+ans =
+
+Maximum displacement y1 = 1.5815 meters
+
+
+ans =
+
+Time during maximum displacement Tp = 2.2214 seconds
+
+
+ans =
+
+The displacement at t=5 seconds is Y5 = 0.73646 meters
+
+
+ans =
+
+Natural frequency for Part III Wn = 17.8326
+
+
+ans =
+
+Zeta for Part III = 0.0026887
+
+
+ans =
+
+Settling time for Part III Ts = 83.4272 seconds
+
+
+ans =
+
+Peak time for Part III Tp = 0.17617 seconds
+
+
+ans =
+
+Percent overshoot for Part III %OS = 99.1589 percent
+
+
+ans =
+
+Rise time for Part III Tr = 0.062796 seconds
+
+% Modify expression to add input arguments.
+% Example:
+%   a = [1 2 3; 4 5 6]; 
+%   foo(a);
+
+Lab03_PartIII
+Enter the Potentiometer value for Kpot: .318
+Enter the Preamplifier value for K: 1
+Enter the Power amplifier value for K1: 100
+Enter the Power amplifier value for a: 100
+Enter the Motor and load value for Km: 2.083
+Enter the Motor and load value for am: 1.71
+Enter the Gears value for Kg: .1
+% Modify expression to add input arguments.
+% Example:
+%   a = [1 2 3; 4 5 6]; 
+%   foo(a);
+
+Lab03_PartIII
+Enter the Potentiometer value for Kpot: .318
+Enter the Preamplifier value for K: 1.5
+Enter the Power amplifier value for K1: 100
+Enter the Power amplifier value for a: 100
+Enter the Motor and load value for Km: 2.083
+Enter the Motor and load value for am: 1.71
+Enter the Gears value for Kg: .1
+% Modify expression to add input arguments.
+% Example:
+%   a = [1 2 3; 4 5 6]; 
+%   foo(a);
+
+Lab03_PartIII
+Enter the Potentiometer value for Kpot: .138
+Enter the Preamplifier value for K: 2
+Enter the Power amplifier value for K1: 100
+Enter the Power amplifier value for a: 100
+Enter the Motor and load value for Km: 2.083
+Enter the Motor and load value for am: 1.71
+Enter the Gears value for Kg: .1
+% Modify expression to add input arguments.
+% Example:
+%   a = [1 2 3; 4 5 6]; 
+%   foo(a);
+
+Lab03_PartIII
+Enter the Potentiometer value for Kpot: .318
+Enter the Preamplifier value for K: 5
+Enter the Power amplifier value for K1: 10
+Enter the Power amplifier value for a: 10
+Enter the Motor and load value for Km: 1
+Enter the Motor and load value for am: 1
+Enter the Gears value for Kg: 1
+1
+
+ans =
+
+     1
+
+% Modify expression to add input arguments.
+% Example:
+%   a = [1 2 3; 4 5 6]; 
+%   foo(a);
+
+Lab03_PartIII
+Enter the Potentiometer value for Kpot: .318
+Enter the Preamplifier value for K: 5
+Enter the Power amplifier value for K1: 100
+Enter the Power amplifier value for a: 100
+Enter the Motor and load value for Km: 2.083
+Enter the Motor and load value for am: 1.71
+Enter the Gears value for Kg: .1
+% Modify expression to add input arguments.
+% Example:
+%   a = [1 2 3; 4 5 6]; 
+%   foo(a);
+
+Lab03_PartIII
+Enter the Potentiometer value for Kpot: .318
+Enter the Preamplifier value for K: 20
+Enter the Power amplifier value for K1: 100
+Enter the Power amplifier value for a: 100
+Enter the Motor and load value for Km: 2.083
+Enter the Motor and load value for am: 1.71
+Enter the Gears value for Kg: .1
+
+
+% Modify expression to add input arguments.
+% Example:
+%   a = [1 2 3; 4 5 6]; 
+%   foo(a);
+
+Lab03_PartIII
+Enter the Potentiometer value for Kpot: .318
+Enter the Preamplifier value for K: 1
+Enter the Power amplifier value for K1: 100
+Enter the Power amplifier value for a: 100
+Enter the Motor and load value for Km: 2.083
+Enter the Motor and load value for am: 1.71
+Enter the Gears value for Kg: .1
+% Modify expression to add input arguments.
+% Example:
+%   a = [1 2 3; 4 5 6]; 
+%   foo(a);
+
+Lab03_PartIII
+Enter the Potentiometer value for Kpot: .318
+Enter the Preamplifier value for K: 1
+Enter the Power amplifier value for K1: 100
+Enter the Power amplifier value for a: 100
+Enter the Motor and load value for Km: 2.083
+Enter the Motor and load value for am: 1.71
+Enter the Gears value for Kg: .1
+
+
+% Modify expression to add input arguments.
+% Example:
+%   a = [1 2 3; 4 5 6]; 
+%   foo(a);
+
+Lab03_PartIII
+Enter the Potentiometer value for Kpot: .318
+Enter the Preamplifier value for K: 1
+Enter the Power amplifier value for K1: 100
+Enter the Power amplifier value for a: 100
+Enter the Motor and load value for Km: 2.083
+Enter the Motor and load value for am: 1.71
+Enter the Gears value for Kg: .1
+% Modify expression to add input arguments.
+% Example:
+%   a = [1 2 3; 4 5 6]; 
+%   foo(a);
+
+Lab03_PartIII
+Enter the Potentiometer value for Kpot: .318
+Enter the Preamplifier value for K: 1
+Enter the Power amplifier value for K1: 100
+Enter the Power amplifier value for a: 100
+Enter the Motor and load value for Km: 2.083
+Enter the Motor and load value for am: 1.71
+Enter the Gears value for Kg: .1
+??? Error using ==> <a href="error:C:\Program Files\MATLAB\R2007b\toolbox\control\control\@lti\step.m,72,0">lti.step at 72</a>
+STEP takes a single model when used with output arguments.
+
+Error in ==> <a href="error:j:\Lab03_PartIII.m,38,0">Lab03_PartIII at 38</a>
+[y1,x1,t1]=step((G1*G2*G3*G4*G5),(1+(G1*G2*G3*G4*G5)));
+
+% Modify expression to add input arguments.
+% Example:
+%   a = [1 2 3; 4 5 6]; 
+%   foo(a);
+
+Lab03_PartIII
+Enter the Potentiometer value for Kpot: .318
+Enter the Preamplifier value for K: 1
+Enter the Power amplifier value for K1: 100
+Enter the Power amplifier value for a: 100
+Enter the Motor and load value for Km: 2.083
+Enter the Motor and load value for am: 1.71
+Enter the Gears value for Kg: .1
+??? Error using ==> <a href="error:C:\Program Files\MATLAB\R2007b\toolbox\control\control\@lti\step.m,72,0">lti.step at 72</a>
+STEP takes a single model when used with output arguments.
+
+Error in ==> <a href="error:j:\Lab03_PartIII.m,40,0">Lab03_PartIII at 40</a>
+[y1,x1,t1]=step(num,den);
+
+% Modify expression to add input arguments.
+% Example:
+%   a = [1 2 3; 4 5 6]; 
+%   foo(a);
+
+Lab03_PartIII
+Enter the Potentiometer value for Kpot: .318
+Enter the Preamplifier value for K: 1
+Enter the Power amplifier value for K1: 100
+Enter the Power amplifier value for a: 100
+Enter the Motor and load value for Km: 2.083
+Enter the Motor and load value for am: 1.71
+Enter the Gears value for Kg: .1
+% Modify expression to add input arguments.
+% Example:
+%   a = [1 2 3; 4 5 6]; 
+%   foo(a);
+
+Lab03_PartII
+Enter a value for mass in Kg: .5
+Enter a value for the spring constant in N/m: 1
+Enter a value for the damping coefficient in N-s/m: .24
+Enter a value for the step input: 1
+
+ans =
+
+Peak time Tp = 2.2214 seconds
+
+
+ans =
+
+Percent overshoot %OS = 58.1544 percent
+
+
+ans =
+
+Zeta = 0.17003
+
+
+ans =
+
+Settling time Ts = 16.3923 seconds
+
+
+ans =
+
+Natural frequency Wn = 1.4351
+
+
+ans =
+
+Rise time Tr = 0.84575 seconds
+
+
+ans =
+
+Maximum displacement y1 = 1.5815 meters
+
+
+ans =
+
+Time during maximum displacement Tp = 2.2214 seconds
+
+
+ans =
+
+The displacement at t=5 seconds is Y5 = 0.73646 meters
+
+
+ans =
+
+Natural frequency for Part III Wn = 17.8326
+
+
+ans =
+
+Zeta for Part III = 0.0026887
+
+
+ans =
+
+Settling time for Part III Ts = 83.4272 seconds
+
+
+ans =
+
+Peak time for Part III Tp = 0.17617 seconds
+
+
+ans =
+
+Percent overshoot for Part III %OS = 99.1589 percent
+
+
+ans =
+
+Rise time for Part III Tr = 0.062796 seconds
+
+% Modify expression to add input arguments.
+% Example:
+%   a = [1 2 3; 4 5 6]; 
+%   foo(a);
+
+Lab03_PartIII
+Enter the Potentiometer value for Kpot: .318
+Enter the Preamplifier value for K: 1
+Enter the Power amplifier value for K1: 100
+Enter the Power amplifier value for a: 100
+Enter the Motor and load value for Km: 2.083
+Enter the Motor and load value for am: 1.71
+Enter the Gears value for Kg: .1
+% Modify expression to add input arguments.
+% Example:
+%   a = [1 2 3; 4 5 6]; 
+%   foo(a);
+
+Lab03_PartIII
+Enter the Potentiometer value for Kpot: .318
+Enter the Preamplifier value for K: 1
+Enter the Power amplifier value for K1: 100
+Enter the Power amplifier value for a: 100
+Enter the Motor and load value for Km: 2.083
+Enter the Motor and load value for am: 1.71
+Enter the Gears value for Kg: .1
+
+ans =
+
+Peak time Tp = 139.3064 seconds
+
+% Modify expression to add input arguments.
+% Example:
+%   a = [1 2 3; 4 5 6]; 
+%   foo(a);
+
+Lab03_PartIII
+Enter the Potentiometer value for Kpot: .318
+Enter the Preamplifier value for K: 30
+Enter the Power amplifier value for K1: 100
+Enter the Power amplifier value for a: 100
+Enter the Motor and load value for Km: 2.083
+Enter the Motor and load value for am: 1.71
+Enter the Gears value for Kg: .1
+
+ans =
+
+Peak time Tp = 2.8782 seconds
+
+% Modify expression to add input arguments.
+% Example:
+%   a = [1 2 3; 4 5 6]; 
+%   foo(a);
+
+Lab03_PartIII
+Enter the Potentiometer value for Kpot: 3.18
+Enter the Preamplifier value for K: 200
+Enter the Power amplifier value for K1: 100
+Enter the Power amplifier value for a: 100
+Enter the Motor and load value for Km: 2.083
+Enter the Motor and load value for am: 1.71
+Enter the Gears value for Kg: .1
+
+ans =
+
+Peak time Tp = 5.7565 seconds
+
+
+% Modify expression to add input arguments.
+% Example:
+%   a = [1 2 3; 4 5 6]; 
+%   foo(a);
+
+Lab03_PartIII
+Enter the Potentiometer value for Kpot: .318
+Enter the Preamplifier value for K: 99999
+Enter the Power amplifier value for K1: 100
+Enter the Power amplifier value for a: 100
+Enter the Motor and load value for Km: 2.083
+Enter the Motor and load value for am: 1.71
+Enter the Gears value for Kg: .1
+
+ans =
+
+Peak time Tp = 0.80172 seconds
+
+% Modify expression to add input arguments.
+% Example:
+%   a = [1 2 3; 4 5 6]; 
+%   foo(a);
+
+Lab03_PartIII
+Enter the Potentiometer value for Kpot: .318
+Enter the Preamplifier value for K: 9999
+Enter the Power amplifier value for K1: 100
+Enter the Power amplifier value for a: 100
+Enter the Motor and load value for Km: 2.083
+Enter the Motor and load value for am: 1.71
+Enter the Gears value for Kg: .1
+
+ans =
+
+Peak time Tp = 6.7213 seconds
+
+% Modify expression to add input arguments.
+% Example:
+%   a = [1 2 3; 4 5 6]; 
+%   foo(a);
+
+Lab03_PartIII
+Enter the Potentiometer value for Kpot: .318
+Enter the Preamplifier value for K: 999
+Enter the Power amplifier value for K1: 100
+Enter the Power amplifier value for a: 2.083
+Enter the Motor and load value for Km: 1.71
+Enter the Motor and load value for am: .1
+Enter the Gears value for Kg: 1
+
+ans =
+
+Peak time Tp = 0.67946 seconds
+
+% Modify expression to add input arguments.
+% Example:
+%   a = [1 2 3; 4 5 6]; 
+%   foo(a);
+
+Lab03_PartIII
+Enter the Potentiometer value for Kpot: .318
+Enter the Preamplifier value for K: 999
+Enter the Power amplifier value for K1: 100
+Enter the Power amplifier value for a: 100
+Enter the Motor and load value for Km: 2.083
+Enter the Motor and load value for am: 1.71
+Enter the Gears value for Kg: .1
+
+ans =
+
+Peak time Tp = 1.1513 seconds
+
+% Modify expression to add input arguments.
+% Example:
+%   a = [1 2 3; 4 5 6]; 
+%   foo(a);
+
+Lab03_PartIII
+Enter the Potentiometer value for Kpot: .318
+Enter the Preamplifier value for K: 500
+Enter the Power amplifier value for K1: 100
+Enter the Power amplifier value for a: 100
+Enter the Motor and load value for Km: 2.083
+Enter the Motor and load value for am: 1.71
+Enter the Gears value for Kg: .1
+
+ans =
+
+Peak time Tp = 0.57565 seconds
+
+% Modify expression to add input arguments.
+% Example:
+%   a = [1 2 3; 4 5 6]; 
+%   foo(a);
+
+Lab03_PartIII
+Enter the Potentiometer value for Kpot: .318
+Enter the Preamplifier value for K: 250
+Enter the Power amplifier value for K1: 100
+Enter the Power amplifier value for a: 100
+Enter the Motor and load value for Km: 2.083
+Enter the Motor and load value for am: 1.71
+Enter the Gears value for Kg: .1
+
+ans =
+
+Peak time Tp = 0.57565 seconds
+
+% Modify expression to add input arguments.
+% Example:
+%   a = [1 2 3; 4 5 6]; 
+%   foo(a);
+
+Lab03_PartIII
+Enter the Potentiometer value for Kpot: .318
+Enter the Preamplifier value for K: 125
+Enter the Power amplifier value for K1: 100
+Enter the Power amplifier value for a: 100
+Enter the Motor and load value for Km: 2.083
+Enter the Motor and load value for am: 1.71
+Enter the Gears value for Kg: .1
+
+ans =
+
+Peak time Tp = 1.1513 seconds
+
+% Modify expression to add input arguments.
+% Example:
+%   a = [1 2 3; 4 5 6]; 
+%   foo(a);
+
+Lab03_PartIII
+Enter the Potentiometer value for Kpot: .318
+Enter the Preamplifier value for K: 62.5
+Enter the Power amplifier value for K1: 100
+Enter the Power amplifier value for a: 100
+Enter the Motor and load value for Km: 2.083
+Enter the Motor and load value for am: 1.71
+Enter the Gears value for Kg: .1
+
+ans =
+
+Peak time Tp = 1.7269 seconds
+
+% Modify expression to add input arguments.
+% Example:
+%   a = [1 2 3; 4 5 6]; 
+%   foo(a);
+
+Lab03_PartIII
+Enter the Potentiometer value for Kpot: .318
+Enter the Preamplifier value for K: 30
+Enter the Power amplifier value for K1: 100
+Enter the Power amplifier value for a: 100
+Enter the Motor and load value for Km: 2.083
+Enter the Motor and load value for am: 1.71
+Enter the Gears value for Kg: .1
+
+ans =
+
+Peak time Tp = 2.8782 seconds
+
+% Modify expression to add input arguments.
+% Example:
+%   a = [1 2 3; 4 5 6]; 
+%   foo(a);
+
+Lab03_PartIII
+Enter the Potentiometer value for Kpot: .318
+Enter the Preamplifier value for K: 25
+Enter the Power amplifier value for K1: 100
+Enter the Power amplifier value for a: 100
+Enter the Motor and load value for Km: 2.083
+Enter the Motor and load value for am: 1.71
+Enter the Gears value for Kg: .1
+
+ans =
+
+Peak time Tp = 3.4539 seconds
+
+% Modify expression to add input arguments.
+% Example:
+%   a = [1 2 3; 4 5 6]; 
+%   foo(a);
+
+Lab03_PartIII
+Enter the Potentiometer value for Kpot: .318
+Enter the Preamplifier value for K: 17
+Enter the Power amplifier value for K1: 100
+Enter the Power amplifier value for a: 100
+Enter the Motor and load value for Km: 2.083
+Enter the Motor and load value for am: 1.71
+Enter the Gears value for Kg: .1
+
+ans =
+
+Peak time Tp = 5.1808 seconds
+
+% Modify expression to add input arguments.
+% Example:
+%   a = [1 2 3; 4 5 6]; 
+%   foo(a);
+
+Lab03_PartIII
+Enter the Potentiometer value for Kpot: .318
+Enter the Preamplifier value for K: 10
+Enter the Power amplifier value for K1: 100
+Enter the Power amplifier value for a: 100
+Enter the Motor and load value for Km: 2.083
+Enter the Motor and load value for am: 1.71
+Enter the Gears value for Kg: .1
+
+ans =
+
+Peak time Tp = 12.6642 seconds
+
+% Modify expression to add input arguments.
+% Example:
+%   a = [1 2 3; 4 5 6]; 
+%   foo(a);
+
+Lab03_PartIII
+Enter the Potentiometer value for Kpot: .318
+Enter the Preamplifier value for K: 1
+Enter the Power amplifier value for K1: 100
+Enter the Power amplifier value for a: 100
+Enter the Motor and load value for Km: 2.083
+Enter the Motor and load value for am: 1.71
+Enter the Gears value for Kg: .1
+
+ans =
+
+Peak time Tp = 139.3064 seconds
+
+
+ans =
+
+Percent overshoot %OS = -0.4078 percent
+
+% Modify expression to add input arguments.
+% Example:
+%   a = [1 2 3; 4 5 6]; 
+%   foo(a);
+
+Lab03_PartIII
+Enter the Potentiometer value for Kpot: .318
+Enter the Preamplifier value for K: 1
+Enter the Power amplifier value for K1: 100
+Enter the Power amplifier value for a: 100
+Enter the Motor and load value for Km: 2.083
+Enter the Motor and load value for am: 1.71
+Enter the Gears value for Kg: .1
+
+ans =
+
+Peak time Tp = 139.3064 seconds
+
+
+ans =
+
+Percent overshoot %OS = -0.4078 percent
+
+
+ans =
+
+Zeta = 0.93061-0.086814i
+
+% Modify expression to add input arguments.
+% Example:
+%   a = [1 2 3; 4 5 6]; 
+%   foo(a);
+
+Lab03_PartII
+Enter a value for mass in Kg: .318
+Enter a value for the spring constant in N/m: 30
+Enter a value for the damping coefficient in N-s/m: 100
+Enter a value for the step input: 100
+
+ans =
+
+Peak time Tp = 19.4086 seconds
+
+
+ans =
+
+Percent overshoot %OS = -0.29463 percent
+
+
+ans =
+
+Zeta = 0.93361-0.077611i
+
+
+ans =
+
+Settling time Ts = 10.3225+5.56512i seconds
+
+
+ans =
+
+Natural frequency Wn = 0.3337-0.14564i
+
+
+ans =
+
+Rise time Tr = 7.3206 seconds
+
+
+ans =
+
+Maximum displacement y1 = 3.3235 meters
+
+
+ans =
+
+Time during maximum displacement Tp = 19.4086 seconds
+
+
+ans =
+
+The displacement at t=5 seconds is Y5 = 2.5893 meters
+
+
+ans =
+
+Natural frequency for Part III Wn = 17.8326
+
+
+ans =
+
+Zeta for Part III = 0.0026887
+
+
+ans =
+
+Settling time for Part III Ts = 83.4272 seconds
+
+
+ans =
+
+Peak time for Part III Tp = 0.17617 seconds
+
+
+ans =
+
+Percent overshoot for Part III %OS = 99.1589 percent
+
+
+ans =
+
+Rise time for Part III Tr = 0.062796 seconds
+
+% Modify expression to add input arguments.
+% Example:
+%   a = [1 2 3; 4 5 6]; 
+%   foo(a);
+
+Lab03_PartIII
+Enter the Potentiometer value for Kpot: .318
+Enter the Preamplifier value for K: 1
+Enter the Power amplifier value for K1: 100
+Enter the Power amplifier value for a: 100
+Enter the Motor and load value for Km: 2.083
+Enter the Motor and load value for am: 1.71
+Enter the Gears value for Kg: .1
+
+ans =
+
+Peak time Tp = 139.3064 seconds
+
+
+ans =
+
+Percent overshoot %OS = -0.4078 percent
+
+
+ans =
+
+Zeta = 0.93061-0.086814i
+
+% Modify expression to add input arguments.
+% Example:
+%   a = [1 2 3; 4 5 6]; 
+%   foo(a);
+
+Lab03_PartIII
+Enter the Potentiometer value for Kpot: .318
+Enter the Preamplifier value for K: 30
+Enter the Power amplifier value for K1: 100
+Enter the Power amplifier value for a: 100
+Enter the Motor and load value for Km: 2.083
+Enter the Motor and load value for am: 1.71
+Enter the Gears value for Kg: .1
+
+ans =
+
+Peak time Tp = 2.8782 seconds
+
+
+ans =
+
+Percent overshoot %OS = 9.4481 percent
+
+
+ans =
+
+Zeta = 0.60052
+
+% Modify expression to add input arguments.
+% Example:
+%   a = [1 2 3; 4 5 6]; 
+%   foo(a);
+
+Lab03_PartIII
+Enter the Potentiometer value for Kpot: .318
+Enter the Preamplifier value for K: 1
+Enter the Power amplifier value for K1: 100
+Enter the Power amplifier value for a: 100
+Enter the Motor and load value for Km: 2.083
+Enter the Motor and load value for am: 1.71
+Enter the Gears value for Kg: .1
+
+ans =
+
+Peak time Tp = 139.3064 seconds
+
+
+ans =
+
+Percent overshoot %OS = -0.4078 percent
+
+% Modify expression to add input arguments.
+% Example:
+%   a = [1 2 3; 4 5 6]; 
+%   foo(a);
+
+Lab03_PartIII
+Enter the Potentiometer value for Kpot: .318
+Enter the Preamplifier value for K: 1
+Enter the Power amplifier value for K1: 100
+Enter the Power amplifier value for a: 100
+Enter the Motor and load value for Km: 2.083
+Enter the Motor and load value for am: 1.71
+Enter the Gears value for Kg: .1
+
+ans =
+
+Peak time Tp = 139.3064 seconds
+
+
+ans =
+
+Percent overshoot %OS = -0.4078 percent
+
+
+ans =
+
+Zeta > 0; System is Overdamped
+
+% Modify expression to add input arguments.
+% Example:
+%   a = [1 2 3; 4 5 6]; 
+%   foo(a);
+
+Lab03_PartIII
+Enter the Potentiometer value for Kpot: .318
+Enter the Preamplifier value for K: 17
+Enter the Power amplifier value for K1: 100
+Enter the Power amplifier value for a: 100
+Enter the Motor and load value for Km: 2.083
+Enter the Motor and load value for am: 1.71
+Enter the Gears value for Kg: .1
+
+ans =
+
+Peak time Tp = 5.1808 seconds
+
+
+ans =
+
+Percent overshoot %OS = 1.4682 percent
+
+% Modify expression to add input arguments.
+% Example:
+%   a = [1 2 3; 4 5 6]; 
+%   foo(a);
+
+Lab03_PartIII
+Enter the Potentiometer value for Kpot: .318
+Enter the Preamplifier value for K: 17
+Enter the Power amplifier value for K1: 100
+Enter the Power amplifier value for a: 100
+Enter the Motor and load value for Km: 2.083
+Enter the Motor and load value for am: 1.71
+Enter the Gears value for Kg: .1
+
+ans =
+
+Peak time Tp = 5.1808 seconds
+
+
+ans =
+
+Percent overshoot %OS = 1.4682 percent
+
+
+ans =
+
+Zeta = 0.80221
+
+% Modify expression to add input arguments.
+% Example:
+%   a = [1 2 3; 4 5 6]; 
+%   foo(a);
+
+Lab03_PartIII
+Enter the Potentiometer value for Kpot: .318
+Enter the Preamplifier value for K: 16
+Enter the Power amplifier value for K1: 100
+Enter the Power amplifier value for a: 100
+Enter the Motor and load value for Km: 2.083
+Enter the Motor and load value for am: 1.71
+Enter the Gears value for Kg: .1
+
+ans =
+
+Peak time Tp = 5.1808 seconds
+
+
+ans =
+
+Percent overshoot %OS = 0.97981 percent
+
+
+ans =
+
+Zeta = 0.82724
+
+% Modify expression to add input arguments.
+% Example:
+%   a = [1 2 3; 4 5 6]; 
+%   foo(a);
+
+Lab03_PartIII
+??? Error: <a href="error:j:\Lab03_PartIII.m,56,12">File: Lab03_PartIII.m Line: 56 Column: 12</a>
+The expression to the left of the equals sign is not a valid target for an assignment.
+
+% Modify expression to add input arguments.
+% Example:
+%   a = [1 2 3; 4 5 6]; 
+%   foo(a);
+
+Lab03_PartIII
+Enter the Potentiometer value for Kpot: .318
+Enter the Preamplifier value for K: 15
+Enter the Power amplifier value for K1: 100
+Enter the Power amplifier value for a: 100
+Enter the Motor and load value for Km: 2.083
+Enter the Motor and load value for am: 1.71
+Enter the Gears value for Kg: .1
+
+ans =
+
+Peak time Tp = 6.3321 seconds
+
+
+ans =
+
+Percent overshoot %OS = 0.57176 percent
+
+
+ans =
+
+Zeta = 0.85433
+
+% Modify expression to add input arguments.
+% Example:
+%   a = [1 2 3; 4 5 6]; 
+%   foo(a);
+
+Lab03_PartIII
+Enter the Potentiometer value for Kpot: .318
+Enter the Preamplifier value for K: 10
+Enter the Power amplifier value for K1: 100
+Enter the Power amplifier value for a: 2.083
+Enter the Motor and load value for Km: 32
+Enter the Motor and load value for am: 321
+Enter the Gears value for Kg: 1
+
+ans =
+
+Peak time Tp = 0.57565 seconds
+
+
+ans =
+
+Percent overshoot %OS = 56.9529 percent
+
+
+ans =
+
+Zeta = 0.17638
+
+% Modify expression to add input arguments.
+% Example:
+%   a = [1 2 3; 4 5 6]; 
+%   foo(a);
+
+Lab03_PartIII
+Enter the Potentiometer value for Kpot: .318
+Enter the Preamplifier value for K: 10
+Enter the Power amplifier value for K1: 100
+Enter the Power amplifier value for a: 100
+Enter the Motor and load value for Km: 2.083
+Enter the Motor and load value for am: 1.71
+Enter the Gears value for Kg: .1
+
+ans =
+
+Peak time Tp = 12.6642 seconds
+
+
+ans =
+
+Percent overshoot %OS = -0.10961 percent
+
+
+ans =
+
+Zeta > 1; System is Overdamped
+
+% Modify expression to add input arguments.
+% Example:
+%   a = [1 2 3; 4 5 6]; 
+%   foo(a);
+
+Lab03_PartIII
+Enter the Potentiometer value for Kpot: .318
+Enter the Preamplifier value for K: 11
+Enter the Power amplifier value for K1: 100
+Enter the Power amplifier value for a: 100
+Enter the Motor and load value for Km: 2.083
+Enter the Motor and load value for am: 1.71
+Enter the Gears value for Kg: .1
+
+ans =
+
+Peak time Tp = 12.6642 seconds
+
+
+ans =
+
+Percent overshoot %OS = -0.021802 percent
+
+
+ans =
+
+Zeta > 1; System is Overdamped
+
+% Modify expression to add input arguments.
+% Example:
+%   a = [1 2 3; 4 5 6]; 
+%   foo(a);
+
+Lab03_PartIII
+Enter the Potentiometer value for Kpot: .318
+Enter the Preamplifier value for K: 12
+Enter the Power amplifier value for K1: 100
+Enter the Power amplifier value for a: 100
+Enter the Motor and load value for Km: 2.083
+Enter the Motor and load value for am: 1.71
+Enter the Gears value for Kg: .1
+
+ans =
+
+Peak time Tp = 12.0886 seconds
+
+
+ans =
+
+Percent overshoot %OS = 0.0041935 percent
+
+
+ans =
+
+Zeta = 0.9547
+
+% Modify expression to add input arguments.
+% Example:
+%   a = [1 2 3; 4 5 6]; 
+%   foo(a);
+
+Lab03_PartIII
+Enter the Potentiometer value for Kpot: .318
+Enter the Preamplifier value for K: 11.5
+Enter the Power amplifier value for K1: 100
+Enter the Power amplifier value for a: 100
+Enter the Motor and load value for Km: 2.083
+Enter the Motor and load value for am: 1.71
+Enter the Gears value for Kg: .1
+
+ans =
+
+Peak time Tp = 12.6642 seconds
+
+
+ans =
+
+Percent overshoot %OS = -0.0043466 percent
+
+
+ans =
+
+Zeta > 1; System is Overdamped
+
+% Modify expression to add input arguments.
+% Example:
+%   a = [1 2 3; 4 5 6]; 
+%   foo(a);
+
+Lab03_PartIII
+Enter the Potentiometer value for Kpot: .318
+Enter the Preamplifier value for K: 11.8
+Enter the Power amplifier value for K1: 100
+Enter the Power amplifier value for a: 100
+Enter the Motor and load value for Km: 2.083
+Enter the Motor and load value for am: 1.71
+Enter the Gears value for Kg: .1
+
+ans =
+
+Peak time Tp = 12.6642 seconds
+
+
+ans =
+
+Percent overshoot %OS = 0.0012551 percent
+
+
+ans =
+
+Zeta = 0.96337
+
+% Modify expression to add input arguments.
+% Example:
+%   a = [1 2 3; 4 5 6]; 
+%   foo(a);
+
+Lab03_PartIII
+Enter the Potentiometer value for Kpot: .318
+Enter the Preamplifier value for K: 11.7
+Enter the Power amplifier value for K1: 100
+Enter the Power amplifier value for a: 100
+Enter the Motor and load value for Km: 2.083
+Enter the Motor and load value for am: 1.71
+Enter the Gears value for Kg: .1
+
+ans =
+
+Peak time Tp = 12.6642 seconds
+
+
+ans =
+
+Percent overshoot %OS = -0.00029199 percent
+
+
+ans =
+
+Zeta > 1; System is Overdamped
+
+% Modify expression to add input arguments.
+% Example:
+%   a = [1 2 3; 4 5 6]; 
+%   foo(a);
+
+Lab03_PartIII
+Enter the Potentiometer value for Kpot: .318
+Enter the Preamplifier value for K: 11.75
+Enter the Power amplifier value for K1: 100
+Enter the Power amplifier value for a: 100
+Enter the Motor and load value for Km: 2.083
+Enter the Motor and load value for am: 1.71
+Enter the Gears value for Kg: .1
+
+ans =
+
+Peak time Tp = 12.6642 seconds
+
+
+ans =
+
+Percent overshoot %OS = 0.00051823 percent
+
+
+ans =
+
+Zeta = 0.96826
+
+% Modify expression to add input arguments.
+% Example:
+%   a = [1 2 3; 4 5 6]; 
+%   foo(a);
+
+Lab03_PartIII
+Enter the Potentiometer value for Kpot: .318
+Enter the Preamplifier value for K: 11.73
+Enter the Power amplifier value for K1: 100
+Enter the Power amplifier value for a: 100
+Enter the Motor and load value for Km: 2.083
+Enter the Motor and load value for am: 1.71
+Enter the Gears value for Kg: .1
+
+ans =
+
+Peak time Tp = 12.6642 seconds
+
+
+ans =
+
+Percent overshoot %OS = 0.00020316 percent
+
+
+ans =
+
+Zeta = 0.97245
+
+% Modify expression to add input arguments.
+% Example:
+%   a = [1 2 3; 4 5 6]; 
+%   foo(a);
+
+Lab03_PartIII
+Enter the Potentiometer value for Kpot: .318
+Enter the Preamplifier value for K: 11.72
+Enter the Power amplifier value for K1: 100
+Enter the Power amplifier value for a: 100
+Enter the Motor and load value for Km: 2.083
+Enter the Motor and load value for am: 1.71
+Enter the Gears value for Kg: .1
+
+ans =
+
+Peak time Tp = 12.6642 seconds
+
+
+ans =
+
+Percent overshoot %OS = 4.1143e-005 percent
+
+
+ans =
+
+Zeta = 0.97793
+
+% Modify expression to add input arguments.
+% Example:
+%   a = [1 2 3; 4 5 6]; 
+%   foo(a);
+
+Lab03_PartIII
+Enter the Potentiometer value for Kpot: .318
+Enter the Preamplifier value for K: 11.71
+Enter the Power amplifier value for K1: 100
+Enter the Power amplifier value for a: 100
+Enter the Motor and load value for Km: 2.083
+Enter the Motor and load value for am: 1.71
+Enter the Gears value for Kg: .1
+
+ans =
+
+Peak time Tp = 12.6642 seconds
+
+
+ans =
+
+Percent overshoot %OS = -0.0001239 percent
+
+
+ans =
+
+Zeta > 1; System is Overdamped
+
+% Modify expression to add input arguments.
+% Example:
+%   a = [1 2 3; 4 5 6]; 
+%   foo(a);
+
+Lab03_PartIII
+Enter the Potentiometer value for Kpot: .318
+Enter the Preamplifier value for K: 11.715
+Enter the Power amplifier value for K1: 100
+Enter the Power amplifier value for a: 100
+Enter the Motor and load value for Km: 2.083
+Enter the Motor and load value for am: 1.71
+Enter the Gears value for Kg: .1
+
+ans =
+
+Peak time Tp = 12.6642 seconds
+
+
+ans =
+
+Percent overshoot %OS = -4.0996e-005 percent
+
+
+ans =
+
+Zeta > 1; System is Overdamped
+
+% Modify expression to add input arguments.
+% Example:
+%   a = [1 2 3; 4 5 6]; 
+%   foo(a);
+
+Lab03_PartIII
+Enter the Potentiometer value for Kpot: .318
+Enter the Preamplifier value for K: 11.718
+Enter the Power amplifier value for K1: 100
+Enter the Power amplifier value for a: 100
+Enter the Motor and load value for Km: 2.083
+Enter the Motor and load value for am: 1.71
+Enter the Gears value for Kg: .1
+
+ans =
+
+Peak time Tp = 12.6642 seconds
+
+
+ans =
+
+Percent overshoot %OS = 8.3784e-006 percent
+
+
+ans =
+
+Zeta = 0.98192
+
+%11.718 for K is fairly close to a Critically damped system
+uiopen('J:\School\ECET 4610\controls1\Labs\ECET 4610\Azimuth.m',1)
+uiopen('J:\School\ECET 4610\controls1\Labs\ECET 4610\Ant.m',1)
+uiopen('J:\School\ECET 4610\controls1\Labs\Ecet3610 CONTROLL SYS\Lab3\analysis.m',1)
+uiopen('J:\School\ECET 4610\controls1\Labs\Ecet3610 CONTROLL SYS\Lab3\azimuth.m',1)
+% Modify expression to add input arguments.
+% Example:
+%   a = [1 2 3; 4 5 6]; 
+%   foo(a);
+
+Lab03_PartIII
+Enter the Potentiometer value for Kpot: .318
+Enter the Preamplifier value for K: 1
+Enter the Power amplifier value for K1: 100
+Enter the Power amplifier value for a: 100
+Enter the Motor and load value for Km: 2.083
+Enter the Motor and load value for am: 1.71
+Enter the Gears value for Kg: .1
+??? Error using ==> plot
+Vectors must be the same lengths.
+
+Error in ==> <a href="error:j:\Lab03_PartIII.m,22,0">Lab03_PartIII at 22</a>
+plot(t,y)
+
+% Modify expression to add input arguments.
+% Example:
+%   a = [1 2 3; 4 5 6]; 
+%   foo(a);
+
+Lab03_PartIII
+Enter the Potentiometer value for Kpot: .318
+Enter the Preamplifier value for K: 1
+Enter the Power amplifier value for K1: 100
+Enter the Power amplifier value for a: 100
+Enter the Motor and load value for Km: 2.083
+Enter the Motor and load value for am: 1.71
+Enter the Gears value for Kg: .1
+% Modify expression to add input arguments.
+% Example:
+%   a = [1 2 3; 4 5 6]; 
+%   foo(a);
+
+Lab03_PartIII
+Enter the Potentiometer value for Kpot: .318
+Enter the Preamplifier value for K: 1
+Enter the Power amplifier value for K1: 100
+Enter the Power amplifier value for a: 2.083
+Enter the Motor and load value for Km: 1.71
+Enter the Motor and load value for am: .1
+Enter the Gears value for Kg: .1
+% Modify expression to add input arguments.
+% Example:
+%   a = [1 2 3; 4 5 6]; 
+%   foo(a);
+
+Lab03_PartIII
+Enter the Potentiometer value for Kpot: .318
+Enter the Preamplifier value for K: 1
+Enter the Power amplifier value for K1: 100
+Enter the Power amplifier value for a: 100
+Enter the Motor and load value for Km: 2.083
+Enter the Motor and load value for am: 1.71
+Enter the Gears value for Kg: .1
+
+
+% Modify expression to add input arguments.
+% Example:
+%   a = [1 2 3; 4 5 6]; 
+%   foo(a);
+
+Lab03_PartIII
+Enter the Potentiometer value for Kpot: .318
+Enter the Preamplifier value for K: 11.718
+Enter the Power amplifier value for K1: 100
+Enter the Power amplifier value for a: 100
+Enter the Motor and load value for Km: 2.083
+Enter the Motor and load value for am: 1.71
+Enter the Gears value for Kg: .1
+
+
+% Modify expression to add input arguments.
+% Example:
+%   a = [1 2 3; 4 5 6]; 
+%   foo(a);
+
+Lab03_PartIII
+Enter the Potentiometer value for Kpot: .318
+Enter the Preamplifier value for K: 10
+Enter the Power amplifier value for K1: 100
+Enter the Power amplifier value for a: 100
+Enter the Motor and load value for Km: 2.083
+Enter the Motor and load value for am: 1.71
+Enter the Gears value for Kg: .1
+
+% Modify expression to add input arguments.
+% Example:
+%   a = [1 2 3; 4 5 6]; 
+%   foo(a);
+
+Lab03_PartIII
+Enter the Potentiometer value for Kpot: .318
+Enter the Preamplifier value for K: 5
+Enter the Power amplifier value for K1: 100
+Enter the Power amplifier value for a: 100
+Enter the Motor and load value for Km: 2.083
+Enter the Motor and load value for am: 1.71
+Enter the Gears value for Kg: .1
+% Modify expression to add input arguments.
+% Example:
+%   a = [1 2 3; 4 5 6]; 
+%   foo(a);
+
+Lab03_PartIII
+Enter the Potentiometer value for Kpot: .318
+Enter the Preamplifier value for K: 1
+Enter the Power amplifier value for K1: 500
+Enter the Power amplifier value for a: 100
+Enter the Motor and load value for Km: 2.083
+Enter the Motor and load value for am: 1.71
+Enter the Gears value for Kg: .1
+
+% Modify expression to add input arguments.
+% Example:
+%   a = [1 2 3; 4 5 6]; 
+%   foo(a);
+
+Lab03_PartIII
+Enter the Potentiometer value for Kpot: .318
+Enter the Preamplifier value for K: 4
+Enter the Power amplifier value for K1: 100
+Enter the Power amplifier value for a: 100
+Enter the Motor and load value for Km: 2.083
+Enter the Motor and load value for am: 1.71
+Enter the Gears value for Kg: .1
+edit
+uiopen('J:\Lab03_PartIII.m',1)
+uiopen('J:\Lab03_PartIII.m',1)
+% Modify expression to add input arguments.
+% Example:
+%   a = [1 2 3; 4 5 6]; 
+%   foo(a);
+
+Lab03_PartIII
+Enter the Potentiometer value for Kpot: .318
+Enter the Preamplifier value for K: 1
+Enter the Power amplifier value for K1: 100
+Enter the Power amplifier value for a: 100
+Enter the Motor and load value for Km: 2.083
+Enter the Motor and load value for am: 1.71
+Enter the Gears value for Kg: .1
+
+% Modify expression to add input arguments.
+% Example:
+%   a = [1 2 3; 4 5 6]; 
+%   foo(a);
+
+Lab03_PartIII
+Enter the Potentiometer value for Kpot: .318
+Enter the Preamplifier value for K: 1
+Enter the Power amplifier value for K1: 100
+Enter the Power amplifier value for a: 100
+Enter the Motor and load value for Km: 2.083
+Enter the Motor and load value for am: 1.71
+Enter the Gears value for Kg: .1
+
+% Modify expression to add input arguments.
+% Example:
+%   a = [1 2 3; 4 5 6]; 
+%   foo(a);
+
+Lab03_PartIII
+Enter the Potentiometer value for Kpot: .318
+Enter the Preamplifier value for K: 4
+Enter the Power amplifier value for K1: 100
+Enter the Power amplifier value for a: 100
+Enter the Motor and load value for Km: 2.083
+Enter the Motor and load value for am: 1.71
+Enter the Gears value for Kg: .1

@@ -1,0 +1,70 @@
+%This program will be called Orbit
+%It is function that plots the orbit of a satellite
+%Date       Programmer                  Description of change
+%===        ==========                  =====================
+%9-24-08       Tyler Long               Murphy
+
+
+%Input Parameters
+e1= input('Enter a value for epsilon 1: '); %epsilon 1
+e2= input('Enter a value for epsilon 2: '); %epsilon 2
+e3= input('Enter a value for epsilon 3: '); %epsilon 3
+
+%Constants
+p=1000; %parameter specifying the size of the orbit
+theta=-pi:.1:2*pi;
+
+%Array ordering
+earray=[e1,e2,e3];
+emax= max(earray);
+emed=median(earray);
+emin=min(earray);
+
+%Epsilon max value entered
+r1=p./(1-emax*cos(theta));
+
+%Epsilon median value entered
+r2=p./(1-emed*cos(theta));
+
+%Epsilon min value entered
+r3=p./(1-emin*cos(theta));
+
+%Plot
+polar(theta,r1);
+title('Satellite Orbit - Tyler Long');
+grid on;
+hold;
+polar(theta,r2,'r');
+polar(theta,r3,'g');
+
+%Min-Max for e1
+re1=p./(1-e1*cos(theta));
+re1max=max(re1);
+re1min=min(re1);
+['Your max value for epsilon 1: ' num2str(re1max)]
+['Your min value for epsilon 1: ' num2str(re1min)]
+
+%Min-Max for e2
+re2=p./(1-e2*cos(theta));
+re2max=max(re2);
+re2min=min(re2);
+'Your max value for epsilon 2: ' num2str(re2max)
+'Your min value for epsilon 2: ' num2str(re2min)
+
+%Min-Max for e3
+re3=p./(1-e3*cos(theta));
+re3max=max(re3);
+re3min=min(re3);
+'Your max value for epsilon 3: ' num2str(re3max)
+'Your min value for epsilon 3: ' num2str(re3min)
+
+
+
+
+
+
+
+
+
+
+

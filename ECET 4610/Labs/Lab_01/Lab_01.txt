@@ -1,0 +1,566 @@
+
+	This is a Classroom License for instructional use only.
+	Research and commercial use is prohibited.
+
+  To get started, select MATLAB Help or Demos from the Help menu.
+
+>> addpath f:
+>> diary f:Lab01
+>> 7*3/6
+
+ans =
+
+    3.5000
+
+>> y=7*3/6
+
+y =
+
+    3.5000
+
+>> Y=(6+8)/3
+Y =
+       4.6667
+>> y=5^3/4
+y =
+        31.25
+>> y=5^(3/4)
+y =
+       3.3437
+>> y1=2*(1+j)/(1-j)
+y1 =
+            0 +          2i
+>> y2=2*exp(j*pi/4)
+y2 =
+       1.4142 +     1.4142i
+>> y3=tan(pi*(1+j)/3)
+y3 =
+      0.23911 +     1.1041i
+>> y4=(1+j)^2
+y4 =
+            0 +          2i
+>> y5=real(y4)
+y5 =
+     0
+>> mag=abs(y4)
+mag =
+     2
+>> phase=angle(y4)
+phase =
+       1.5708
+>> y=1/0
+Warning: Divide by zero.
+y =
+   Inf
+>> y=0/0
+Warning: Divide by zero.
+y =
+   NaN
+>> x=[072;785]
+x =
+    72
+   785
+>> x=[0 7 2 ; 7 8 5]
+x =
+     0     7     2
+     7     8     5
+>> y=[1 7 3;1 2 3]
+y =
+     1     7     3
+     1     2     3
+>> z1=x.*y
+z1 =
+     0    49     6
+     7    16    15
+>> z2=x./y
+z2 =
+            0            1      0.66667
+            7            4       1.6667
+>> z4=x.^y
+z4 =
+           0      823543           8
+           7          64         125
+>> z5=x.+y
+??? z5=x.+y
+         |
+Error: Unexpected MATLAB operator.
+
+>> z6=y.^2
+z6 =
+     1    49     9
+     1     4     9
+>> z7=y+2
+z7 =
+     3     9     5
+     3     4     5
+>> z8=x*y
+??? Error using ==> mtimes
+Inner matrix dimensions must agree.
+
+>> z9=x/y
+z9 =
+         1.16        -0.56
+         0.72         1.48
+>> z10=x+y
+z10 =
+     1    14     5
+     8    10     8
+>> z11=x-y
+z11 =
+    -1     0    -1
+     6     6     2
+>> x1=[-20 -10 0 10 20 30]
+x1 =
+   -20   -10     0    10    20    30
+>> x2=linspace(-20,30,6)
+x2 =
+   -20   -10     0    10    20    30
+>> x3=-20:10:30
+x3 =
+   -20   -10     0    10    20    30
+>> help linespace
+
+linespace.m not found.
+
+??? Attempt to execute SCRIPT disp as a function.
+
+Error in ==> help at 111
+                disp(sprintf('Use the Help browser Search tab to search the documentation, or\ntype "help help" for help command optio
+>> help linspace
+??? Attempt to execute SCRIPT disp as a function.
+
+Error in ==> help>displayHelpText at 218
+    disp(helpStr);
+
+Error in ==> help>displayHelp at 184
+displayHelpText(helpStr);
+
+Error in ==> help at 120
+        displayHelp(helpStr, topic, usejava('desktop'));
+
+>> help linspace
+??? Attempt to execute SCRIPT disp as a function.
+
+Error in ==> help>displayHelpText at 218
+    disp(helpStr);
+
+Error in ==> help>displayHelp at 184
+displayHelpText(helpStr);
+
+Error in ==> help at 120
+        displayHelp(helpStr, topic, usejava('desktop'));
+
+>> help yousuck
+
+yousuck.m not found.
+
+??? Attempt to execute SCRIPT disp as a function.
+
+Error in ==> help at 111
+                disp(sprintf('Use the Help browser Search tab to search the documentation, or\ntype "help help" for help command optio
+>> help exp
+??? Attempt to execute SCRIPT disp as a function.
+
+Error in ==> help>displayHelpText at 218
+    disp(helpStr);
+
+Error in ==> help>displayHelp at 184
+displayHelpText(helpStr);
+
+Error in ==> help at 120
+        displayHelp(helpStr, topic, usejava('desktop'));
+
+>> help real
+??? Attempt to execute SCRIPT disp as a function.
+
+Error in ==> help>displayHelpText at 218
+    disp(helpStr);
+
+Error in ==> help>displayHelp at 184
+displayHelpText(helpStr);
+
+Error in ==> help at 120
+        displayHelp(helpStr, topic, usejava('desktop'));
+
+>> help abs
+??? Attempt to execute SCRIPT disp as a function.
+
+Error in ==> help>displayHelpText at 218
+    disp(helpStr);
+
+Error in ==> help>displayHelp at 184
+displayHelpText(helpStr);
+
+Error in ==> help at 120
+        displayHelp(helpStr, topic, usejava('desktop'));
+
+>> x3=-20:.5:30
+x3 =
+  Columns 1 through 6 
+          -20        -19.5          -19        -18.5          -18        -17.5
+  Columns 7 through 12 
+          -17        -16.5          -16        -15.5          -15        -14.5
+  Columns 13 through 18 
+          -14        -13.5          -13        -12.5          -12        -11.5
+  Columns 19 through 24 
+          -11        -10.5          -10         -9.5           -9         -8.5
+  Columns 25 through 30 
+           -8         -7.5           -7         -6.5           -6         -5.5
+  Columns 31 through 36 
+           -5         -4.5           -4         -3.5           -3         -2.5
+  Columns 37 through 42 
+           -2         -1.5           -1         -0.5            0          0.5
+  Columns 43 through 48 
+            1          1.5            2          2.5            3          3.5
+  Columns 49 through 54 
+            4          4.5            5          5.5            6          6.5
+  Columns 55 through 60 
+            7          7.5            8          8.5            9          9.5
+  Columns 61 through 66 
+           10         10.5           11         11.5           12         12.5
+  Columns 67 through 72 
+           13         13.5           14         14.5           15         15.5
+  Columns 73 through 78 
+           16         16.5           17         17.5           18         18.5
+  Columns 79 through 84 
+           19         19.5           20         20.5           21         21.5
+  Columns 85 through 90 
+           22         22.5           23         23.5           24         24.5
+  Columns 91 through 96 
+           25         25.5           26         26.5           27         27.5
+  Columns 97 through 101 
+           28         28.5           29         29.5           30
+>> y1=(x3.*x3)/4
+y1 =
+  Columns 1 through 6 
+          100       95.063        90.25       85.563           81       76.563
+  Columns 7 through 12 
+        72.25       68.063           64       60.063        56.25       52.563
+  Columns 13 through 18 
+           49       45.563        42.25       39.063           36       33.063
+  Columns 19 through 24 
+        30.25       27.563           25       22.563        20.25       18.063
+  Columns 25 through 30 
+           16       14.063        12.25       10.563            9       7.5625
+  Columns 31 through 36 
+         6.25       5.0625            4       3.0625         2.25       1.5625
+  Columns 37 through 42 
+            1       0.5625         0.25       0.0625            0       0.0625
+  Columns 43 through 48 
+         0.25       0.5625            1       1.5625         2.25       3.0625
+  Columns 49 through 54 
+            4       5.0625         6.25       7.5625            9       10.563
+  Columns 55 through 60 
+        12.25       14.063           16       18.063        20.25       22.563
+  Columns 61 through 66 
+           25       27.563        30.25       33.063           36       39.063
+  Columns 67 through 72 
+        42.25       45.563           49       52.563        56.25       60.063
+  Columns 73 through 78 
+           64       68.063        72.25       76.563           81       85.563
+  Columns 79 through 84 
+        90.25       95.063          100       105.06       110.25       115.56
+  Columns 85 through 90 
+          121       126.56       132.25       138.06          144       150.06
+  Columns 91 through 96 
+       156.25       162.56          169       175.56       182.25       189.06
+  Columns 97 through 101 
+          196       203.06       210.25       217.56          225
+>> y2=(x3.^2)/4
+y2 =
+  Columns 1 through 6 
+          100       95.063        90.25       85.563           81       76.563
+  Columns 7 through 12 
+        72.25       68.063           64       60.063        56.25       52.563
+  Columns 13 through 18 
+           49       45.563        42.25       39.063           36       33.063
+  Columns 19 through 24 
+        30.25       27.563           25       22.563        20.25       18.063
+  Columns 25 through 30 
+           16       14.063        12.25       10.563            9       7.5625
+  Columns 31 through 36 
+         6.25       5.0625            4       3.0625         2.25       1.5625
+  Columns 37 through 42 
+            1       0.5625         0.25       0.0625            0       0.0625
+  Columns 43 through 48 
+         0.25       0.5625            1       1.5625         2.25       3.0625
+  Columns 49 through 54 
+            4       5.0625         6.25       7.5625            9       10.563
+  Columns 55 through 60 
+        12.25       14.063           16       18.063        20.25       22.563
+  Columns 61 through 66 
+           25       27.563        30.25       33.063           36       39.063
+  Columns 67 through 72 
+        42.25       45.563           49       52.563        56.25       60.063
+  Columns 73 through 78 
+           64       68.063        72.25       76.563           81       85.563
+  Columns 79 through 84 
+        90.25       95.063          100       105.06       110.25       115.56
+  Columns 85 through 90 
+          121       126.56       132.25       138.06          144       150.06
+  Columns 91 through 96 
+       156.25       162.56          169       175.56       182.25       189.06
+  Columns 97 through 101 
+          196       203.06       210.25       217.56          225
+>> y3=(x3.^2)./4
+y3 =
+  Columns 1 through 6 
+          100       95.063        90.25       85.563           81       76.563
+  Columns 7 through 12 
+        72.25       68.063           64       60.063        56.25       52.563
+  Columns 13 through 18 
+           49       45.563        42.25       39.063           36       33.063
+  Columns 19 through 24 
+        30.25       27.563           25       22.563        20.25       18.063
+  Columns 25 through 30 
+           16       14.063        12.25       10.563            9       7.5625
+  Columns 31 through 36 
+         6.25       5.0625            4       3.0625         2.25       1.5625
+  Columns 37 through 42 
+            1       0.5625         0.25       0.0625            0       0.0625
+  Columns 43 through 48 
+         0.25       0.5625            1       1.5625         2.25       3.0625
+  Columns 49 through 54 
+            4       5.0625         6.25       7.5625            9       10.563
+  Columns 55 through 60 
+        12.25       14.063           16       18.063        20.25       22.563
+  Columns 61 through 66 
+           25       27.563        30.25       33.063           36       39.063
+  Columns 67 through 72 
+        42.25       45.563           49       52.563        56.25       60.063
+  Columns 73 through 78 
+           64       68.063        72.25       76.563           81       85.563
+  Columns 79 through 84 
+        90.25       95.063          100       105.06       110.25       115.56
+  Columns 85 through 90 
+          121       126.56       132.25       138.06          144       150.06
+  Columns 91 through 96 
+       156.25       162.56          169       175.56       182.25       189.06
+  Columns 97 through 101 
+          196       203.06       210.25       217.56          225
+>> plot(x3,y1)
+>>  plot(x3,y1,'r--')
+>> plot(x3,y1,'r-')
+>> plot(x3,y1,'r')
+>> plot(x3,y1,'g')
+>> plot(x3,y1,'g+')
+>> plot(x3,y1,'g/')
+??? Error using ==> plot
+Error in color/linetype argument
+
+>> plot(x3,y1,'g?')
+??? Error using ==> plot
+Error in color/linetype argument
+
+>> plot(x3,y1,'g=')
+??? Error using ==> plot
+Error in color/linetype argument
+
+>> plot(x3,y1,'g!')
+??? Error using ==> plot
+Error in color/linetype argument
+
+>> plot(x3,y1,'g-')
+>> plot(x3,y1,'g^')
+>> plot(x3,y1,'g*')
+>> plot(x3,y1,'gtest')
+??? Error using ==> plot
+Error in color/linetype argument
+
+>> plot(x3,y1,'gu')
+??? Error using ==> plot
+Error in color/linetype argument
+
+>> plot(x3,y1,'go')
+>> plot(x3,y1,'gk')
+??? Error using ==> plot
+Error in color/linetype argument
+
+>> plot(x3,y1,'gO')
+>> plot(x3,y1,'bo')
+>> grid
+>> title('Intro To Control Systems')
+>> xlabel('time')
+>> ylabel('frequency')
+>> gtext('formula')
+>> axis([xmin xmax ymin ymax])
+??? Undefined function or variable 'xmin'.
+
+>> bar (x, 'DisplayName', 'x', 'YDataSource', 'x'); figure(gcf)
+>> plot(x3,y1,'bo')
+??? Attempt to execute SCRIPT disp as a function.
+
+??? Error while evaluating com.mathworks.mde.dataimport.ImportProxy VariablePreviewEventCallback.
+
+??? Attempt to execute SCRIPT disp as a function.
+
+??? Error while evaluating com.mathworks.mde.dataimport.ImportProxy VariablePreviewEventCallback.
+
+??? Attempt to execute SCRIPT disp as a function.
+
+??? Error while evaluating com.mathworks.mde.dataimport.ImportProxy VariablePreviewEventCallback.
+
+??? Attempt to execute SCRIPT disp as a function.
+
+??? Error while evaluating com.mathworks.mde.dataimport.ImportProxy VariablePreviewEventCallback.
+
+??? Attempt to execute SCRIPT disp as a function.
+
+??? Error while evaluating com.mathworks.mde.dataimport.ImportProxy VariablePreviewEventCallback.
+
+??? Attempt to execute SCRIPT disp as a function.
+
+??? Error while evaluating com.mathworks.mde.dataimport.ImportProxy VariablePreviewEventCallback.
+
+??? Attempt to execute SCRIPT disp as a function.
+
+??? Error while evaluating com.mathworks.mde.dataimport.ImportProxy VariablePreviewEventCallback.
+
+??? Attempt to execute SCRIPT disp as a function.
+
+??? Error while evaluating com.mathworks.mde.dataimport.ImportProxy VariablePreviewEventCallback.
+
+??? Attempt to execute SCRIPT disp as a function.
+
+??? Error while evaluating com.mathworks.mde.dataimport.ImportProxy VariablePreviewEventCallback.
+
+??? Attempt to execute SCRIPT disp as a function.
+
+??? Error while evaluating com.mathworks.mde.dataimport.ImportProxy VariablePreviewEventCallback.
+
+??? Attempt to execute SCRIPT disp as a function.
+
+??? Error while evaluating com.mathworks.mde.dataimport.ImportProxy VariablePreviewEventCallback.
+
+??? Attempt to execute SCRIPT disp as a function.
+
+??? Error while evaluating com.mathworks.mde.dataimport.ImportProxy VariablePreviewEventCallback.
+
+??? Attempt to execute SCRIPT disp as a function.
+
+??? Error while evaluating com.mathworks.mde.dataimport.ImportProxy VariablePreviewEventCallback.
+
+??? Attempt to execute SCRIPT disp as a function.
+
+??? Error while evaluating com.mathworks.mde.dataimport.ImportProxy VariablePreviewEventCallback.
+
+??? Attempt to execute SCRIPT disp as a function.
+
+??? Error while evaluating com.mathworks.mde.dataimport.ImportProxy VariablePreviewEventCallback.
+
+>> axis([xmin xmax ymin ymax])
+??? Undefined function or variable 'xmin'.
+
+>> axis([xmin xmax ymin ymax])
+??? Undefined function or variable 'xmin'.
+
+>> axis([xmax ymin ymax])
+??? Undefined function or variable 'xmax'.
+
+>> xmin=-5
+xmin =
+    -5
+>> axis([xmin])
+??? Error using ==> axis>LocSetLimits
+Vector must have 4, 6, or 8 elements.
+
+Error in ==> axis at 96
+                LocSetLimits(ax(j),cur_arg);
+
+>> hold
+??? Attempt to execute SCRIPT disp as a function.
+
+Error in ==> hold at 56
+        disp('Current plot held');
+
+>> plot(x3,y1,'g+')
+>> loglog(x3,y1)
+>> loglog(x3,y1)
+Warning: Negative data ignored
+Warning: Negative data ignored
+Warning: Negative data ignored
+>> loglog(x3,y1)
+>> loglog(x3,y1)
+Warning: Negative data ignored
+Warning: Negative data ignored
+>> semilogx(x3,y1)
+Warning: Negative data ignored
+>> semilogx(x3,y1)
+Warning: Negative data ignored
+>> semilogx(x3,y1)
+Warning: Negative data ignored
+>> semilogx(x3,y1)
+Warning: Negative data ignored
+>> semilogx(x3,y1)
+Warning: Negative data ignored
+>> semilogx(x3,y1)
+Warning: Negative data ignored
+>> semilogx(x3,y1)
+Warning: Negative data ignored
+>> semilogx(x3,y1)
+Warning: Negative data ignored
+>> semilogx(x3,y1)
+Warning: Negative data ignored
+>> help plot
+??? Attempt to execute SCRIPT disp as a function.
+
+Error in ==> help>displayHelpText at 218
+    disp(helpStr);
+
+Error in ==> help>displayHelp at 184
+displayHelpText(helpStr);
+
+Error in ==> help at 120
+        displayHelp(helpStr, topic, usejava('desktop'));
+
+>> x=-pi:.1*pi:4*pi
+x =
+  Columns 1 through 6 
+      -3.1416      -2.8274      -2.5133      -2.1991       -1.885      -1.5708
+  Columns 7 through 12 
+      -1.2566     -0.94248     -0.62832     -0.31416            0      0.31416
+  Columns 13 through 18 
+      0.62832      0.94248       1.2566       1.5708        1.885       2.1991
+  Columns 19 through 24 
+       2.5133       2.8274       3.1416       3.4558       3.7699       4.0841
+  Columns 25 through 30 
+       4.3982       4.7124       5.0265       5.3407       5.6549        5.969
+  Columns 31 through 36 
+       6.2832       6.5973       6.9115       7.2257       7.5398        7.854
+  Columns 37 through 42 
+       8.1681       8.4823       8.7965       9.1106       9.4248       9.7389
+  Columns 43 through 48 
+       10.053       10.367       10.681       10.996        11.31       11.624
+  Columns 49 through 51 
+       11.938       12.252       12.566
+>> y=10*(3+sin(x))
+y =
+  Columns 1 through 6 
+           30        26.91       24.122        21.91       20.489           20
+  Columns 7 through 12 
+       20.489        21.91       24.122        26.91           30        33.09
+  Columns 13 through 18 
+       35.878        38.09       39.511           40       39.511        38.09
+  Columns 19 through 24 
+       35.878        33.09           30        26.91       24.122        21.91
+  Columns 25 through 30 
+       20.489           20       20.489        21.91       24.122        26.91
+  Columns 31 through 36 
+           30        33.09       35.878        38.09       39.511           40
+  Columns 37 through 42 
+       39.511        38.09       35.878        33.09           30        26.91
+  Columns 43 through 48 
+       24.122        21.91       20.489           20       20.489        21.91
+  Columns 49 through 51 
+       24.122        26.91           30
+>> polar(x,y)
+Warning: Negative data ignored
+> In polar at 190
+Warning: Negative data ignored
+> In polar at 190
+Warning: Negative data ignored
+>> axis auto
+Warning: Negative data ignored
+>> axis auto
+>> axis auto
+>> 
