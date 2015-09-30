@@ -1,0 +1,534 @@
+BL51 BANKED LINKER/LOCATER V6.05              07/17/2008  21:07:15  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.05, INVOKED BY:
+C:\SILABS\MCU\IDEFILES\C51\BIN\BL51.EXE C:\Documents and Settings\Tyler Long\M
+>> y Documents\School\ECET 3220\Code\Pro-Tex 9000\Main.obj TO C:\Documents and
+>>  Settings\Tyler Long\My Documents\School\ECET 3220\Code\Pro-Tex 9000\Pro-Te
+>> x 9000 RS (256) PL (68) PW (78)
+
+
+INPUT MODULES INCLUDED:
+  C:\Documents and Settings\Tyler Long\My Documents\School\ECET 3220\Code\Pro-
+>> Tex 9000\Main.obj (MAIN)
+
+
+LINK MAP OF MODULE:  C:\Documents and Settings\Tyler Long\My Documents\School\
+>> ECET 3220\Code\Pro-Tex 9000\Pro-Tex 9000 (MAIN)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     170BH     ABSOLUTE     
+
+
+
+SYMBOL TABLE OF MODULE:  C:\Documents and Settings\Tyler Long\My Documents\Sch
+>> ool\ECET 3220\Code\Pro-Tex 9000\Pro-Tex 9000 (MAIN)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        MAIN
+  B:00C0H.2       SYMBOL        AA
+  B:00D0H.6       SYMBOL        AC
+  D:00E0H         SYMBOL        ACC
+  B:00E8H.4       SYMBOL        AD0BUSY
+  B:00E8H.7       SYMBOL        AD0EN
+  B:00E8H.5       SYMBOL        AD0INT
+  B:00E8H.0       SYMBOL        AD0LJST
+  B:00E8H.2       SYMBOL        AD0STM0
+  B:00E8H.3       SYMBOL        AD0STM1
+  B:00E8H.6       SYMBOL        AD0TM
+  B:00E8H.1       SYMBOL        AD0WINT
+  D:00BCH         SYMBOL        ADC0CF
+  D:00E8H         SYMBOL        ADC0CN
+  D:00C5H         SYMBOL        ADC0GTH
+  D:00C4H         SYMBOL        ADC0GTL
+  D:00BFH         SYMBOL        ADC0H
+  D:00BEH         SYMBOL        ADC0L
+  D:00C7H         SYMBOL        ADC0LTH
+  D:00C6H         SYMBOL        ADC0LTL
+  D:009CH         SYMBOL        ADC1
+  D:00ABH         SYMBOL        ADC1CF
+  D:00AAH         SYMBOL        ADC1CN
+  C:0E52H         SYMBOL        ADC_ACCELTABLE
+  C:0E03H         SYMBOL        ADC_ALARM_TABLE
+  C:0DBEH         SYMBOL        ADC_CARRY1
+  C:0DC5H         SYMBOL        ADC_CARRY2
+  C:0DCCH         SYMBOL        ADC_CARRY3
+  C:0DA0H         SYMBOL        ADC_COMPARE
+  C:0DB9H         SYMBOL        ADC_COMPARE_FINISH
+  C:0D84H         SYMBOL        ADC_CONVERT
+  C:0D8DH         SYMBOL        ADC_CONVERT_CHECKACC
+  C:0D94H         SYMBOL        ADC_CONVERT_CHECKR3
+BL51 BANKED LINKER/LOCATER V6.05            07/17/2008  21:07:15  PAGE 2
+
+
+  C:0D9FH         SYMBOL        ADC_CONVERT_FINISH
+  C:0D44H         SYMBOL        ADC_DELAY_INIT
+  C:0D46H         SYMBOL        ADC_DELAY_LOOP
+  C:0D79H         SYMBOL        ADC_FINISHED
+  C:0D36H         SYMBOL        ADC_GETACC
+  N:3800H         SYMBOL        ADC_KICK
+  C:0DEDH         SYMBOL        ADC_PRINT_ACCEL
+  N:3000H         SYMBOL        ADC_READ
+  C:0E00H         SYMBOL        ADC_SERIAL_FINISH
+  C:0DD3H         SYMBOL        ADC_SERIAL_PRINT
+  C:0DDBH         SYMBOL        ADC_SER_LOOP
+  C:0DF0H         SYMBOL        ADC_SER_LOOP2
+  C:0D55H         SYMBOL        ADC_STATE_CHK
+  C:1552H         SYMBOL        ALARM_CHECK
+  C:156AH         SYMBOL        ALARM_CHECK_ARMED
+  C:1589H         SYMBOL        ALARM_CHECK_DONE
+  C:1580H         SYMBOL        ALARM_DOOR
+  C:168BH         SYMBOL        ALARM_DOOR_SERIAL
+  C:155EH         SYMBOL        ALARM_PANIC
+  C:15DEH         SYMBOL        ALARM_PANIC_SERIAL
+  C:15C6H         SYMBOL        ALARM_SER_DOOR
+  C:15DDH         SYMBOL        ALARM_SER_DOOR_FINISH
+  C:15CBH         SYMBOL        ALARM_SER_DOOR_LOOP
+  C:1596H         SYMBOL        ALARM_SER_PANIC
+  C:15ADH         SYMBOL        ALARM_SER_PANIC_FINISH
+  C:159BH         SYMBOL        ALARM_SER_PANIC_LOOP
+  C:15AEH         SYMBOL        ALARM_SER_TAMPER
+  C:15C5H         SYMBOL        ALARM_SER_TAMPER_FINISH
+  C:15B3H         SYMBOL        ALARM_SER_TAMPER_LOOP
+  C:1575H         SYMBOL        ALARM_TAMPER
+  C:162DH         SYMBOL        ALARM_TAMPER_SERIAL
+  D:00BAH         SYMBOL        AMX0CF
+  D:00BBH         SYMBOL        AMX0SL
+  D:00ACH         SYMBOL        AMX1SL
+  B:00B0H.0       SYMBOL        A_7447
+  D:00F0H         SYMBOL        B
+  B:00B0H.1       SYMBOL        B_7447
+  B:00D8H.0       SYMBOL        CCF0
+  B:00D8H.1       SYMBOL        CCF1
+  B:00D8H.2       SYMBOL        CCF2
+  B:00D8H.3       SYMBOL        CCF3
+  B:00D8H.4       SYMBOL        CCF4
+  B:00D8H.7       SYMBOL        CF
+  D:008EH         SYMBOL        CKCON
+  B:00C8H.0       SYMBOL        CPRL2
+  D:009EH         SYMBOL        CPT0CN
+  D:009FH         SYMBOL        CPT1CN
+  B:00D8H.6       SYMBOL        CR
+  B:00C8H.1       SYMBOL        CT2
+  B:00D0H.7       SYMBOL        CY
+  D:00D4H         SYMBOL        DAC0CN
+  D:00D3H         SYMBOL        DAC0H
+  D:00D2H         SYMBOL        DAC0L
+  D:00D7H         SYMBOL        DAC1CN
+  D:00D6H         SYMBOL        DAC1H
+  D:00D5H         SYMBOL        DAC1L
+  N:0014H         SYMBOL        DISP_AUTOSHIFT_CURSOR
+  N:0010H         SYMBOL        DISP_BACKSPACE
+  N:0001H         SYMBOL        DISP_CLR
+  N:000FH         SYMBOL        DISP_CURSOR
+  N:0006H         SYMBOL        DISP_ENTRY_MODE
+  N:0038H         SYMBOL        DISP_FUNCTION_CMD
+  N:000CH         SYMBOL        DISP_ON
+  N:001CH         SYMBOL        DISP_SHIFTRT
+  D:0083H         SYMBOL        DPH
+BL51 BANKED LINKER/LOCATER V6.05            07/17/2008  21:07:15  PAGE 3
+
+
+  D:0082H         SYMBOL        DPL
+  B:00A8H.7       SYMBOL        EA
+  D:00E6H         SYMBOL        EIE1
+  D:00E7H         SYMBOL        EIE2
+  D:00F6H         SYMBOL        EIP1
+  D:00F7H         SYMBOL        EIP2
+  D:00A3H         SYMBOL        EMI0CF
+  D:00AFH         SYMBOL        EMI0CN
+  D:00A1H         SYMBOL        EMI0TC
+  C:07C5H         SYMBOL        EMI_INIT
+  B:00C0H.6       SYMBOL        ENSMB
+  B:00A8H.4       SYMBOL        ES
+  B:00A8H.1       SYMBOL        ET0
+  B:00A8H.3       SYMBOL        ET1
+  B:00A8H.5       SYMBOL        ET2
+  B:00A8H.0       SYMBOL        EX0
+  B:00A8H.2       SYMBOL        EX1
+  B:00C8H.3       SYMBOL        EXEN2
+  B:00C8H.6       SYMBOL        EXF2
+  B:00D0H.5       SYMBOL        F0
+  B:00D0H.1       SYMBOL        F1
+  D:00B7H         SYMBOL        FLACL
+  D:00B6H         SYMBOL        FLSCL
+  D:00A8H         SYMBOL        IE
+  B:0088H.1       SYMBOL        IE0
+  B:0088H.3       SYMBOL        IE1
+  C:07FAH         SYMBOL        INIT_DEVICE
+  C:07F3H         SYMBOL        INTERRUPTS_INIT
+  D:00B8H         SYMBOL        IP
+  B:0088H.0       SYMBOL        IT0
+  B:0088H.2       SYMBOL        IT1
+  C:0388H         SYMBOL        KEY_ACCEL_EASY
+  C:0398H         SYMBOL        KEY_ACCEL_EASY1
+  C:03A1H         SYMBOL        KEY_ACCEL_EASY2
+  C:03B1H         SYMBOL        KEY_ACCEL_INVALID
+  C:03AAH         SYMBOL        KEY_ACCEL_VALID
+  C:036EH         SYMBOL        KEY_ACCEL_VALID_CHECK
+  C:03B8H         SYMBOL        KEY_ACCEL_VALID_FINISH
+  C:02BDH         SYMBOL        KEY_BACKSPACE
+  C:02A1H         SYMBOL        KEY_BLUE
+  C:06E3H         SYMBOL        KEY_BLUE_NUM
+  C:054DH         SYMBOL        KEY_BS_RESOLVE
+  C:0575H         SYMBOL        KEY_BS_RESOLVE_FINISH
+  C:029AH         SYMBOL        KEY_CAPS
+  C:02C2H         SYMBOL        KEY_ENTER
+  C:0650H         SYMBOL        KEY_FUNC_ACCEL
+  C:066AH         SYMBOL        KEY_FUNC_ACCEL_BLUEKEY
+  C:0671H         SYMBOL        KEY_FUNC_ACCEL_CHAR
+  C:066EH         SYMBOL        KEY_FUNC_ACCEL_FINISH
+  C:0664H         SYMBOL        KEY_FUNC_ACCEL_PINKKEY
+  C:0678H         SYMBOL        KEY_FUNC_ACCEL_RESTORE
+  C:057BH         SYMBOL        KEY_FUNC_BLUE
+  C:06C1H         SYMBOL        KEY_FUNC_BLUEKEY
+  C:04F4H         SYMBOL        KEY_FUNC_BS
+  C:04FCH         SYMBOL        KEY_FUNC_BS_01
+  C:0504H         SYMBOL        KEY_FUNC_BS_02
+  C:050CH         SYMBOL        KEY_FUNC_BS_03
+  C:0514H         SYMBOL        KEY_FUNC_BS_04
+  C:051CH         SYMBOL        KEY_FUNC_BS_05
+  C:0524H         SYMBOL        KEY_FUNC_BS_06
+  C:052CH         SYMBOL        KEY_FUNC_BS_07
+  C:0534H         SYMBOL        KEY_FUNC_BS_08
+  C:053CH         SYMBOL        KEY_FUNC_BS_09
+  C:0544H         SYMBOL        KEY_FUNC_BS_10
+  C:054CH         SYMBOL        KEY_FUNC_BS_FINISH
+BL51 BANKED LINKER/LOCATER V6.05            07/17/2008  21:07:15  PAGE 4
+
+
+  C:0576H         SYMBOL        KEY_FUNC_CAPS
+  C:06CAH         SYMBOL        KEY_FUNC_CHAR
+  C:02D7H         SYMBOL        KEY_FUNC_ENT
+  C:02E2H         SYMBOL        KEY_FUNC_ENT_01
+  C:02EDH         SYMBOL        KEY_FUNC_ENT_02
+  C:02F8H         SYMBOL        KEY_FUNC_ENT_03
+  C:0302H         SYMBOL        KEY_FUNC_ENT_04
+  C:030CH         SYMBOL        KEY_FUNC_ENT_05
+  C:0317H         SYMBOL        KEY_FUNC_ENT_06
+  C:0322H         SYMBOL        KEY_FUNC_ENT_07
+  C:032DH         SYMBOL        KEY_FUNC_ENT_08
+  C:0337H         SYMBOL        KEY_FUNC_ENT_09
+  C:0342H         SYMBOL        KEY_FUNC_ENT_10
+  C:034DH         SYMBOL        KEY_FUNC_ENT_11
+  C:0358H         SYMBOL        KEY_FUNC_ENT_12
+  C:0365H         SYMBOL        KEY_FUNC_ENT_13
+  C:036DH         SYMBOL        KEY_FUNC_ENT_FINISH
+  C:06C4H         SYMBOL        KEY_FUNC_FINISH
+  C:0597H         SYMBOL        KEY_FUNC_GREEN
+  C:06A7H         SYMBOL        KEY_FUNC_GREENKEY
+  C:0589H         SYMBOL        KEY_FUNC_PINK
+  C:06B4H         SYMBOL        KEY_FUNC_PINKKEY
+  C:067FH         SYMBOL        KEY_FUNC_PW
+  C:06C7H         SYMBOL        KEY_FUNC_PW_STATECK
+  C:05A5H         SYMBOL        KEY_FUNC_RED
+  C:069AH         SYMBOL        KEY_FUNC_REDKEY
+  C:06DCH         SYMBOL        KEY_FUNC_RESTORE
+  C:06D3H         SYMBOL        KEY_FUNC_STAR
+  C:02AFH         SYMBOL        KEY_GREEN
+  C:0707H         SYMBOL        KEY_GREEN_LC
+  C:0713H         SYMBOL        KEY_GREEN_UPC
+  C:024DH         SYMBOL        KEY_ISR
+  C:02C9H         SYMBOL        KEY_KEYRELEASE
+  C:02A8H         SYMBOL        KEY_PINK
+  C:06EFH         SYMBOL        KEY_PINK_LC
+  C:06FBH         SYMBOL        KEY_PINK_UPC
+  C:04A6H         SYMBOL        KEY_PW_BAD_02H
+  C:04C9H         SYMBOL        KEY_PW_BAD_03H
+  C:04ECH         SYMBOL        KEY_PW_BAD_04H
+  C:0483H         SYMBOL        KEY_PW_BAD_0AH
+  C:0460H         SYMBOL        KEY_PW_BAD_0CH
+  C:043DH         SYMBOL        KEY_PW_BAD_0DH
+  C:041AH         SYMBOL        KEY_PW_BAD_11H
+  C:03F7H         SYMBOL        KEY_PW_BAD_12H
+  C:03D4H         SYMBOL        KEY_PW_BAD_13H
+  C:048BH         SYMBOL        KEY_PW_CHECK_02H
+  C:04ADH         SYMBOL        KEY_PW_CHECK_02H_FINISH
+  C:04AEH         SYMBOL        KEY_PW_CHECK_03H
+  C:04D0H         SYMBOL        KEY_PW_CHECK_03H_FINISH
+  C:04D1H         SYMBOL        KEY_PW_CHECK_04H
+  C:04F3H         SYMBOL        KEY_PW_CHECK_04H_FINISH
+  C:0468H         SYMBOL        KEY_PW_CHECK_0AH
+  C:048AH         SYMBOL        KEY_PW_CHECK_0AH_FINISH
+  C:0445H         SYMBOL        KEY_PW_CHECK_0CH
+  C:0467H         SYMBOL        KEY_PW_CHECK_0CH_FINISH
+  C:0422H         SYMBOL        KEY_PW_CHECK_0DH
+  C:0444H         SYMBOL        KEY_PW_CHECK_0DH_FINISH
+  C:03FFH         SYMBOL        KEY_PW_CHECK_11H
+  C:0421H         SYMBOL        KEY_PW_CHECK_11H_FINISH
+  C:03DCH         SYMBOL        KEY_PW_CHECK_12H
+  C:03FEH         SYMBOL        KEY_PW_CHECK_12H_FINISH
+  C:03B9H         SYMBOL        KEY_PW_CHECK_13H
+  C:03DBH         SYMBOL        KEY_PW_CHECK_13H_FINISH
+  C:049FH         SYMBOL        KEY_PW_OK_02H
+  C:04C2H         SYMBOL        KEY_PW_OK_03H
+BL51 BANKED LINKER/LOCATER V6.05            07/17/2008  21:07:15  PAGE 5
+
+
+  C:04E5H         SYMBOL        KEY_PW_OK_04H
+  C:047CH         SYMBOL        KEY_PW_OK_0AH
+  C:0459H         SYMBOL        KEY_PW_OK_0CH
+  C:0436H         SYMBOL        KEY_PW_OK_0DH
+  C:0413H         SYMBOL        KEY_PW_OK_11H
+  C:03F0H         SYMBOL        KEY_PW_OK_12H
+  C:03CDH         SYMBOL        KEY_PW_OK_13H
+  N:4000H         SYMBOL        KEY_READ
+  C:02B6H         SYMBOL        KEY_RED
+  C:071FH         SYMBOL        KEY_RED_LC
+  C:072BH         SYMBOL        KEY_RED_UPC
+  C:0631H         SYMBOL        KEY_STATE07H_MENU
+  C:063BH         SYMBOL        KEY_STATE07H_MENU_01
+  C:0645H         SYMBOL        KEY_STATE07H_MENU_02
+  C:064FH         SYMBOL        KEY_STATE07H_MENU_FINISH
+  C:061CH         SYMBOL        KEY_STATE08H_MENU
+  C:0626H         SYMBOL        KEY_STATE08H_MENU_01
+  C:0630H         SYMBOL        KEY_STATE08H_MENU_FINISH
+  C:05B3H         SYMBOL        KEY_STATE_CHK
+  C:05BBH         SYMBOL        KEY_STATE_CHK_01
+  C:05C3H         SYMBOL        KEY_STATE_CHK_02
+  C:05CBH         SYMBOL        KEY_STATE_CHK_03
+  C:05D3H         SYMBOL        KEY_STATE_CHK_04
+  C:05DBH         SYMBOL        KEY_STATE_CHK_05
+  C:05E3H         SYMBOL        KEY_STATE_CHK_06
+  C:05EBH         SYMBOL        KEY_STATE_CHK_07
+  C:05F3H         SYMBOL        KEY_STATE_CHK_08
+  C:05FBH         SYMBOL        KEY_STATE_CHK_09
+  C:0603H         SYMBOL        KEY_STATE_CHK_10
+  C:060BH         SYMBOL        KEY_STATE_CHK_11
+  C:0613H         SYMBOL        KEY_STATE_CHK_12
+  C:061BH         SYMBOL        KEY_STATE_CHK_FINISH
+  C:01D3H         SYMBOL        LCD_ACCSTPT
+  C:018FH         SYMBOL        LCD_ARMDIS
+  C:009EH         SYMBOL        LCD_BUSY
+  C:023CH         SYMBOL        LCD_CHANGED_PW
+  C:0093H         SYMBOL        LCD_CLEAR
+  N:1200H         SYMBOL        LCD_CMD
+  C:021FH         SYMBOL        LCD_CURRENT_PW
+  C:00A6H         SYMBOL        LCD_FIRST
+  C:011BH         SYMBOL        LCD_HOME
+  C:0030H         SYMBOL        LCD_INIT
+  C:020EH         SYMBOL        LCD_INVALID_STPT
+  C:0153H         SYMBOL        LCD_MAIN_MENU
+  C:022EH         SYMBOL        LCD_NEW_PW
+  C:00ECH         SYMBOL        LCD_PASSWORD_ENTRY
+  C:0052H         SYMBOL        LCD_PRINT
+  C:00DFH         SYMBOL        LCD_PRO_TEX
+  C:00F6H         SYMBOL        LCD_PW_BAD
+  N:1100H         SYMBOL        LCD_READ
+  C:0066H         SYMBOL        LCD_RESTORE
+  C:0073H         SYMBOL        LCD_RETURN
+  C:01B5H         SYMBOL        LCD_SYSARMED
+  C:01C2H         SYMBOL        LCD_SYSDISARMED
+  C:010CH         SYMBOL        LCD_SYSLOCKED
+  C:0089H         SYMBOL        LCD_TIMER0_OV
+  C:01FDH         SYMBOL        LCD_VALID_STPT
+  C:007FH         SYMBOL        LCD_WAIT_3SEC
+  N:1000H         SYMBOL        LCD_WRITE
+  C:16D4H         SYMBOL        MAIN
+  B:00F8H.5       SYMBOL        MODF
+  B:00F8H.1       SYMBOL        MSTEN
+  D:00B2H         SYMBOL        OSCICN
+  C:07DFH         SYMBOL        OSCILLATOR_INIT
+  D:00B1H         SYMBOL        OSCXCN
+BL51 BANKED LINKER/LOCATER V6.05            07/17/2008  21:07:15  PAGE 6
+
+
+  C:07E4H         SYMBOL        OSC_WAIT1
+  C:07EAH         SYMBOL        OSC_WAIT2
+  B:00D0H.2       SYMBOL        OV
+  B:00D0H.0       SYMBOL        P
+  D:0080H         SYMBOL        P0
+  D:00A4H         SYMBOL        P0MDOUT
+  D:0090H         SYMBOL        P1
+  D:00BDH         SYMBOL        P1MDIN
+  D:00A5H         SYMBOL        P1MDOUT
+  D:00A0H         SYMBOL        P2
+  D:00A6H         SYMBOL        P2MDOUT
+  D:00B0H         SYMBOL        P3
+  D:00ADH         SYMBOL        P3IF
+  D:00A7H         SYMBOL        P3MDOUT
+  D:0084H         SYMBOL        P4
+  D:0085H         SYMBOL        P5
+  D:0086H         SYMBOL        P6
+  D:0096H         SYMBOL        P7
+  D:00B5H         SYMBOL        P74OUT
+  D:00D8H         SYMBOL        PCA0CN
+  D:00FAH         SYMBOL        PCA0CPH0
+  D:00FBH         SYMBOL        PCA0CPH1
+  D:00FCH         SYMBOL        PCA0CPH2
+  D:00FDH         SYMBOL        PCA0CPH3
+  D:00FEH         SYMBOL        PCA0CPH4
+  D:00EAH         SYMBOL        PCA0CPL0
+  D:00EBH         SYMBOL        PCA0CPL1
+  D:00ECH         SYMBOL        PCA0CPL2
+  D:00EDH         SYMBOL        PCA0CPL3
+  D:00EEH         SYMBOL        PCA0CPL4
+  D:00DAH         SYMBOL        PCA0CPM0
+  D:00DBH         SYMBOL        PCA0CPM1
+  D:00DCH         SYMBOL        PCA0CPM2
+  D:00DDH         SYMBOL        PCA0CPM3
+  D:00DEH         SYMBOL        PCA0CPM4
+  D:00F9H         SYMBOL        PCA0H
+  D:00E9H         SYMBOL        PCA0L
+  D:00D9H         SYMBOL        PCA0MD
+  D:0087H         SYMBOL        PCON
+  C:07CCH         SYMBOL        PORT_IO_INIT
+  B:00B8H.4       SYMBOL        PS
+  D:008FH         SYMBOL        PSCTL
+  D:00D0H         SYMBOL        PSW
+  B:00B8H.1       SYMBOL        PT0
+  B:00B8H.3       SYMBOL        PT1
+  B:00B8H.5       SYMBOL        PT2
+  B:00B8H.0       SYMBOL        PX0
+  B:00B8H.2       SYMBOL        PX1
+  C:0786H         SYMBOL        RAM_INIT
+  N:2000H         SYMBOL        RAM_RDWR
+  C:0737H         SYMBOL        RAM_READ_PW
+  C:075FH         SYMBOL        RAM_WRITE_ADC
+  C:0781H         SYMBOL        RAM_WRITE_ADC_RETURN
+  C:0766H         SYMBOL        RAM_WRITE_LOOP
+  C:074BH         SYMBOL        RAM_WRITE_PW
+  B:0098H.2       SYMBOL        RB8
+  D:00CBH         SYMBOL        RCAP2H
+  D:00CAH         SYMBOL        RCAP2L
+  D:00E5H         SYMBOL        RCAP4H
+  D:00E4H         SYMBOL        RCAP4L
+  B:00C8H.5       SYMBOL        RCLK
+  D:00D1H         SYMBOL        REF0CN
+  B:0098H.4       SYMBOL        REN
+  C:07A7H         SYMBOL        RESET_SOURCES_INIT
+  B:0098H.0       SYMBOL        RI
+BL51 BANKED LINKER/LOCATER V6.05            07/17/2008  21:07:15  PAGE 7
+
+
+  B:00D0H.3       SYMBOL        RS0
+  B:00D0H.4       SYMBOL        RS1
+  D:00EFH         SYMBOL        RSTSRC
+  B:00F8H.4       SYMBOL        RXOVRN
+  D:00A9H         SYMBOL        SADDR0
+  D:00F3H         SYMBOL        SADDR1
+  D:00B9H         SYMBOL        SADEN0
+  D:00AEH         SYMBOL        SADEN1
+  D:0099H         SYMBOL        SBUF0
+  D:00F2H         SYMBOL        SBUF1
+  D:0098H         SYMBOL        SCON0
+  D:00F1H         SYMBOL        SCON1
+  B:00C0H.3       SYMBOL        SI
+  B:00F8H.2       SYMBOL        SLVSEL
+  B:0098H.7       SYMBOL        SM0
+  B:0098H.6       SYMBOL        SM1
+  B:0098H.5       SYMBOL        SM2
+  D:00C3H         SYMBOL        SMB0ADR
+  D:00C0H         SYMBOL        SMB0CN
+  D:00CFH         SYMBOL        SMB0CR
+  D:00C2H         SYMBOL        SMB0DAT
+  D:00C1H         SYMBOL        SMB0STA
+  B:00C0H.1       SYMBOL        SMBFTE
+  B:00C0H.0       SYMBOL        SMBTOE
+  D:0081H         SYMBOL        SP
+  D:009AH         SYMBOL        SPI0CFG
+  D:009DH         SYMBOL        SPI0CKR
+  D:00F8H         SYMBOL        SPI0CN
+  D:009BH         SYMBOL        SPI0DAT
+  B:00F8H.0       SYMBOL        SPIEN
+  B:00F8H.7       SYMBOL        SPIF
+  B:00C0H.5       SYMBOL        STA
+  C:083CH         SYMBOL        STATE_00
+  C:08A6H         SYMBOL        STATE_01
+  C:08C3H         SYMBOL        STATE_02
+  C:08F2H         SYMBOL        STATE_03
+  C:0926H         SYMBOL        STATE_04
+  C:095AH         SYMBOL        STATE_05
+  C:097EH         SYMBOL        STATE_06
+  C:0A23H         SYMBOL        STATE_07
+  C:0A7FH         SYMBOL        STATE_08
+  C:0AC3H         SYMBOL        STATE_09
+  C:0AEBH         SYMBOL        STATE_0A
+  C:0B0FH         SYMBOL        STATE_0B
+  C:0B48H         SYMBOL        STATE_0C
+  C:0B7AH         SYMBOL        STATE_0D
+  C:0BACH         SYMBOL        STATE_0E
+  C:0BFEH         SYMBOL        STATE_0F
+  C:0C2BH         SYMBOL        STATE_10
+  C:0C58H         SYMBOL        STATE_11
+  C:0C7CH         SYMBOL        STATE_12
+  C:0CAEH         SYMBOL        STATE_13
+  C:0CE0H         SYMBOL        STATE_14
+  C:0CFAH         SYMBOL        STATE_15
+  C:0D27H         SYMBOL        STATE_LOOKUP
+  C:0810H         SYMBOL        STATE_TABLE
+  B:00C0H.4       SYMBOL        STO
+  D:00C8H         SYMBOL        T2CON
+  D:00C9H         SYMBOL        T4CON
+  B:0098H.3       SYMBOL        TB8
+  B:00C8H.4       SYMBOL        TCLK
+  D:0088H         SYMBOL        TCON
+  B:0088H.5       SYMBOL        TF0
+  B:0088H.7       SYMBOL        TF1
+  B:00C8H.7       SYMBOL        TF2
+BL51 BANKED LINKER/LOCATER V6.05            07/17/2008  21:07:15  PAGE 8
+
+
+  D:008CH         SYMBOL        TH0
+  D:008DH         SYMBOL        TH1
+  D:00CDH         SYMBOL        TH2
+  D:00F5H         SYMBOL        TH4
+  B:0098H.1       SYMBOL        TI
+  C:07AEH         SYMBOL        TIMER_INIT
+  D:008AH         SYMBOL        TL0
+  D:008BH         SYMBOL        TL1
+  D:00CCH         SYMBOL        TL2
+  D:00F4H         SYMBOL        TL4
+  D:0089H         SYMBOL        TMOD
+  D:0091H         SYMBOL        TMR3CN
+  D:0095H         SYMBOL        TMR3H
+  D:0094H         SYMBOL        TMR3L
+  D:0093H         SYMBOL        TMR3RLH
+  D:0092H         SYMBOL        TMR3RLL
+  B:0088H.4       SYMBOL        TR0
+  B:0088H.6       SYMBOL        TR1
+  B:00C8H.2       SYMBOL        TR2
+  B:00F8H.3       SYMBOL        TXBSY
+  C:07BEH         SYMBOL        UART_INIT
+  B:00F8H.6       SYMBOL        WCOL
+  D:00FFH         SYMBOL        WDTCN
+  D:00E1H         SYMBOL        XBR0
+  D:00E2H         SYMBOL        XBR1
+  D:00E3H         SYMBOL        XBR2
+  C:0000H         LINE#         66
+  C:0003H         LINE#         69
+  C:0013H         LINE#         72
+  C:001BH         LINE#         75
+  C:16D4H         LINE#         102
+  C:16D7H         LINE#         103
+  C:16DAH         LINE#         104
+  C:16DCH         LINE#         106
+  C:16DFH         LINE#         107
+  C:16E2H         LINE#         109
+  C:16E5H         LINE#         111
+  C:16E8H         LINE#         112
+  C:16EBH         LINE#         113
+  C:16EEH         LINE#         114
+  C:16F1H         LINE#         116
+  C:16F4H         LINE#         117
+  C:16F7H         LINE#         118
+  C:16FAH         LINE#         124
+  C:16FCH         LINE#         125
+  C:16FFH         LINE#         130
+  C:1701H         LINE#         131
+  C:1704H         LINE#         137
+  C:1706H         LINE#         138
+  C:1709H         LINE#         141
+  -------         ENDMOD        MAIN
+
+Program Size: data=8.0 xdata=0 code=5899
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

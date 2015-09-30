@@ -1,0 +1,1519 @@
+A51 MACRO ASSEMBLER  MILESTONE#2                                                                      07/03/2008 13:36:55 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.00d
+OBJECT MODULE PLACED IN LCD_Test.OBJ
+ASSEMBLER INVOKED BY: C:\SiLabs\MCU\IDEfiles\C51\BIN\a51.exe LCD_Test.asm XR GEN DB EP NOMOD51
+
+LOC  OBJ            LINE     SOURCE
+
+                       1     ;=====================================================================
+                       2     ;                                                                                                      
+                              Milestone #2
+                       3     ;
+                       4     ;Revision: R.07031336  (R.MMDDHHMM)
+                       5     ;
+                       6     ;Project Team Members:
+                       7     ; - Vince Watkins
+                       8     ; - Will Smith
+                       9     ; - Tyler Long
+                      10     ;
+                      11     ;
+                      12     ;
+                      13     ;
+                      14     ;
+                      15     ;=====================================================================
+                      16     
+                      17     ;=====================================================================
+                      18     ;   Assembler Controls
+                      19     ;=====================================================================
+                      20     
+                      21     $debug 
+                      22     ;$OBJECT
+                      23     $print 
+                      24             $symbols              ;Create Symbol table for list file
+                      25             $title (MILESTONE #2)   
+                      26             $date (June-30-2008)
+                      27             $pagewidth (132)
+                      28     
+                      29     ;=====================================================================
+                      30     ;   Include Files
+                      31     ;=====================================================================
+                      32     
+                      33     ;$include (C8051F020.inc) ; use with SiLabs Keil A51 compiler
+                +1    34     ;-----------------------------------------------------------------------------
+                +1    35     ;       
+                +1    36     ;       
+                +1    37     ;
+                +1    38     ;
+                +1    39     ;       FILE NAME       : C8051F020.INC 
+                +1    40     ;       TARGET MCUs     : C8051F020, 'F021, 'F022, 'F023 
+                +1    41     ;       DESCRIPTION     : Register/bit definitions for the C8051F02x product family.  
+                +1    42     ;
+                +1    43     ;       REVISION 1.0    
+                +1    44     ;
+                +1    45     ;-----------------------------------------------------------------------------
+                +1    46     ;REGISTER DEFINITIONS
+                +1    47     ;
+  0080          +1    48     P0       DATA  080H   ; PORT 0
+  0081          +1    49     SP       DATA  081H   ; STACK POINTER
+  0082          +1    50     DPL      DATA  082H   ; DATA POINTER - LOW BYTE
+  0083          +1    51     DPH      DATA  083H   ; DATA POINTER - HIGH BYTE
+  0084          +1    52     P4       DATA  084H   ; PORT 4
+  0085          +1    53     P5       DATA  085H   ; PORT 5
+  0086          +1    54     P6       DATA  086H   ; PORT 6
+  0087          +1    55     PCON     DATA  087H   ; POWER CONTROL
+  0088          +1    56     TCON     DATA  088H   ; TIMER CONTROL
+  0089          +1    57     TMOD     DATA  089H   ; TIMER MODE
+A51 MACRO ASSEMBLER  MILESTONE#2                                                                      07/03/2008 13:36:55 PAGE     2
+
+  008A          +1    58     TL0      DATA  08AH   ; TIMER 0 - LOW BYTE
+  008B          +1    59     TL1      DATA  08BH   ; TIMER 1 - LOW BYTE
+  008C          +1    60     TH0      DATA  08CH   ; TIMER 0 - HIGH BYTE
+  008D          +1    61     TH1      DATA  08DH   ; TIMER 1 - HIGH BYTE
+  008E          +1    62     CKCON    DATA  08EH   ; CLOCK CONTROL
+  008F          +1    63     PSCTL    DATA  08FH   ; PROGRAM STORE R/W CONTROL
+  0090          +1    64     P1       DATA  090H   ; PORT 1
+  0091          +1    65     TMR3CN   DATA  091H   ; TIMER 3 CONTROL
+  0092          +1    66     TMR3RLL  DATA  092H   ; TIMER 3 RELOAD REGISTER - LOW BYTE
+  0093          +1    67     TMR3RLH  DATA  093H   ; TIMER 3 RELOAD REGISTER - HIGH BYTE
+  0094          +1    68     TMR3L    DATA  094H   ; TIMER 3 - LOW BYTE
+  0095          +1    69     TMR3H    DATA  095H   ; TIMER 3 - HIGH BYTE
+  0096          +1    70     P7       DATA  096H   ; PORT 7
+  0098          +1    71     SCON0    DATA  098H   ; SERIAL PORT 0 CONTROL
+  0099          +1    72     SBUF0    DATA  099H   ; SERIAL PORT 0 BUFFER
+  009A          +1    73     SPI0CFG  DATA  09AH   ; SERIAL PERIPHERAL INTERFACE 0 CONFIGURATION
+  009B          +1    74     SPI0DAT  DATA  09BH   ; SERIAL PERIPHERAL INTERFACE 0 DATA
+  009C          +1    75     ADC1     DATA  09CH   ; ADC 1 DATA
+  009D          +1    76     SPI0CKR  DATA  09DH   ; SERIAL PERIPHERAL INTERFACE 0 CLOCK RATE CONTROL
+  009E          +1    77     CPT0CN   DATA  09EH   ; COMPARATOR 0 CONTROL
+  009F          +1    78     CPT1CN   DATA  09FH   ; COMPARATOR 1 CONTROL 
+  00A0          +1    79     P2       DATA  0A0H   ; PORT 2
+  00A1          +1    80     EMI0TC   DATA  0A1H   ; EMIF TIMING CONTROL
+  00A3          +1    81     EMI0CF   DATA  0A3H   ; EXTERNAL MEMORY INTERFACE (EMIF) CONFIGURATION
+  00A4          +1    82     P0MDOUT  DATA  0A4H   ; PORT 0 OUTPUT MODE CONFIGURATION
+  00A5          +1    83     P1MDOUT  DATA  0A5H   ; PORT 1 OUTPUT MODE CONFIGURATION
+  00A6          +1    84     P2MDOUT  DATA  0A6H   ; PORT 2 OUTPUT MODE CONFIGURATION
+  00A7          +1    85     P3MDOUT  DATA  0A7H   ; PORT 3 OUTPUT MODE CONFIGURATION
+  00A8          +1    86     IE       DATA  0A8H   ; INTERRUPT ENABLE
+  00A9          +1    87     SADDR0   DATA  0A9H   ; SERIAL PORT 0 SLAVE ADDRESS
+  00AA          +1    88     ADC1CN  DATA  0AAH   ; ADC 1 CONTROL
+  00AB          +1    89     ADC1CF   DATA  0ABH   ; ADC 1 ANALOG MUX CONFIGURATION
+  00AC          +1    90     AMX1SL   DATA  0ACH   ; ADC 1 ANALOG MUX CHANNEL SELECT
+  00AD          +1    91     P3IF     DATA  0ADH   ; PORT 3 EXTERNAL INTERRUPT FLAGS
+  00AE          +1    92     SADEN1   DATA  0AEH   ; SERIAL PORT 1 SLAVE ADDRESS MASK
+  00AF          +1    93     EMI0CN   DATA  0AFH   ; EXTERNAL MEMORY INTERFACE CONTROL
+  00B0          +1    94     P3       DATA  0B0H   ; PORT 3
+  00B1          +1    95     OSCXCN   DATA  0B1H   ; EXTERNAL OSCILLATOR CONTROL
+  00B2          +1    96     OSCICN   DATA  0B2H   ; INTERNAL OSCILLATOR CONTROL
+  00B5          +1    97     P74OUT   DATA  0B5H   ; PORTS 4 - 7 OUTPUT MODE
+  00B6          +1    98     FLSCL    DATA  0B6H   ; FLASH MEMORY TIMING PRESCALER
+  00B7          +1    99     FLACL    DATA  0B7H   ; FLASH ACESS LIMIT 
+  00B8          +1   100     IP       DATA  0B8H   ; INTERRUPT PRIORITY
+  00B9          +1   101     SADEN0   DATA  0B9H   ; SERIAL PORT 0 SLAVE ADDRESS MASK
+  00BA          +1   102     AMX0CF   DATA  0BAH   ; ADC 0 MUX CONFIGURATION
+  00BB          +1   103     AMX0SL   DATA  0BBH   ; ADC 0 MUX CHANNEL SELECTION
+  00BC          +1   104     ADC0CF   DATA  0BCH   ; ADC 0 CONFIGURATION
+  00BD          +1   105     P1MDIN   DATA  0BDH   ; PORT 1 INPUT MODE
+  00BE          +1   106     ADC0L    DATA  0BEH   ; ADC 0 DATA - LOW BYTE
+  00BF          +1   107     ADC0H    DATA  0BFH   ; ADC 0 DATA - HIGH BYTE 
+  00C0          +1   108     SMB0CN   DATA  0C0H   ; SMBUS 0 CONTROL
+  00C1          +1   109     SMB0STA  DATA  0C1H   ; SMBUS 0 STATUS
+  00C2          +1   110     SMB0DAT  DATA  0C2H   ; SMBUS 0 DATA 
+  00C3          +1   111     SMB0ADR  DATA  0C3H   ; SMBUS 0 SLAVE ADDRESS
+  00C4          +1   112     ADC0GTL  DATA  0C4H   ; ADC 0 GREATER-THAN REGISTER - LOW BYTE
+  00C5          +1   113     ADC0GTH  DATA  0C5H   ; ADC 0 GREATER-THAN REGISTER - HIGH BYTE
+  00C6          +1   114     ADC0LTL  DATA  0C6H   ; ADC 0 LESS-THAN REGISTER - LOW BYTE
+  00C7          +1   115     ADC0LTH  DATA  0C7H   ; ADC 0 LESS-THAN REGISTER - HIGH BYTE
+  00C8          +1   116     T2CON    DATA  0C8H   ; TIMER 2 CONTROL
+  00C9          +1   117     T4CON    DATA  0C9H   ; TIMER 4 CONTROL
+  00CA          +1   118     RCAP2L   DATA  0CAH   ; TIMER 2 CAPTURE REGISTER - LOW BYTE
+  00CB          +1   119     RCAP2H   DATA  0CBH   ; TIMER 2 CAPTURE REGISTER - HIGH BYTE
+  00CC          +1   120     TL2      DATA  0CCH   ; TIMER 2 - LOW BYTE
+  00CD          +1   121     TH2      DATA  0CDH   ; TIMER 2 - HIGH BYTE
+  00CF          +1   122     SMB0CR   DATA  0CFH   ; SMBUS 0 CLOCK RATE
+  00D0          +1   123     PSW      DATA  0D0H   ; PROGRAM STATUS WORD
+A51 MACRO ASSEMBLER  MILESTONE#2                                                                      07/03/2008 13:36:55 PAGE     3
+
+  00D1          +1   124     REF0CN   DATA  0D1H   ; VOLTAGE REFERENCE 0 CONTROL
+  00D2          +1   125     DAC0L    DATA  0D2H   ; DAC 0 REGISTER - LOW BYTE
+  00D3          +1   126     DAC0H    DATA  0D3H   ; DAC 0 REGISTER - HIGH BYTE
+  00D4          +1   127     DAC0CN   DATA  0D4H   ; DAC 0 CONTROL
+  00D5          +1   128     DAC1L    DATA  0D5H   ; DAC 1 REGISTER - LOW BYTE
+  00D6          +1   129     DAC1H    DATA  0D6H   ; DAC 1 REGISTER - HIGH BYTE
+  00D7          +1   130     DAC1CN   DATA  0D7H   ; DAC 1 CONTROL
+  00D8          +1   131     PCA0CN   DATA  0D8H   ; PCA 0 COUNTER CONTROL
+  00D9          +1   132     PCA0MD   DATA  0D9H   ; PCA 0 COUNTER MODE
+  00DA          +1   133     PCA0CPM0 DATA  0DAH   ; CONTROL REGISTER FOR PCA 0 MODULE 0
+  00DB          +1   134     PCA0CPM1 DATA  0DBH   ; CONTROL REGISTER FOR PCA 0 MODULE 1
+  00DC          +1   135     PCA0CPM2 DATA  0DCH   ; CONTROL REGISTER FOR PCA 0 MODULE 2
+  00DD          +1   136     PCA0CPM3 DATA  0DDH   ; CONTROL REGISTER FOR PCA 0 MODULE 3
+  00DE          +1   137     PCA0CPM4 DATA  0DEH   ; CONTROL REGISTER FOR PCA 0 MODULE 4
+  00E0          +1   138     ACC      DATA  0E0H   ; ACCUMULATOR
+  00E1          +1   139     XBR0     DATA  0E1H   ; DIGITAL CROSSBAR CONFIGURATION REGISTER 0
+  00E2          +1   140     XBR1     DATA  0E2H   ; DIGITAL CROSSBAR CONFIGURATION REGISTER 1
+  00E3          +1   141     XBR2     DATA  0E3H   ; DIGITAL CROSSBAR CONFIGURATION REGISTER 2
+  00E4          +1   142     RCAP4L   DATA  0E4H   ; TIMER 4 CAPTURE REGISTER - LOW BYTE
+  00E5          +1   143     RCAP4H   DATA  0E5H   ; TIMER 4 CAPTURE REGISTER - HIGH BYTE
+  00E6          +1   144     EIE1     DATA  0E6H   ; EXTERNAL INTERRUPT ENABLE 1
+  00E7          +1   145     EIE2     DATA  0E7H   ; EXTERNAL INTERRUPT ENABLE 2
+  00E8          +1   146     ADC0CN   DATA  0E8H   ; ADC 0 CONTROL
+  00E9          +1   147     PCA0L    DATA  0E9H   ; PCA 0 TIMER - LOW BYTE
+  00EA          +1   148     PCA0CPL0 DATA  0EAH   ; CAPTURE/COMPARE REGISTER FOR PCA 0 MODULE 0 - LOW BYTE
+  00EB          +1   149     PCA0CPL1 DATA  0EBH   ; CAPTURE/COMPARE REGISTER FOR PCA 0 MODULE 1 - LOW BYTE
+  00EC          +1   150     PCA0CPL2 DATA  0ECH   ; CAPTURE/COMPARE REGISTER FOR PCA 0 MODULE 2 - LOW BYTE
+  00ED          +1   151     PCA0CPL3 DATA  0EDH   ; CAPTURE/COMPARE REGISTER FOR PCA 0 MODULE 3 - LOW BYTE
+  00EE          +1   152     PCA0CPL4 DATA  0EEH   ; CAPTURE/COMPARE REGISTER FOR PCA 0 MODULE 4 - LOW BYTE
+  00EF          +1   153     RSTSRC   DATA  0EFH   ; RESET SOURCE 
+  00F0          +1   154     B        DATA  0F0H   ; B REGISTER
+  00F1          +1   155     SCON1    DATA  0F1H   ; SERIAL PORT 1 CONTROL
+  00F2          +1   156     SBUF1    DATA  0F2H   ; SERAIL PORT 1 DATA
+  00F3          +1   157     SADDR1   DATA  0F3H   ; SERAIL PORT 1 
+  00F4          +1   158     TL4      DATA  0F4H   ; TIMER 4 DATA - LOW BYTE
+  00F5          +1   159     TH4      DATA  0F5H   ; TIMER 4 DATA - HIGH BYTE
+  00F6          +1   160     EIP1     DATA  0F6H   ; EXTERNAL INTERRUPT PRIORITY REGISTER 1
+  00F7          +1   161     EIP2     DATA  0F7H   ; EXTERNAL INTERRUPT PRIORITY REGISTER 2
+  00F8          +1   162     SPI0CN   DATA  0F8H   ; SERIAL PERIPHERAL INTERFACE 0 CONTROL 
+  00F9          +1   163     PCA0H    DATA  0F9H   ; PCA 0 TIMER - HIGH BYTE
+  00FA          +1   164     PCA0CPH0 DATA  0FAH   ; CAPTURE/COMPARE REGISTER FOR PCA 0 MODULE 0 - HIGH BYTE
+  00FB          +1   165     PCA0CPH1 DATA  0FBH   ; CAPTURE/COMPARE REGISTER FOR PCA 0 MODULE 1 - HIGH BYTE
+  00FC          +1   166     PCA0CPH2 DATA  0FCH   ; CAPTURE/COMPARE REGISTER FOR PCA 0 MODULE 2 - HIGH BYTE
+  00FD          +1   167     PCA0CPH3 DATA  0FDH   ; CAPTURE/COMPARE REGISTER FOR PCA 0 MODULE 3 - HIGH BYTE
+  00FE          +1   168     PCA0CPH4 DATA  0FEH   ; CAPTURE/COMPARE REGISTER FOR PCA 0 MODULE 4 - HIGH BYTE
+  00FF          +1   169     WDTCN    DATA  0FFH   ; WATCHDOG TIMER CONTROL 
+                +1   170     ;
+                +1   171     ;------------------------------------------------------------------------------
+                +1   172     ;BIT DEFINITIONS
+                +1   173     ;
+                +1   174     ; TCON 88H
+  0088          +1   175     IT0      BIT   TCON.0 ; EXT. INTERRUPT 0 TYPE
+  0089          +1   176     IE0      BIT   TCON.1 ; EXT. INTERRUPT 0 EDGE FLAG
+  008A          +1   177     IT1      BIT   TCON.2 ; EXT. INTERRUPT 1 TYPE
+  008B          +1   178     IE1      BIT   TCON.3 ; EXT. INTERRUPT 1 EDGE FLAG
+  008C          +1   179     TR0      BIT   TCON.4 ; TIMER 0 ON/OFF CONTROL
+  008D          +1   180     TF0      BIT   TCON.5 ; TIMER 0 OVERFLOW FLAG
+  008E          +1   181     TR1      BIT   TCON.6 ; TIMER 1 ON/OFF CONTROL
+  008F          +1   182     TF1      BIT   TCON.7 ; TIMER 1 OVERFLOW FLAG
+                +1   183     ;
+                +1   184     ; SCON0 98H
+  0098          +1   185     RI       BIT   SCON0.0 ; RECEIVE INTERRUPT FLAG
+  0099          +1   186     TI       BIT   SCON0.1 ; TRANSMIT INTERRUPT FLAG
+  009A          +1   187     RB8      BIT   SCON0.2 ; RECEIVE BIT 8
+  009B          +1   188     TB8      BIT   SCON0.3 ; TRANSMIT BIT 8
+  009C          +1   189     REN      BIT   SCON0.4 ; RECEIVE ENABLE
+A51 MACRO ASSEMBLER  MILESTONE#2                                                                      07/03/2008 13:36:55 PAGE     4
+
+  009D          +1   190     SM2      BIT   SCON0.5 ; MULTIPROCESSOR COMMUNICATION ENABLE
+  009E          +1   191     SM1      BIT   SCON0.6 ; SERIAL MODE CONTROL BIT 1
+  009F          +1   192     SM0      BIT   SCON0.7 ; SERIAL MODE CONTROL BIT 0
+                +1   193     ; 
+                +1   194     ; IE A8H
+  00A8          +1   195     EX0      BIT   IE.0   ; EXTERNAL INTERRUPT 0 ENABLE
+  00A9          +1   196     ET0      BIT   IE.1   ; TIMER 0 INTERRUPT ENABLE
+  00AA          +1   197     EX1      BIT   IE.2   ; EXTERNAL INTERRUPT 1 ENABLE
+  00AB          +1   198     ET1      BIT   IE.3   ; TIMER 1 INTERRUPT ENABLE
+  00AC          +1   199     ES       BIT   IE.4   ; SERIAL PORT INTERRUPT ENABLE
+  00AD          +1   200     ET2      BIT   IE.5   ; TIMER 2 INTERRUPT ENABLE
+  00AF          +1   201     EA       BIT   IE.7   ; GLOBAL INTERRUPT ENABLE
+                +1   202     ;
+                +1   203     ; IP B8H
+  00B8          +1   204     PX0      BIT   IP.0   ; EXTERNAL INTERRUPT 0 PRIORITY
+  00B9          +1   205     PT0      BIT   IP.1   ; TIMER 0 PRIORITY
+  00BA          +1   206     PX1      BIT   IP.2   ; EXTERNAL INTERRUPT 1 PRIORITY
+  00BB          +1   207     PT1      BIT   IP.3   ; TIMER 1 PRIORITY
+  00BC          +1   208     PS       BIT   IP.4   ; SERIAL PORT PRIORITY
+  00BD          +1   209     PT2      BIT   IP.5   ; TIMER 2 PRIORITY
+                +1   210     ;
+                +1   211     ; SMB0CN C0H
+  00C0          +1   212     SMBTOE   BIT   SMB0CN.0 ; SMBUS 0 TIMEOUT ENABLE
+  00C1          +1   213     SMBFTE   BIT   SMB0CN.1 ; SMBUS 0 FREE TIMER ENABLE
+  00C2          +1   214     AA       BIT   SMB0CN.2 ; SMBUS 0 ASSERT/ACKNOWLEDGE FLAG
+  00C3          +1   215     SI       BIT   SMB0CN.3 ; SMBUS 0 INTERRUPT PENDING FLAG
+  00C4          +1   216     STO      BIT   SMB0CN.4 ; SMBUS 0 STOP FLAG
+  00C5          +1   217     STA      BIT   SMB0CN.5 ; SMBUS 0 START FLAG
+  00C6          +1   218     ENSMB    BIT   SMB0CN.6 ; SMBUS 0 ENABLE 
+                +1   219     ;
+                +1   220     ; T2CON C8H
+  00C8          +1   221     CPRL2    BIT   T2CON.0 ; CAPTURE OR RELOAD SELECT
+  00C9          +1   222     CT2      BIT   T2CON.1 ; TIMER OR COUNTER SELECT
+  00CA          +1   223     TR2      BIT   T2CON.2 ; TIMER 2 ON/OFF CONTROL
+  00CB          +1   224     EXEN2    BIT   T2CON.3 ; TIMER 2 EXTERNAL ENABLE FLAG
+  00CC          +1   225     TCLK     BIT   T2CON.4 ; TRANSMIT CLOCK FLAG
+  00CD          +1   226     RCLK     BIT   T2CON.5 ; RECEIVE CLOCK FLAG
+  00CE          +1   227     EXF2     BIT   T2CON.6 ; EXTERNAL FLAG
+  00CF          +1   228     TF2      BIT   T2CON.7 ; TIMER 2 OVERFLOW FLAG
+                +1   229     ;
+                +1   230     ; PSW D0H
+  00D0          +1   231     P        BIT   PSW.0  ; ACCUMULATOR PARITY FLAG
+  00D1          +1   232     F1       BIT   PSW.1  ; USER FLAG 1
+  00D2          +1   233     OV       BIT   PSW.2  ; OVERFLOW FLAG
+  00D3          +1   234     RS0      BIT   PSW.3  ; REGISTER BANK SELECT 0
+  00D4          +1   235     RS1      BIT   PSW.4  ; REGISTER BANK SELECT 1
+  00D5          +1   236     F0       BIT   PSW.5  ; USER FLAG 0
+  00D6          +1   237     AC       BIT   PSW.6  ; AUXILIARY CARRY FLAG
+  00D7          +1   238     CY       BIT   PSW.7  ; CARRY FLAG
+                +1   239     ;
+                +1   240     ; PCA0CN D8H
+  00D8          +1   241     CCF0     BIT   PCA0CN.0 ; PCA 0 MODULE 0 INTERRUPT FLAG
+  00D9          +1   242     CCF1     BIT   PCA0CN.1 ; PCA 0 MODULE 1 INTERRUPT FLAG
+  00DA          +1   243     CCF2     BIT   PCA0CN.2 ; PCA 0 MODULE 2 INTERRUPT FLAG
+  00DB          +1   244     CCF3     BIT   PCA0CN.3 ; PCA 0 MODULE 3 INTERRUPT FLAG
+  00DC          +1   245     CCF4     BIT   PCA0CN.4 ; PCA 0 MODULE 4 INTERRUPT FLAG
+  00DE          +1   246     CR       BIT   PCA0CN.6 ; PCA 0 COUNTER RUN CONTROL BIT
+  00DF          +1   247     CF       BIT   PCA0CN.7 ; PCA 0 COUNTER OVERFLOW FLAG
+                +1   248     ;
+                +1   249     ; ADC0CN E8H
+  00E8          +1   250     AD0LJST  BIT   ADC0CN.0 ; ADC 0 RIGHT JUSTIFY DATA BIT
+  00E9          +1   251     AD0WINT  BIT   ADC0CN.1 ; ADC 0 WINDOW COMPARE INTERRUPT FLAG
+  00EA          +1   252     AD0STM0  BIT   ADC0CN.2 ; ADC 0 START OF CONVERSION MODE BIT 0
+  00EB          +1   253     AD0STM1  BIT   ADC0CN.3 ; ADC 0 START OF CONVERSION MODE BIT 1
+  00EC          +1   254     AD0BUSY  BIT   ADC0CN.4 ; ADC 0 BUSY FLAG
+  00ED          +1   255     AD0INT   BIT   ADC0CN.5 ; ADC 0 CONVERISION COMPLETE INTERRUPT FLAG 
+A51 MACRO ASSEMBLER  MILESTONE#2                                                                      07/03/2008 13:36:55 PAGE     5
+
+  00EE          +1   256     AD0TM    BIT   ADC0CN.6 ; ADC 0 TRACK MODE
+  00EF          +1   257     AD0EN    BIT   ADC0CN.7 ; ADC 0 ENABLE
+                +1   258     ;
+                +1   259     ; SPI0CN F8H
+  00F8          +1   260     SPIEN    BIT   SPI0CN.0 ; SPI 0 SPI ENABLE
+  00F9          +1   261     MSTEN    BIT   SPI0CN.1 ; SPI 0 MASTER ENABLE
+  00FA          +1   262     SLVSEL   BIT   SPI0CN.2 ; SPI 0 SLAVE SELECT
+  00FB          +1   263     TXBSY    BIT   SPI0CN.3 ; SPI 0 TX BUSY FLAG
+  00FC          +1   264     RXOVRN   BIT   SPI0CN.4 ; SPI 0 RX OVERRUN FLAG
+  00FD          +1   265     MODF     BIT   SPI0CN.5 ; SPI 0 MODE FAULT FLAG
+  00FE          +1   266     WCOL     BIT   SPI0CN.6 ; SPI 0 WRITE COLLISION FLAG
+  00FF          +1   267     SPIF     BIT   SPI0CN.7 ; SPI 0 INTERRUPT FLAG
+                     268     
+                     269     ;=====================================================================
+                     270     ;   Variable declarations
+                     271     ;=====================================================================
+                     272     
+                     273     ;LCD Commands
+  0001               274     DISP_CLR              EQU 00000001b ;Clears Disp & sets DDRAM addy to zero
+  0038               275     DISP_FUNCTION_CMD     EQU 00111000b ;Sets disp to 8-bit & 5x10 chars.
+  000C               276     DISP_ON               EQU 00001100b ;Turns disp ON,
+  000F               277     DISP_CURSOR           EQU 00001111b ;Turns disp & cursor ON, cursor flashing
+  0006               278     DISP_ENTRY_MODE       EQU 00000110b ;Sets cursor move direction
+  0014               279     DISP_AUTOSHIFT_CURSOR EQU 00010100b ;Automatic move cursor right after send
+  0010               280     DISP_BACKSPACE        EQU 00010000b ;Shifts cursor left
+  001C               281     DISP_SHIFTRT          EQU 00011100b ;Shifts entire display Right
+                     282     
+  1000               283     LCD_WRITE             EQU 1000h     ;LCD Write address RS=1 & RW=0
+  1100               284     LCD_READ              EQU 1100h     ;LCD Read busy address RS=0 & RW =1
+  1200               285     LCD_CMD               EQU 1200h     ;LCD Command address RS=0 & RW =0
+                     286     
+                     287     ;Keypad Commands
+  4000               288     KEY_READ              EQU 4000h     ;Keypad read cmd addr. for DPTR
+                     289     
+                     290     
+                     291     ;=====================================================================
+                     292     ;   Reset code
+                     293     ;=====================================================================
+                     294     
+0000                 295         org  0000h
+0000 020030          296         ljmp Main
+                     297     
+                     298     ;=====================================================================
+                     299     ;   Interrupt Vectors
+                     300     ;=====================================================================
+                     301     
+0003                 302         org   0003h   ;/INT0 interrupt vector for Keypad
+0003 02016F          303         ljmp  Key_ISR
+                     304     
+                     305     
+                     306     
+                     307     ;=====================================================================
+                     308     ;   Main Routine
+                     309     ;=====================================================================
+                     310     
+                     311     
+0030                 312         org   0030h
+                     313     
+0030                 314     Main:
+0030 120372          315         lcall   Init_Device
+0033 759000          316         mov     P1,#00h        ;Turns off all LEDs
+0036 1202C2          317         lcall   LCD_Init       ;Initialize LCD
+                     318                     
+                     319     
+                     320     ;=====================================================================
+                     321     ;   Screen #1
+A51 MACRO ASSEMBLER  MILESTONE#2                                                                      07/03/2008 13:36:55 PAGE     6
+
+                     322     ;=====================================================================
+                     323                     
+0039 901200          324         mov     DPTR,#LCD_CMD       ;Locates Cursor
+003C 75E082          325         mov     ACC,#80h + 02h
+003F F0              326         movx    @DPTR,A
+0040 120330          327         lcall   LCD_Busy
+                     328     
+0043 900385          329         mov     DPTR,#LCD_Initializing  ;1st Screen pointer
+0046 75E000          330         mov     ACC,#00h            ;Points to first char. in string
+0049 1202E4          331         lcall   LCD_Print           ;Display 1st Screen
+                     332     
+004C 120311          333         lcall   LCD_Wait_3sec
+004F 120325          334         lcall   LCD_Clear
+                     335     
+                     336     ;=====================================================================
+                     337     ;   Screen #2
+                     338     ;=====================================================================
+                     339     
+0052 901200          340         mov     DPTR,#LCD_CMD       ;Locates Cursor
+0055 75E084          341         mov     ACC,#80h + 04h
+0058 F0              342         movx    @DPTR,A
+0059 120330          343         lcall   LCD_Busy
+                     344     
+005C 900396          345         mov     DPTR,#LCD_Pro_Tex   ;2st Screen pointer
+005F 75E000          346         mov     ACC,#00h            ;Points to first char. in string
+0062 1202E4          347         lcall   LCD_Print           ;Display 2st Screen
+                     348     
+0065 120311          349         lcall   LCD_Wait_3sec
+0068 120325          350         lcall   LCD_Clear
+                     351     
+                     352     ;=====================================================================
+                     353     ;  Screen #3
+                     354     ;=====================================================================
+                     355     
+006B 901200          356         mov     DPTR,#LCD_CMD       ;Locates Cursor
+006E 75E080          357         mov     ACC,#80h + 00h
+0071 F0              358         movx    @DPTR,A
+0072 120330          359         lcall   LCD_Busy
+                     360     
+0075 9003A3          361         mov     DPTR,#LCD_Password_Entry;3rd Screen pointer
+0078 75E000          362         mov     ACC,#00h                ;Points to first char. in string
+007B 1202E4          363         lcall   LCD_Print               ;Display 3rd Screen
+                     364     
+007E 120311          365         lcall   LCD_Wait_3sec
+0081 120325          366         lcall   LCD_Clear
+                     367     
+                     368     ;=====================================================================
+                     369     ;   Screen #4
+                     370     ;=====================================================================
+                     371     
+                     372     
+                     373         ;4th Screen - 1st line
+                     374     
+                     375     
+0084 901200          376         mov     DPTR,#LCD_CMD     ;Locates Cursor
+0087 75E080          377         mov     ACC,#80h + 00h
+008A F0              378         movx    @DPTR,A
+008B 120330          379         lcall   LCD_Busy
+                     380     
+008E 9003B1          381         mov     DPTR,#LCD_Home    ;4th Screen pointer
+0091 75E000          382         mov     ACC,#00h          ;Points to first char. in string
+0094 1202E4          383         lcall   LCD_Print         ;Display 4th Screen; 1st line
+                     384     
+                     385         ;4th Screen - 2nd line
+                     386     
+0097 C083            387         push    DPH
+A51 MACRO ASSEMBLER  MILESTONE#2                                                                      07/03/2008 13:36:55 PAGE     7
+
+0099 C082            388         push    DPL               ;Saves DPTR for next line in screen
+                     389     
+009B 901200          390         mov     DPTR,#LCD_CMD     ;Locates Cursor
+009E 75E0C0          391         mov     ACC,#80h + 40h
+00A1 F0              392         movx    @DPTR,A
+00A2 120330          393         lcall   LCD_Busy
+                     394     
+00A5 D082            395         pop     DPL
+00A7 D083            396         pop     DPH               ;Restore next line for screen
+                     397     
+00A9 75E000          398         mov     ACC,#00h          ;offset for char in string 
+                     399                                   ;00h=>1st char in string
+00AC 1202E4          400         lcall   LCD_Print         ;Display 4th Screen; 2nd line
+                     401     
+                     402         ;4th Screen - 3rd line
+                     403                     
+00AF C083            404         push    DPH
+00B1 C082            405         push    DPL               ;Saves DPTR for next line in screen
+                     406     
+00B3 901200          407         mov     DPTR,#LCD_CMD     ;Locates Cursor
+00B6 75E094          408         mov     ACC,#80h + 14h
+00B9 F0              409         movx    @DPTR,A
+00BA 120330          410         lcall   LCD_Busy
+                     411     
+00BD D082            412         pop     DPL
+00BF D083            413         pop     DPH               ;Restore next line for screen
+                     414     
+00C1 75E000          415         mov     ACC,#00h          ;offset for char in string 
+                     416                                   ;00h=>1st char in string
+00C4 1202E4          417         lcall   LCD_Print         ;Display 4th Screen; 3rd line
+                     418     
+                     419         ;4th Screen - 4th line
+                     420                     
+00C7 C083            421         push    DPH
+00C9 C082            422         push    DPL               ;Saves DPTR for next line in screen
+                     423     
+00CB 901200          424         mov     DPTR,#LCD_CMD     ;Locates Cursor
+00CE 75E0D4          425         mov     ACC,#80h + 54h
+00D1 F0              426         movx    @DPTR,A
+00D2 120330          427         lcall   LCD_Busy
+                     428     
+00D5 D082            429         pop     DPL
+00D7 D083            430         pop     DPH               ;Restore next line for screen
+                     431     
+00D9 75E000          432         mov     ACC,#00h          ;offset for char in string 
+                     433                                   ;00h=>1st char in string
+00DC 1202E4          434         lcall   LCD_Print         ;Display 4th Screen; 4th line
+                     435     
+00DF 120311          436         lcall   LCD_Wait_3sec
+00E2 120325          437         lcall   LCD_Clear
+                     438     
+                     439     ;=====================================================================
+                     440     ;   Screen #5
+                     441     ;=====================================================================
+                     442     
+                     443     
+                     444     ;5th Screen - 1st line
+                     445     
+00E5 901200          446         mov     DPTR,#LCD_CMD     ;Locates Cursor
+00E8 75E080          447         mov     ACC,#80h + 00h
+00EB F0              448         movx    @DPTR,A
+00EC 120330          449         lcall   LCD_Busy
+                     450     
+00EF 9003E8          451         mov     DPTR,#LCD_Main_Menu ;5th Screen pointer
+00F2 75E000          452         mov     ACC,#00h            ;Points to first char. in string
+00F5 1202E4          453         lcall   LCD_Print           ;Display 5th Screen; 1st line
+A51 MACRO ASSEMBLER  MILESTONE#2                                                                      07/03/2008 13:36:55 PAGE     8
+
+                     454     
+                     455         ;5th Screen - 2nd line
+                     456     
+00F8 C083            457         push    DPH
+00FA C082            458         push    DPL              ;Saves DPTR for next line in screen
+                     459     
+00FC 901200          460         mov     DPTR,#LCD_CMD    ;Locates Cursor
+00FF 75E0C0          461         mov     ACC,#80h + 40h
+0102 F0              462         movx    @DPTR,A
+0103 120330          463         lcall   LCD_Busy
+                     464     
+0106 D082            465         pop     DPL
+0108 D083            466         pop     DPH              ;Restore next line for screen
+                     467      
+010A 75E000          468         mov     ACC,#00h         ;offset for char in string
+                     469                                  ;00h=>1st char in string
+010D 1202E4          470         lcall   LCD_Print        ;Display 5th Screen; 2nd line
+                     471     
+                     472         ;5th Screen - 3rd line
+                     473     
+0110 C083            474         push    DPH
+0112 C082            475         push    DPL             ;Saves DPTR for next line in screen
+                     476     
+0114 901200          477         mov     DPTR,#LCD_CMD   ;Locates Cursor
+0117 75E094          478         mov     ACC,#80h + 14h
+011A F0              479         movx    @DPTR,A
+011B 120330          480         lcall   LCD_Busy
+                     481     
+011E D082            482         pop     DPL
+0120 D083            483         pop     DPH             ;Restore next line for screen
+                     484     
+0122 75E000          485         mov     ACC,#00h        ;offset for char in string 
+                     486                                 ;00h=>1st char in string
+0125 1202E4          487         lcall   LCD_Print       ;Display 5th Screen; 3rd line
+                     488     
+                     489         ;5th Screen - 4th line
+                     490                     
+0128 C083            491         push    DPH
+012A C082            492         push    DPL             ;Saves DPTR for next line in screen
+                     493     
+012C 901200          494         mov     DPTR,#LCD_CMD   ;Locates Cursor
+012F 75E0D4          495         mov     ACC,#80h + 54h
+0132 F0              496         movx    @DPTR,A
+0133 120330          497         lcall   LCD_Busy
+                     498     
+0136 D082            499         pop     DPL
+0138 D083            500         pop     DPH             ;Restore next line for screen
+                     501     
+013A 75E000          502         mov     ACC,#00h        ;offset for char in string 
+                     503                                 ;00h=>1st char in string
+013D 1202E4          504         lcall   LCD_Print       ;Display 5th Screen; 4th line
+                     505     
+0140 120311          506         lcall   LCD_Wait_3sec
+0143 120325          507         lcall   LCD_Clear
+                     508                     
+                     509     ;=====================================================================
+                     510     ;   Screen #6
+                     511     ;=====================================================================
+                     512     
+0146 901200          513         mov     DPTR,#LCD_CMD     ;Locates Cursor
+0149 75E080          514         mov     ACC,#80h + 00h
+014C F0              515         movx    @DPTR,A
+014D 120330          516         lcall   LCD_Busy
+                     517     
+0150 900418          518         mov     DPTR,#LCD_Current_PW ;6th Screen pointer
+0153 75E000          519         mov     ACC,#00h             ;Points to first char. in string
+A51 MACRO ASSEMBLER  MILESTONE#2                                                                      07/03/2008 13:36:55 PAGE     9
+
+0156 1202E4          520         lcall   LCD_Print            ;Display 3rd Screen
+                     521     
+                     522     
+                     523     ;=====================================================================
+                     524     ;   End of Screen displays
+                     525     ;=====================================================================
+                     526                     
+0159 752000          527         mov   20h,#00h          ;Address 20h used for determining
+                     528                                 ;Caps and function keys pressed
+015C 120243          529         lcall Key_Func_Blue         ;Starts with numbers as default, Blue LED
+015F 7802            530         mov   R0,#2             ;Enter key presses
+                     531     
+0161 901200          532         mov   DPTR,#LCD_CMD     ;LCD Command
+0164 75E00F          533         mov   ACC,#DISP_CURSOR  ;Shows & blinks cursor on 6th screen
+0167 F0              534         movx  @DPTR,A
+0168 120330          535         lcall LCD_Busy
+                     536     
+016B D2AF            537         setb  EA                ;Global interrupts enabled on 6th screen
+                     538                     
+                     539     
+016D 80FE            540         sjmp   $
+                     541     
+                     542     ;=====================================================================
+                     543     ;   Sub routine - Keypad ISR
+                     544     ;
+                     545     ;Data is left in ACC after this ISR
+                     546     ;
+                     547     ;Registers
+                     548     ; - R0 - Decremented on each press of ENT key
+                     549     ;       -       R1 - Holds value to shift line1-->line2
+                     550     ;=====================================================================
+                     551     
+016F                 552     Key_ISR:
+                     553     
+016F C0D0            554         push    PSW
+0171 C083            555         push    DPH
+0173 C082            556         push    DPL
+0175 C0E0            557         push    ACC
+0177 C0F0            558         push    B
+                     559     
+0179 904000          560         mov     DPTR,#KEY_READ
+017C E0              561         movx    A,@DPTR
+017D 540F            562         anl     A,#0Fh          ;Bit mask
+                     563                     
+                     564     ;Function key check
+017F 6066            565         jz      Key_Backspace   ;BS key pressed
+                     566     
+                     567     ;Enter key check
+0181 C0E0            568         push    ACC             ;save ACC with bit masked value
+0183 C3              569         clr     C
+0184 9408            570         subb    A,#08h          ;08h=Enter key
+0186 607F            571         jz      Key_Enter       ;ENT key pressed
+0188 D0E0            572         pop     ACC             ;Restore ACC from Bit masked value
+                     573     
+                     574     ;Caps Lock key check
+018A C0E0            575         push    ACC             ;save ACC with bit masked value
+018C C3              576         clr     C
+018D 9404            577         subb    A,#04h          ;04h=Caps lock key
+018F 6033            578         jz      Key_Caps        ;Caps lock key pressed
+0191 D0E0            579         pop     ACC             ;Restore ACC from Bit masked value
+                     580     
+                     581     ;Blue Function key check
+0193 C0E0            582         push    ACC             ;save ACC with bit masked value
+0195 C3              583         clr     C
+0196 940C            584         subb    A,#0Ch          ;0Ch=Blue key
+0198 6031            585         jz      Key_Blue        ;Blue key pressed
+A51 MACRO ASSEMBLER  MILESTONE#2                                                                      07/03/2008 13:36:55 PAGE    10
+
+019A D0E0            586         pop     ACC             ;Restore ACC from Bit masked value
+                     587     
+                     588     ;Pink Function key check
+019C C0E0            589         push    ACC             ;save ACC with bit masked value
+019E C3              590         clr     C
+019F 940D            591         subb    A,#0Dh          ;0Dh=Pink key
+01A1 602F            592         jz      Key_Pink        ;Pink key pressed
+01A3 D0E0            593         pop     ACC             ;Restore ACC from Bit masked value
+                     594     
+                     595     ;Green Function key check
+01A5 C0E0            596         push    ACC             ;save ACC with bit masked value
+01A7 C3              597         clr     C
+01A8 940E            598         subb    A,#0Eh          ;0Eh=Green key
+01AA 602D            599         jz      Key_Green       ;Green key pressed
+01AC D0E0            600         pop     ACC             ;Restore ACC from Bit masked value
+                     601     
+                     602     ;Red Function key check
+01AE C0E0            603         push    ACC             ;save ACC with bit masked value
+01B0 C3              604         clr     C
+01B1 940F            605         subb    A,#0Fh          ;0Fh=Red key
+01B3 602B            606         jz      Key_Red         ;Red key pressed
+01B5 D0E0            607         pop     ACC             ;Restore ACC from Bit masked value
+                     608     
+                     609     
+01B7 12027B          610         lcall   Key_Func_Resolve ;Program reaches this point if no 
+                     611                                  ;function keys pressed
+                     612     
+                     613                             ;Program returns with correct 
+                     614                             ;DPTR for functikon keys
+                     615     
+01BA 93              616         movc    A,@A + DPTR     ;Updates ACC w/ corresponding 
+                     617                             ;char. in lookup table
+                     618     
+                     619     
+01BB 901000          620         mov     DPTR,#LCD_WRITE
+01BE F0              621         movx    @DPTR,A
+01BF 120330          622         lcall   LCD_Busy
+01C2 806C            623         jmp     Key_KeyRelease
+                     624     
+01C4                 625     Key_Caps:
+01C4 D0E0            626         pop     ACC
+01C6 12023E          627         lcall   Key_Func_Caps
+01C9 8065            628         jmp     Key_KeyRelease
+                     629     
+01CB                 630     Key_Blue:
+01CB D0E0            631         pop     ACC
+01CD 120243          632         lcall   Key_Func_Blue
+01D0 805E            633         jmp     Key_KeyRelease
+                     634     
+01D2                 635     Key_Pink:
+01D2 D0E0            636         pop     ACC
+01D4 120251          637         lcall   Key_Func_Pink
+01D7 8057            638         jmp     Key_KeyRelease
+                     639     
+01D9                 640     Key_Green:
+01D9 D0E0            641         pop     ACC
+01DB 12025F          642         lcall   Key_Func_Green
+01DE 8050            643         jmp     Key_KeyRelease
+                     644     
+01E0                 645     Key_Red:
+01E0 D0E0            646         pop     ACC
+01E2 12026D          647         lcall   Key_Func_Red
+01E5 8049            648         jmp     Key_KeyRelease
+                     649     
+                     650     
+01E7                 651     Key_Backspace:
+A51 MACRO ASSEMBLER  MILESTONE#2                                                                      07/03/2008 13:36:55 PAGE    11
+
+01E7 901200          652         mov     DPTR,#LCD_CMD
+01EA 75E010          653         mov     ACC,#DISP_BACKSPACE
+01ED F0              654         movx    @DPTR,A
+01EE 120330          655         lcall   LCD_Busy
+                     656     
+01F1 901000          657         mov     DPTR,#LCD_WRITE
+01F4 75E020          658         mov     ACC,#20h          ;space character
+01F7 F0              659         movx    @DPTR,A
+01F8 120330          660         lcall   LCD_Busy
+                     661     
+01FB 901200          662         mov     DPTR,#LCD_CMD
+01FE 75E010          663         mov     ACC,#DISP_BACKSPACE
+0201 F0              664         movx    @DPTR,A
+0202 120330          665         lcall   LCD_Busy
+0205 8029            666         jmp     Key_KeyRelease
+                     667     
+0207                 668     Key_Enter:
+0207 D0E0            669         pop     ACC               ;Restore ACC
+0209 D807            670         djnz    R0,Key_LCDline2
+020B 120325          671         lcall   LCD_Clear
+020E 7802            672         mov     R0,#02h           ;Reload again for ENT key presses
+0210 801E            673         jmp     Key_KeyRelease
+                     674     
+0212                 675     Key_LCDline2:
+0212 7914            676         mov     R1,#20
+0214 901200          677         mov     DPTR,#LCD_CMD     ;Locates Cursor
+0217 75E080          678         mov     ACC,#80h + 00h
+021A F0              679         movx    @DPTR,A
+021B 120330          680         lcall   LCD_Busy
+                     681     
+021E                 682     Key_Repeat:
+021E 901200          683         mov     DPTR,#LCD_CMD
+0221 75E01C          684         mov     ACC,#DISP_SHIFTRT
+0224 F0              685         movx    @DPTR,A
+0225 C0E0            686         push    ACC
+0227 120330          687         lcall   LCD_Busy
+022A D0E0            688         pop     ACC
+022C D9F0            689         djnz    R1,Key_Repeat
+022E 8000            690         jmp     Key_KeyRelease
+                     691                     
+                     692     
+0230                 693     Key_KeyRelease:
+0230 3080FD          694         jnb     P0.0,$    ;Wait for release of key
+                     695     
+0233 D0F0            696         pop     B
+0235 D0E0            697         pop     ACC
+0237 D082            698         pop     DPL
+0239 D083            699         pop     DPH
+023B D0D0            700         pop     PSW
+                     701     
+023D 32              702         reti
+                     703     
+                     704     ;=====================================================================
+                     705     ;   Sub routine - Caps lock Function Key
+                     706     ;
+                     707     ;Addresses:
+                     708     ; - 07h: Bit Used to determine caps lock function key pressed
+                     709     ; - 20h: General address location for function keys: caps lock & colors
+                     710     ;
+                     711     ;Registers:
+                     712     ; - ACC enters as 00h
+                     713     ;=====================================================================
+                     714     
+023E                 715     Key_Func_Caps:
+023E B207            716         cpl   07h
+0240 B293            717         cpl   P1.3  
+A51 MACRO ASSEMBLER  MILESTONE#2                                                                      07/03/2008 13:36:55 PAGE    12
+
+0242 22              718         ret
+                     719     
+                     720     
+                     721     ;=====================================================================
+                     722     ;   Sub routine - Blue Function Key
+                     723     ;
+                     724     ;Addresses:
+                     725     ; - 00h: Bit Used to determine blue function key pressed
+                     726     ; - 20h: General address location for function keys: caps lock & colors
+                     727     ;=====================================================================
+                     728     
+0243                 729     Key_Func_Blue:
+0243 5320F0          730         anl     20h,#0F0h   ;Bit mask to erase lower nibble for other 
+                     731                             ;function keys previously pressed
+                     732                             ;This also keeps the value of caps lock in tact.
+                     733     
+0246 D200            734         setb    00h         ;Sets LSB in addy 20h for blue func. key
+0248 C294            735         clr     P1.4        ;Turns off Red LED
+024A C295            736         clr     P1.5        ;Turns off Green LED
+024C C296            737         clr     P1.6        ;Turns off Pink LED
+024E D297            738         setb    P1.7        ;Turns on Blue LED
+0250 22              739         ret
+                     740     
+                     741     
+                     742     
+                     743     ;=====================================================================
+                     744     ;   Sub routine - Pink Function Key
+                     745     ;
+                     746     ;Addresses:
+                     747     ; - 01h: Bit Used to determine pink function key pressed
+                     748     ; - 20h: General address location for function keys: caps lock & colors
+                     749     ;=====================================================================
+                     750     
+0251                 751     Key_Func_Pink:
+0251 5320F0          752         anl     20h,#0F0h   ;Bit mask to erase lower nibble for other
+                     753                             ;function keys previously pressed
+                     754                             ;This also keeps the value of caps lock in tact.
+                     755     
+0254 D201            756         setb    01h         ;Sets bit 1 in addy 20h for pink func. key
+0256 C294            757         clr     P1.4        ;Turns off Red LED
+0258 C295            758         clr     P1.5        ;Turns off Green LED
+025A D296            759         setb    P1.6        ;Turns on Pink LED
+025C C297            760         clr     P1.7        ;Turns off Blue LED
+025E 22              761         ret
+                     762     
+                     763     ;=====================================================================
+                     764     ;   Sub routine - Green Function Key
+                     765     ;
+                     766     ;Addresses:
+                     767     ; - 02h: Bit Used to determine pink function key pressed
+                     768     ; - 20h: General address location for function keys: caps lock & colors
+                     769     ;=====================================================================
+                     770     
+025F                 771     Key_Func_Green:
+025F 5320F0          772         anl     20h,#0F0h   ;Bit mask to erase lower nibble for other
+                     773                             ;function keys previously pressed
+                     774                             ;This also keeps the value of caps lock in tact.
+                     775     
+0262 D202            776         setb    02h         ;Sets bit 2 in addy 20h for green func. key
+0264 C294            777         clr     P1.4        ;Turns off Red LED
+0266 D295            778         setb    P1.5        ;Turns on Green LED
+0268 C296            779         clr     P1.6        ;Turns off Pink LED
+026A C297            780         clr     P1.7        ;Turns off Blue LED
+026C 22              781         ret
+                     782     
+                     783     ;=====================================================================
+A51 MACRO ASSEMBLER  MILESTONE#2                                                                      07/03/2008 13:36:55 PAGE    13
+
+                     784     ;  Sub routine - Red Function Key
+                     785     ;
+                     786     ;Addresses:
+                     787     ; - 03h: Bit Used to determine pink function key pressed
+                     788     ; - 20h: General address location for function keys: caps lock & colors
+                     789     ;=====================================================================
+                     790     
+026D                 791     Key_Func_Red:
+026D 5320F0          792         anl     20h,#0F0h   ;Bit mask to erase lower nibble for other 
+                     793                             ;function keys previously pressed
+                     794                             ;This also keeps the value of caps lock in tact.
+                     795     
+0270 D203            796         setb    03h         ;Sets bit 3 in addy 20h for red func. key
+0272 D294            797         setb    P1.4        ;Turns on Red LED
+0274 C295            798         clr     P1.5        ;Turns off Green LED
+0276 C296            799         clr     P1.6        ;Turns off Pink LED
+0278 C297            800         clr     P1.7        ;Turns off Blue LED
+027A 22              801         ret
+                     802     
+                     803     
+                     804     ;=====================================================================
+                     805     ;   Sub routine - Key input resolution
+                     806     ;
+                     807     ;Addresses:
+                     808     ; - 20h: Evaluates this addresed to determine funct. key & caps lock
+                     809     ;status.  Leave this sub with correct lookup table in DPTR.  When this
+                     810     ;sub is initially called, the ACC has the value of the key (according 
+                     811     ;to the actual value as determined by the keypad schematic) pressed.
+                     812     ;
+                     813     ;=====================================================================
+                     814     
+027B                 815     Key_Func_Resolve:
+027B C0D0            816         push    PSW
+027D C0E0            817         push    ACC
+027F C0F0            818         push    B
+                     819                     
+                     820         ;Check Bit 00h for Blue function key, Numbers only
+0281 200032          821         jb      00h,Key_Func_Bluekey
+                     822         ;Check Bit 01h for Pink function key
+0284 200122          823         jb      01h,Key_Func_Pinkkey
+                     824         ;Check Bit 02h for Green function key
+0287 200212          825         jb      02h,Key_Func_Greenkey
+                     826         ;Check Bit 03h for Red function key
+028A 200302          827         jb      03h,Key_Func_Redkey
+                     828     
+028D 802C            829         jmp     Key_Func_Finish
+                     830     
+028F                 831     Key_Func_Redkey:
+028F 300705          832         jnb     07h,$ + 8           ;07h=caps lock, jump to 
+                     833                                     ;'Red_LC' if not caps lock
+0292 900473          834         mov     DPTR,#Key_Red_UpC   ;Red uppercase lookup table
+0295 8024            835         sjmp    Key_Func_Finish
+                     836     
+0297 900467          837         mov     DPTR,#Key_Red_LC    ;Red lowercase lookup table             
+029A 801F            838         jmp     Key_Func_Finish
+                     839     
+029C                 840     Key_Func_Greenkey:
+029C 300705          841         jnb     07h,$ + 8           ;07h=caps lock, jump to 
+                     842                                     ;'Green_LC' if not caps lock
+029F 90045B          843         mov     DPTR,#Key_Green_UpC ;Green uppercase lookup table
+02A2 8017            844         sjmp    Key_Func_Finish
+                     845     
+02A4 90044F          846         mov     DPTR,#Key_Green_LC  ;Green lowercase lookup table           
+02A7 8012            847         jmp     Key_Func_Finish
+                     848                     
+                     849     
+A51 MACRO ASSEMBLER  MILESTONE#2                                                                      07/03/2008 13:36:55 PAGE    14
+
+02A9                 850     Key_Func_Pinkkey:
+02A9 300705          851         jnb     07h,$ + 8          ;07h=caps lock, jump to 
+                     852                                    ;'Pink_LC' if not caps lock
+02AC 900443          853         mov     DPTR,#Key_Pink_UpC ;Pink uppercase lookup table
+02AF 800A            854         sjmp    Key_Func_Finish
+                     855     
+02B1 900437          856         mov     DPTR,#Key_Pink_LC  ;Pink lowercase lookup table             
+02B4 8005            857         jmp     Key_Func_Finish
+                     858     
+02B6                 859     Key_Func_Bluekey:
+02B6 90042B          860         mov     DPTR,#Key_Blue_Num
+02B9 8000            861         jmp     Key_Func_Finish
+                     862     
+02BB                 863     Key_Func_Finish:
+02BB D0F0            864         pop     B
+02BD D0E0            865         pop     ACC
+02BF D0D0            866         pop     PSW
+                     867     
+02C1 22              868         ret
+                     869     
+                     870     
+                     871     ;=====================================================================
+                     872     ;   Sub routine - Initialize LCD
+                     873     ;=====================================================================
+                     874     
+02C2                 875     LCD_Init:
+02C2 901200          876         mov   DPTR,#LCD_CMD
+02C5 75E038          877         mov   ACC,#DISP_FUNCTION_CMD
+02C8 F0              878         movx  @DPTR,A
+02C9 120330          879         lcall LCD_Busy
+                     880     
+02CC 901200          881         mov   DPTR,#LCD_CMD
+02CF 75E00C          882         mov   ACC,#DISP_ON
+02D2 F0              883         movx  @DPTR,A
+02D3 120330          884         lcall LCD_Busy
+                     885     
+02D6 901200          886         mov   DPTR,#LCD_CMD
+02D9 75E006          887         mov   ACC,#DISP_ENTRY_MODE
+02DC F0              888         movx  @DPTR,A
+02DD 120330          889         lcall LCD_Busy      
+                     890     
+02E0 120325          891         lcall LCD_Clear
+                     892     
+02E3 22              893         ret
+                     894     
+                     895                     
+                     896     ;=====================================================================
+                     897     ;   Sub routine - Prints string to LCD
+                     898     ;
+                     899     ;Enter subroutine with cursor in correct location, DPTR pointing at
+                     900     ;string to print, and ACC pointing to first location of string.
+                     901     ;
+                     902     ;=====================================================================
+                     903     
+                     904                     
+02E4                 905     LCD_Print:
+02E4 C0D0            906         push  PSW
+02E6 C083            907         push  DPH
+02E8 C082            908         push  DPL
+02EA C0E0            909         push  ACC
+02EC C0F0            910         push  B
+02EE 93              911         movc  A,@A + DPTR
+02EF 6014            912         jz    LCD_Return      ;Null Character Reached
+02F1 901000          913         mov   DPTR,#LCD_WRITE
+02F4 F0              914         movx  @DPTR,A
+02F5 120330          915         lcall LCD_Busy
+A51 MACRO ASSEMBLER  MILESTONE#2                                                                      07/03/2008 13:36:55 PAGE    15
+
+                     916     
+02F8                 917     LCD_Restore:
+02F8 D0F0            918         pop   B
+02FA D0E0            919         pop   ACC
+02FC D082            920         pop   DPL
+02FE D083            921         pop   DPH
+0300 D0D0            922         pop   PSW
+0302 A3              923         inc   DPTR
+                     924     
+0303 80DF            925         jmp   LCD_Print
+                     926     
+0305                 927     LCD_Return:
+0305 D0F0            928         pop   B
+0307 D0E0            929         pop   ACC
+0309 D082            930         pop   DPL
+030B D083            931         pop   DPH
+030D D0D0            932         pop   PSW
+030F A3              933         inc   DPTR       ;Leave sub with DPTR at next string in db
+                     934     
+0310 22              935         ret
+                     936     
+                     937     ;=====================================================================
+                     938     ;   Sub routine - 3.0 second wait delay for screen transitions
+                     939     ;
+                     940     ;Registers used:
+                     941     ; - R0
+                     942     ;
+                     943     ;Timers used:
+                     944     ; - Timer0
+                     945     ;
+                     946     ;=====================================================================
+                     947     
+0311                 948     LCD_Wait_3sec:
+0311 783C            949         mov     R0,#60    ;15=1sec.
+0313 758C00          950         mov     TH0,#00h
+0316 758A00          951         mov     TL0,#00h
+0319 D28C            952         setb    TR0
+                     953     
+031B                 954     LCD_Timer0_OV:
+031B 308DFD          955         jnb     TF0,LCD_Timer0_OV
+031E C28D            956         clr     TF0
+0320 D8F9            957         djnz    R0,LCD_Timer0_OV
+0322 C28C            958         clr     TR0
+0324 22              959         ret
+                     960     
+                     961     
+                     962     
+                     963     ;=====================================================================
+                     964     ;  Sub routine - Clear LCD
+                     965     ;=====================================================================
+                     966     
+0325                 967     LCD_Clear:
+0325 901200          968         mov   DPTR,#LCD_CMD
+0328 75E001          969         mov   ACC,#DISP_CLR
+032B F0              970         movx  @DPTR,A
+032C 120330          971         lcall LCD_Busy
+032F 22              972         ret
+                     973     
+                     974     ;=====================================================================
+                     975     ;  Sub routine - Wait for LCD
+                     976     ;=====================================================================
+                     977     
+0330                 978     LCD_Busy:
+0330 901100          979         mov   DPTR,#LCD_READ
+0333 E0              980         movx  A,@DPTR
+0334 20E7F9          981         JB    ACC.7,LCD_Busy  ;If bit 7 high, LCD still busy
+A51 MACRO ASSEMBLER  MILESTONE#2                                                                      07/03/2008 13:36:55 PAGE    16
+
+0337 22              982         ret
+                     983     
+                     984     ;------------------------------------
+                     985     ;-  Generated Initialization File  --
+                     986     ;------------------------------------
+                     987     
+                     988     
+                     989     ; Peripheral specific initialization functions,
+                     990     ; Called from the Init_Device label
+0338                 991     Reset_Sources_Init:
+0338 75FFDE          992         mov   WDTCN,#0DEh
+033B 75FFAD          993         mov   WDTCN,#0ADh
+033E 22              994         ret
+                     995     
+033F                 996     Timer_Init:
+033F 758901          997         mov   TMOD,#001h
+0342 22              998         ret
+                     999     
+0343                1000     EMI_Init:
+0343 75A32F         1001         mov   EMI0CF,#02Fh
+0346 22             1002         ret
+                    1003     
+0347                1004     Port_IO_Init:
+                    1005         ; P0.0  -  INT0 (Tmr0), Push-Pull,  Digital
+                    1006         ; P0.1  -  Unassigned,  Open-Drain, Digital
+                    1007         ; P0.2  -  Unassigned,  Open-Drain, Digital
+                    1008         ; P0.3  -  Unassigned,  Open-Drain, Digital
+                    1009         ; P0.4  -  Unassigned,  Open-Drain, Digital
+                    1010         ; P0.5  -  Unassigned,  Push-Pull,  Digital
+                    1011         ; P0.6  -  Skipped,     Push-Pull,  Digital
+                    1012         ; P0.7  -  Skipped,     Push-Pull,  Digital
+                    1013     
+                    1014         ; P1.0  -  Unassigned,  Open-Drain, Digital
+                    1015         ; P1.1  -  Unassigned,  Open-Drain, Digital
+                    1016         ; P1.2  -  Unassigned,  Open-Drain, Digital
+                    1017         ; P1.3  -  Unassigned,  Open-Drain, Digital
+                    1018         ; P1.4  -  Unassigned,  Open-Drain, Digital
+                    1019         ; P1.5  -  Unassigned,  Open-Drain, Digital
+                    1020         ; P1.6  -  Unassigned,  Open-Drain, Digital
+                    1021         ; P1.7  -  Unassigned,  Open-Drain, Digital
+                    1022     
+                    1023         ; P2.0  -  Unassigned,  Push-Pull,  Digital
+                    1024         ; P2.1  -  Unassigned,  Push-Pull,  Digital
+                    1025         ; P2.2  -  Unassigned,  Push-Pull,  Digital
+                    1026         ; P2.3  -  Unassigned,  Push-Pull,  Digital
+                    1027         ; P2.4  -  Unassigned,  Push-Pull,  Digital
+                    1028         ; P2.5  -  Unassigned,  Push-Pull,  Digital
+                    1029         ; P2.6  -  Unassigned,  Push-Pull,  Digital
+                    1030         ; P2.7  -  Unassigned,  Push-Pull,  Digital
+                    1031     
+                    1032         ; P3.0  -  Unassigned,  Push-Pull,  Digital
+                    1033         ; P3.1  -  Unassigned,  Push-Pull,  Digital
+                    1034         ; P3.2  -  Unassigned,  Push-Pull,  Digital
+                    1035         ; P3.3  -  Unassigned,  Push-Pull,  Digital
+                    1036         ; P3.4  -  Unassigned,  Push-Pull,  Digital
+                    1037         ; P3.5  -  Unassigned,  Push-Pull,  Digital
+                    1038         ; P3.6  -  Unassigned,  Push-Pull,  Digital
+                    1039         ; P3.7  -  Unassigned,  Push-Pull,  Digital
+                    1040         
+0347 75B5FF         1041         mov  P74OUT,    #0FFh
+034A 75A4E1         1042         mov  P0MDOUT,   #0E1h
+034D 75A6FF         1043         mov  P2MDOUT,   #0FFh
+0350 75A7FF         1044         mov  P3MDOUT,   #0FFh
+0353 75E204         1045         mov  XBR1,      #004h
+0356 75E340         1046         mov  XBR2,      #040h
+0359 22             1047         ret
+A51 MACRO ASSEMBLER  MILESTONE#2                                                                      07/03/2008 13:36:55 PAGE    17
+
+                    1048     
+                    1049     
+                    1050     
+035A                1051     Oscillator_Init:
+035A 75B167         1052         mov   OSCXCN,#067h
+035D 781E           1053         mov   R0,#030       ; Wait 1ms for initialization
+035F                1054     Osc_Wait1:
+035F E4             1055         clr   A
+0360 D5E0FD         1056         djnz  ACC,$
+0363 D8FA           1057         djnz  R0,Osc_Wait1
+0365                1058     Osc_Wait2:
+0365 E5B1           1059         mov   A,OSCXCN
+0367 30E7FB         1060         jnb   ACC.7,Osc_Wait2
+036A 75B208         1061         mov   OSCICN,#008h
+036D 22             1062         ret
+                    1063     
+036E                1064     Interrupts_Init:
+036E 75A801         1065         mov   IE,#001h
+0371 22             1066         ret
+                    1067     
+                    1068     
+                    1069     ; Initialization function for device,
+                    1070     ; Call Init_Device from your main program
+0372                1071     Init_Device:
+0372 120338         1072         lcall Reset_Sources_Init
+0375 12033F         1073         lcall Timer_Init
+0378 120343         1074         lcall EMI_Init
+037B 120347         1075         lcall Port_IO_Init
+037E 12035A         1076         lcall Oscillator_Init
+0381 12036E         1077         lcall Interrupts_Init
+0384 22             1078         ret
+                    1079     
+                    1080     ;------------------------------------
+                    1081     ;-  LCD Screen Strings  --
+                    1082     ;------------------------------------
+                    1083     
+0385                1084     LCD_Initializing:
+0385 496E6974       1085         db "Initializing....",0
+0389 69616C69                
+038D 7A696E67                
+0391 2E2E2E2E                
+0395 00                      
+                    1086     
+0396                1087     LCD_Pro_Tex:
+0396 50726F2D       1088         db "Pro-Tex 9000",0
+039A 54657820                
+039E 39303030                
+03A2 00                      
+                    1089     
+03A3                1090     LCD_Password_Entry:
+03A3 456E7465       1091         db "Enter PW:****",0
+03A7 72205057                
+03AB 3A2A2A2A                
+03AF 2A00                    
+                    1092     
+03B1                1093     LCD_Home:
+03B1 486F6D65       1094         db "Home",0
+03B5 00                      
+03B6 41636365       1095         db "Accel: X.Xg",0
+03BA 6C3A2058                
+03BE 2E586700                
+03C2 41636365       1096         db "Accel STPT: X.Xg",0
+03C6 6C205354                
+03CA 50543A20                
+03CE 582E5867                
+03D2 00                      
+A51 MACRO ASSEMBLER  MILESTONE#2                                                                      07/03/2008 13:36:55 PAGE    18
+
+03D3 50726573       1097         db "Press ",22h,"ENT",22h," for Menu",0
+03D7 73202245                
+03DB 4E542220                
+03DF 666F7220                
+03E3 4D656E75                
+03E7 00                      
+                    1098     
+03E8                1099     LCD_Main_Menu:
+03E8 4D656E75       1100         db "Menu",0
+03EC 00                      
+03ED 312E2041       1101         db "1. Arm/Dis",0
+03F1 726D2F44                
+03F5 697300                  
+03F8 322E2043       1102         db "2. Change Acc STPT",0
+03FC 68616E67                
+0400 65204163                
+0404 63205354                
+0408 505400                  
+040B 332E2043       1103         db "3. Change PW",0
+040F 68616E67                
+0413 65205057                
+0417 00                      
+                    1104     
+0418                1105     LCD_Current_PW:
+0418 456E7465       1106         db "Enter Curr PW:****",0
+041C 72204375                
+0420 72722050                
+0424 573A2A2A                
+0428 2A2A00                  
+                    1107     
+                    1108     ;------------------------------------
+                    1109     ;-  Keypad Lookup Tables  --
+                    1110     ;------------------------------------
+                    1111     
+042B                1112     Key_Blue_Num:
+042B 00333231       1113         db 0,"3","2","1"
+042F 00363534       1114         db 0,"6","5","4"
+0433 00393837       1115         db 0,"9","8","7"
+                    1116     
+0437                1117     Key_Pink_LC:        ;Lower Case
+0437 00757473       1118         db 0,"u","t","s"
+043B 00787776       1119         db 0,"x","w","v"
+043F 00307A79       1120         db 0,"0","z","y"
+                    1121     
+0443                1122     Key_Pink_UpC:       ;Upper Case
+0443 00555453       1123         db 0,"U","T","S"
+0447 00585756       1124         db 0,"X","W","V"
+044B 00305A59       1125         db 0,"0","Z","Y"
+                    1126     
+044F                1127     Key_Green_LC:       ;Lower Case
+044F 006C6B6A       1128         db 0,"l","k","j"
+0453 006F6E6D       1129         db 0,"o","n","m"
+0457 00727170       1130         db 0,"r","q","p"
+                    1131     
+045B                1132     Key_Green_UpC:      ;Upper Case
+045B 004C4B4A       1133         db 0,"L","K","J"
+045F 004F4E4D       1134         db 0,"O","N","M"
+0463 00525150       1135         db 0,"R","Q","P"
+                    1136     
+0467                1137     Key_Red_LC:         ;Lower Case
+0467 00636261       1138         db 0,"c","b","a"
+046B 00666564       1139         db 0,"f","e","d"
+046F 00696867       1140         db 0,"i","h","g"
+                    1141     
+0473                1142     Key_Red_UpC:        ;Upper Case
+0473 00434241       1143         db 0,"C","B","A"
+A51 MACRO ASSEMBLER  MILESTONE#2                                                                      07/03/2008 13:36:55 PAGE    19
+
+0477 00464544       1144         db 0,"F","E","D"
+047B 00494847       1145         db 0,"I","H","G"
+                    1146     
+                    1147     
+                    1148     end
+A51 MACRO ASSEMBLER  MILESTONE#2                                                                      07/03/2008 13:36:55 PAGE    20
+
+XREF SYMBOL TABLE LISTING
+---- ------ ----- -------
+
+
+N A M E                T Y P E  V A L U E   ATTRIBUTES / REFERENCES
+
+AA. . . . . . . . . .  B ADDR   00C0H.2 A      214#
+AC. . . . . . . . . .  B ADDR   00D0H.6 A      237#
+ACC . . . . . . . . .  D ADDR   00E0H   A      138# 325 330 341 346 357 362 377 382 391 398 408 415 425 432 447 452 461 468 478
+                                              485 495 502 514 519 533 557 568 572 575 579 582 586 589 593 596 600 603 607 626 631
+                                              636 641 646 653 658 663 669 678 684 686 688 697 817 865 877 882 887 909 919 929 969
+                                              981 1056 1060
+AD0BUSY . . . . . . .  B ADDR   00E8H.4 A      254#
+AD0EN . . . . . . . .  B ADDR   00E8H.7 A      257#
+AD0INT. . . . . . . .  B ADDR   00E8H.5 A      255#
+AD0LJST . . . . . . .  B ADDR   00E8H.0 A      250#
+AD0STM0 . . . . . . .  B ADDR   00E8H.2 A      252#
+AD0STM1 . . . . . . .  B ADDR   00E8H.3 A      253#
+AD0TM . . . . . . . .  B ADDR   00E8H.6 A      256#
+AD0WINT . . . . . . .  B ADDR   00E8H.1 A      251#
+ADC0CF. . . . . . . .  D ADDR   00BCH   A      104#
+ADC0CN. . . . . . . .  D ADDR   00E8H   A      146# 250 251 252 253 254 255 256 257
+ADC0GTH . . . . . . .  D ADDR   00C5H   A      113#
+ADC0GTL . . . . . . .  D ADDR   00C4H   A      112#
+ADC0H . . . . . . . .  D ADDR   00BFH   A      107#
+ADC0L . . . . . . . .  D ADDR   00BEH   A      106#
+ADC0LTH . . . . . . .  D ADDR   00C7H   A      115#
+ADC0LTL . . . . . . .  D ADDR   00C6H   A      114#
+ADC1. . . . . . . . .  D ADDR   009CH   A      75#
+ADC1CF. . . . . . . .  D ADDR   00ABH   A      89#
+ADC1CN. . . . . . . .  D ADDR   00AAH   A      88#
+AMX0CF. . . . . . . .  D ADDR   00BAH   A      102#
+AMX0SL. . . . . . . .  D ADDR   00BBH   A      103#
+AMX1SL. . . . . . . .  D ADDR   00ACH   A      90#
+B . . . . . . . . . .  D ADDR   00F0H   A      154# 558 696 818 864 910 918 928
+CCF0. . . . . . . . .  B ADDR   00D8H.0 A      241#
+CCF1. . . . . . . . .  B ADDR   00D8H.1 A      242#
+CCF2. . . . . . . . .  B ADDR   00D8H.2 A      243#
+CCF3. . . . . . . . .  B ADDR   00D8H.3 A      244#
+CCF4. . . . . . . . .  B ADDR   00D8H.4 A      245#
+CF. . . . . . . . . .  B ADDR   00D8H.7 A      247#
+CKCON . . . . . . . .  D ADDR   008EH   A      62#
+CPRL2 . . . . . . . .  B ADDR   00C8H.0 A      221#
+CPT0CN. . . . . . . .  D ADDR   009EH   A      77#
+CPT1CN. . . . . . . .  D ADDR   009FH   A      78#
+CR. . . . . . . . . .  B ADDR   00D8H.6 A      246#
+CT2 . . . . . . . . .  B ADDR   00C8H.1 A      222#
+CY. . . . . . . . . .  B ADDR   00D0H.7 A      238#
+DAC0CN. . . . . . . .  D ADDR   00D4H   A      127#
+DAC0H . . . . . . . .  D ADDR   00D3H   A      126#
+DAC0L . . . . . . . .  D ADDR   00D2H   A      125#
+DAC1CN. . . . . . . .  D ADDR   00D7H   A      130#
+DAC1H . . . . . . . .  D ADDR   00D6H   A      129#
+DAC1L . . . . . . . .  D ADDR   00D5H   A      128#
+DISP_AUTOSHIFT_CURSOR  N NUMB   0014H   A      279#
+DISP_BACKSPACE. . . .  N NUMB   0010H   A      280# 653 663
+DISP_CLR. . . . . . .  N NUMB   0001H   A      274# 969
+DISP_CURSOR . . . . .  N NUMB   000FH   A      277# 533
+DISP_ENTRY_MODE . . .  N NUMB   0006H   A      278# 887
+DISP_FUNCTION_CMD . .  N NUMB   0038H   A      275# 877
+DISP_ON . . . . . . .  N NUMB   000CH   A      276# 882
+DISP_SHIFTRT. . . . .  N NUMB   001CH   A      281# 684
+DPH . . . . . . . . .  D ADDR   0083H   A      51# 387 396 404 413 421 430 457 466 474 483 491 500 555 699 907 921 931
+DPL . . . . . . . . .  D ADDR   0082H   A      50# 388 395 405 412 422 429 458 465 475 482 492 499 556 698 908 920 930
+EA. . . . . . . . . .  B ADDR   00A8H.7 A      201# 537
+EIE1. . . . . . . . .  D ADDR   00E6H   A      144#
+A51 MACRO ASSEMBLER  MILESTONE#2                                                                      07/03/2008 13:36:55 PAGE    21
+
+EIE2. . . . . . . . .  D ADDR   00E7H   A      145#
+EIP1. . . . . . . . .  D ADDR   00F6H   A      160#
+EIP2. . . . . . . . .  D ADDR   00F7H   A      161#
+EMI0CF. . . . . . . .  D ADDR   00A3H   A      81# 1001
+EMI0CN. . . . . . . .  D ADDR   00AFH   A      93#
+EMI0TC. . . . . . . .  D ADDR   00A1H   A      80#
+EMI_INIT. . . . . . .  C ADDR   0343H   A      1000# 1074
+ENSMB . . . . . . . .  B ADDR   00C0H.6 A      218#
+ES. . . . . . . . . .  B ADDR   00A8H.4 A      199#
+ET0 . . . . . . . . .  B ADDR   00A8H.1 A      196#
+ET1 . . . . . . . . .  B ADDR   00A8H.3 A      198#
+ET2 . . . . . . . . .  B ADDR   00A8H.5 A      200#
+EX0 . . . . . . . . .  B ADDR   00A8H.0 A      195#
+EX1 . . . . . . . . .  B ADDR   00A8H.2 A      197#
+EXEN2 . . . . . . . .  B ADDR   00C8H.3 A      224#
+EXF2. . . . . . . . .  B ADDR   00C8H.6 A      227#
+F0. . . . . . . . . .  B ADDR   00D0H.5 A      236#
+F1. . . . . . . . . .  B ADDR   00D0H.1 A      232#
+FLACL . . . . . . . .  D ADDR   00B7H   A      99#
+FLSCL . . . . . . . .  D ADDR   00B6H   A      98#
+IE. . . . . . . . . .  D ADDR   00A8H   A      86# 195 196 197 198 199 200 201 1065
+IE0 . . . . . . . . .  B ADDR   0088H.1 A      176#
+IE1 . . . . . . . . .  B ADDR   0088H.3 A      178#
+INIT_DEVICE . . . . .  C ADDR   0372H   A      315 1071#
+INTERRUPTS_INIT . . .  C ADDR   036EH   A      1064# 1077
+IP. . . . . . . . . .  D ADDR   00B8H   A      100# 204 205 206 207 208 209
+IT0 . . . . . . . . .  B ADDR   0088H.0 A      175#
+IT1 . . . . . . . . .  B ADDR   0088H.2 A      177#
+KEY_BACKSPACE . . . .  C ADDR   01E7H   A      565 651#
+KEY_BLUE. . . . . . .  C ADDR   01CBH   A      585 630#
+KEY_BLUE_NUM. . . . .  C ADDR   042BH   A      860 1112#
+KEY_CAPS. . . . . . .  C ADDR   01C4H   A      578 625#
+KEY_ENTER . . . . . .  C ADDR   0207H   A      571 668#
+KEY_FUNC_BLUE . . . .  C ADDR   0243H   A      529 632 729#
+KEY_FUNC_BLUEKEY. . .  C ADDR   02B6H   A      821 859#
+KEY_FUNC_CAPS . . . .  C ADDR   023EH   A      627 715#
+KEY_FUNC_FINISH . . .  C ADDR   02BBH   A      829 835 838 844 847 854 857 861 863#
+KEY_FUNC_GREEN. . . .  C ADDR   025FH   A      642 771#
+KEY_FUNC_GREENKEY . .  C ADDR   029CH   A      825 840#
+KEY_FUNC_PINK . . . .  C ADDR   0251H   A      637 751#
+KEY_FUNC_PINKKEY. . .  C ADDR   02A9H   A      823 850#
+KEY_FUNC_RED. . . . .  C ADDR   026DH   A      647 791#
+KEY_FUNC_REDKEY . . .  C ADDR   028FH   A      827 831#
+KEY_FUNC_RESOLVE. . .  C ADDR   027BH   A      610 815#
+KEY_GREEN . . . . . .  C ADDR   01D9H   A      599 640#
+KEY_GREEN_LC. . . . .  C ADDR   044FH   A      846 1127#
+KEY_GREEN_UPC . . . .  C ADDR   045BH   A      843 1132#
+KEY_ISR . . . . . . .  C ADDR   016FH   A      303 552#
+KEY_KEYRELEASE. . . .  C ADDR   0230H   A      623 628 633 638 643 648 666 673 690 693#
+KEY_LCDLINE2. . . . .  C ADDR   0212H   A      670 675#
+KEY_PINK. . . . . . .  C ADDR   01D2H   A      592 635#
+KEY_PINK_LC . . . . .  C ADDR   0437H   A      856 1117#
+KEY_PINK_UPC. . . . .  C ADDR   0443H   A      853 1122#
+KEY_READ. . . . . . .  N NUMB   4000H   A      288# 560
+KEY_RED . . . . . . .  C ADDR   01E0H   A      606 645#
+KEY_RED_LC. . . . . .  C ADDR   0467H   A      837 1137#
+KEY_RED_UPC . . . . .  C ADDR   0473H   A      834 1142#
+KEY_REPEAT. . . . . .  C ADDR   021EH   A      682# 689
+LCD_BUSY. . . . . . .  C ADDR   0330H   A      327 343 359 379 393 410 427 449 463 480 497 516 535 622 655 660 665 680 687 879
+                                              884 889 915 971 978# 981
+LCD_CLEAR . . . . . .  C ADDR   0325H   A      334 350 366 437 507 671 891 967#
+LCD_CMD . . . . . . .  N NUMB   1200H   A      285# 324 340 356 376 390 407 424 446 460 477 494 513 532 652 662 677 683 876 881
+                                              886 968
+LCD_CURRENT_PW. . . .  C ADDR   0418H   A      518 1105#
+LCD_HOME. . . . . . .  C ADDR   03B1H   A      381 1093#
+LCD_INIT. . . . . . .  C ADDR   02C2H   A      317 875#
+A51 MACRO ASSEMBLER  MILESTONE#2                                                                      07/03/2008 13:36:55 PAGE    22
+
+LCD_INITIALIZING. . .  C ADDR   0385H   A      329 1084#
+LCD_MAIN_MENU . . . .  C ADDR   03E8H   A      451 1099#
+LCD_PASSWORD_ENTRY. .  C ADDR   03A3H   A      361 1090#
+LCD_PRINT . . . . . .  C ADDR   02E4H   A      331 347 363 383 400 417 434 453 470 487 504 520 905# 925
+LCD_PRO_TEX . . . . .  C ADDR   0396H   A      345 1087#
+LCD_READ. . . . . . .  N NUMB   1100H   A      284# 979
+LCD_RESTORE . . . . .  C ADDR   02F8H   A      917#
+LCD_RETURN. . . . . .  C ADDR   0305H   A      912 927#
+LCD_TIMER0_OV . . . .  C ADDR   031BH   A      954# 955 957
+LCD_WAIT_3SEC . . . .  C ADDR   0311H   A      333 349 365 436 506 948#
+LCD_WRITE . . . . . .  N NUMB   1000H   A      283# 620 657 913
+MAIN. . . . . . . . .  C ADDR   0030H   A      296 314#
+MODF. . . . . . . . .  B ADDR   00F8H.5 A      265#
+MSTEN . . . . . . . .  B ADDR   00F8H.1 A      261#
+OSCICN. . . . . . . .  D ADDR   00B2H   A      96# 1061
+OSCILLATOR_INIT . . .  C ADDR   035AH   A      1051# 1076
+OSCXCN. . . . . . . .  D ADDR   00B1H   A      95# 1052 1059
+OSC_WAIT1 . . . . . .  C ADDR   035FH   A      1054# 1057
+OSC_WAIT2 . . . . . .  C ADDR   0365H   A      1058# 1060
+OV. . . . . . . . . .  B ADDR   00D0H.2 A      233#
+P . . . . . . . . . .  B ADDR   00D0H.0 A      231#
+P0. . . . . . . . . .  D ADDR   0080H   A      48# 694
+P0MDOUT . . . . . . .  D ADDR   00A4H   A      82# 1042
+P1. . . . . . . . . .  D ADDR   0090H   A      64# 316 717 735 736 737 738 757 758 759 760 777 778 779 780 797 798 799 800
+P1MDIN. . . . . . . .  D ADDR   00BDH   A      105#
+P1MDOUT . . . . . . .  D ADDR   00A5H   A      83#
+P2. . . . . . . . . .  D ADDR   00A0H   A      79#
+P2MDOUT . . . . . . .  D ADDR   00A6H   A      84# 1043
+P3. . . . . . . . . .  D ADDR   00B0H   A      94#
+P3IF. . . . . . . . .  D ADDR   00ADH   A      91#
+P3MDOUT . . . . . . .  D ADDR   00A7H   A      85# 1044
+P4. . . . . . . . . .  D ADDR   0084H   A      52#
+P5. . . . . . . . . .  D ADDR   0085H   A      53#
+P6. . . . . . . . . .  D ADDR   0086H   A      54#
+P7. . . . . . . . . .  D ADDR   0096H   A      70#
+P74OUT. . . . . . . .  D ADDR   00B5H   A      97# 1041
+PCA0CN. . . . . . . .  D ADDR   00D8H   A      131# 241 242 243 244 245 246 247
+PCA0CPH0. . . . . . .  D ADDR   00FAH   A      164#
+PCA0CPH1. . . . . . .  D ADDR   00FBH   A      165#
+PCA0CPH2. . . . . . .  D ADDR   00FCH   A      166#
+PCA0CPH3. . . . . . .  D ADDR   00FDH   A      167#
+PCA0CPH4. . . . . . .  D ADDR   00FEH   A      168#
+PCA0CPL0. . . . . . .  D ADDR   00EAH   A      148#
+PCA0CPL1. . . . . . .  D ADDR   00EBH   A      149#
+PCA0CPL2. . . . . . .  D ADDR   00ECH   A      150#
+PCA0CPL3. . . . . . .  D ADDR   00EDH   A      151#
+PCA0CPL4. . . . . . .  D ADDR   00EEH   A      152#
+PCA0CPM0. . . . . . .  D ADDR   00DAH   A      133#
+PCA0CPM1. . . . . . .  D ADDR   00DBH   A      134#
+PCA0CPM2. . . . . . .  D ADDR   00DCH   A      135#
+PCA0CPM3. . . . . . .  D ADDR   00DDH   A      136#
+PCA0CPM4. . . . . . .  D ADDR   00DEH   A      137#
+PCA0H . . . . . . . .  D ADDR   00F9H   A      163#
+PCA0L . . . . . . . .  D ADDR   00E9H   A      147#
+PCA0MD. . . . . . . .  D ADDR   00D9H   A      132#
+PCON. . . . . . . . .  D ADDR   0087H   A      55#
+PORT_IO_INIT. . . . .  C ADDR   0347H   A      1004# 1075
+PS. . . . . . . . . .  B ADDR   00B8H.4 A      208#
+PSCTL . . . . . . . .  D ADDR   008FH   A      63#
+PSW . . . . . . . . .  D ADDR   00D0H   A      123# 231 232 233 234 235 236 237 238 554 700 816 866 906 922 932
+PT0 . . . . . . . . .  B ADDR   00B8H.1 A      205#
+PT1 . . . . . . . . .  B ADDR   00B8H.3 A      207#
+PT2 . . . . . . . . .  B ADDR   00B8H.5 A      209#
+PX0 . . . . . . . . .  B ADDR   00B8H.0 A      204#
+PX1 . . . . . . . . .  B ADDR   00B8H.2 A      206#
+RB8 . . . . . . . . .  B ADDR   0098H.2 A      187#
+A51 MACRO ASSEMBLER  MILESTONE#2                                                                      07/03/2008 13:36:55 PAGE    23
+
+RCAP2H. . . . . . . .  D ADDR   00CBH   A      119#
+RCAP2L. . . . . . . .  D ADDR   00CAH   A      118#
+RCAP4H. . . . . . . .  D ADDR   00E5H   A      143#
+RCAP4L. . . . . . . .  D ADDR   00E4H   A      142#
+RCLK. . . . . . . . .  B ADDR   00C8H.5 A      226#
+REF0CN. . . . . . . .  D ADDR   00D1H   A      124#
+REN . . . . . . . . .  B ADDR   0098H.4 A      189#
+RESET_SOURCES_INIT. .  C ADDR   0338H   A      991# 1072
+RI. . . . . . . . . .  B ADDR   0098H.0 A      185#
+RS0 . . . . . . . . .  B ADDR   00D0H.3 A      234#
+RS1 . . . . . . . . .  B ADDR   00D0H.4 A      235#
+RSTSRC. . . . . . . .  D ADDR   00EFH   A      153#
+RXOVRN. . . . . . . .  B ADDR   00F8H.4 A      264#
+SADDR0. . . . . . . .  D ADDR   00A9H   A      87#
+SADDR1. . . . . . . .  D ADDR   00F3H   A      157#
+SADEN0. . . . . . . .  D ADDR   00B9H   A      101#
+SADEN1. . . . . . . .  D ADDR   00AEH   A      92#
+SBUF0 . . . . . . . .  D ADDR   0099H   A      72#
+SBUF1 . . . . . . . .  D ADDR   00F2H   A      156#
+SCON0 . . . . . . . .  D ADDR   0098H   A      71# 185 186 187 188 189 190 191 192
+SCON1 . . . . . . . .  D ADDR   00F1H   A      155#
+SI. . . . . . . . . .  B ADDR   00C0H.3 A      215#
+SLVSEL. . . . . . . .  B ADDR   00F8H.2 A      262#
+SM0 . . . . . . . . .  B ADDR   0098H.7 A      192#
+SM1 . . . . . . . . .  B ADDR   0098H.6 A      191#
+SM2 . . . . . . . . .  B ADDR   0098H.5 A      190#
+SMB0ADR . . . . . . .  D ADDR   00C3H   A      111#
+SMB0CN. . . . . . . .  D ADDR   00C0H   A      108# 212 213 214 215 216 217 218
+SMB0CR. . . . . . . .  D ADDR   00CFH   A      122#
+SMB0DAT . . . . . . .  D ADDR   00C2H   A      110#
+SMB0STA . . . . . . .  D ADDR   00C1H   A      109#
+SMBFTE. . . . . . . .  B ADDR   00C0H.1 A      213#
+SMBTOE. . . . . . . .  B ADDR   00C0H.0 A      212#
+SP. . . . . . . . . .  D ADDR   0081H   A      49#
+SPI0CFG . . . . . . .  D ADDR   009AH   A      73#
+SPI0CKR . . . . . . .  D ADDR   009DH   A      76#
+SPI0CN. . . . . . . .  D ADDR   00F8H   A      162# 260 261 262 263 264 265 266 267
+SPI0DAT . . . . . . .  D ADDR   009BH   A      74#
+SPIEN . . . . . . . .  B ADDR   00F8H.0 A      260#
+SPIF. . . . . . . . .  B ADDR   00F8H.7 A      267#
+STA . . . . . . . . .  B ADDR   00C0H.5 A      217#
+STO . . . . . . . . .  B ADDR   00C0H.4 A      216#
+T2CON . . . . . . . .  D ADDR   00C8H   A      116# 221 222 223 224 225 226 227 228
+T4CON . . . . . . . .  D ADDR   00C9H   A      117#
+TB8 . . . . . . . . .  B ADDR   0098H.3 A      188#
+TCLK. . . . . . . . .  B ADDR   00C8H.4 A      225#
+TCON. . . . . . . . .  D ADDR   0088H   A      56# 175 176 177 178 179 180 181 182
+TF0 . . . . . . . . .  B ADDR   0088H.5 A      180# 955 956
+TF1 . . . . . . . . .  B ADDR   0088H.7 A      182#
+TF2 . . . . . . . . .  B ADDR   00C8H.7 A      228#
+TH0 . . . . . . . . .  D ADDR   008CH   A      60# 950
+TH1 . . . . . . . . .  D ADDR   008DH   A      61#
+TH2 . . . . . . . . .  D ADDR   00CDH   A      121#
+TH4 . . . . . . . . .  D ADDR   00F5H   A      159#
+TI. . . . . . . . . .  B ADDR   0098H.1 A      186#
+TIMER_INIT. . . . . .  C ADDR   033FH   A      996# 1073
+TL0 . . . . . . . . .  D ADDR   008AH   A      58# 951
+TL1 . . . . . . . . .  D ADDR   008BH   A      59#
+TL2 . . . . . . . . .  D ADDR   00CCH   A      120#
+TL4 . . . . . . . . .  D ADDR   00F4H   A      158#
+TMOD. . . . . . . . .  D ADDR   0089H   A      57# 997
+TMR3CN. . . . . . . .  D ADDR   0091H   A      65#
+TMR3H . . . . . . . .  D ADDR   0095H   A      69#
+TMR3L . . . . . . . .  D ADDR   0094H   A      68#
+TMR3RLH . . . . . . .  D ADDR   0093H   A      67#
+TMR3RLL . . . . . . .  D ADDR   0092H   A      66#
+A51 MACRO ASSEMBLER  MILESTONE#2                                                                      07/03/2008 13:36:55 PAGE    24
+
+TR0 . . . . . . . . .  B ADDR   0088H.4 A      179# 952 958
+TR1 . . . . . . . . .  B ADDR   0088H.6 A      181#
+TR2 . . . . . . . . .  B ADDR   00C8H.2 A      223#
+TXBSY . . . . . . . .  B ADDR   00F8H.3 A      263#
+WCOL. . . . . . . . .  B ADDR   00F8H.6 A      266#
+WDTCN . . . . . . . .  D ADDR   00FFH   A      169# 992 993
+XBR0. . . . . . . . .  D ADDR   00E1H   A      139#
+XBR1. . . . . . . . .  D ADDR   00E2H   A      140# 1045
+XBR2. . . . . . . . .  D ADDR   00E3H   A      141# 1046
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

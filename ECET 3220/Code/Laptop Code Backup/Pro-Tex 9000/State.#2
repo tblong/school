@@ -1,0 +1,1156 @@
+;=====================================================================
+;                             Pro-Tex 9000
+;
+;Revision: R.07031336  (R.MMDDHHMM)
+;
+;Project Team Members:
+; - Vince Watkins
+; - Will Smith
+; - Tyler Long
+;
+;=State Machine Routines=
+;
+;
+;
+;
+;Registers Used:
+; -
+;=====================================================================
+
+
+;=====================================================================
+;   Variable declarations
+;=====================================================================
+
+A_7447    bit    P3.0  ;These two bits control the 7-seg to show
+B_7447    bit    P3.1  ;how many PW attempts are left. 3=>0
+
+
+
+;=====================================================================
+;   Table for State machine
+;=====================================================================
+
+State_Table:
+    dw    State_00    ;pointer to State 00   completed
+    dw    State_01    ;pointer to State 01   completed
+    dw    State_02    ;pointer to State 02   completed
+    dw    State_03    ;pointer to State 03   completed
+    dw    State_04    ;pointer to State 04   completed
+    dw    State_05    ;pointer to State 05   completed
+    dw    State_06    ;pointer to State 06  
+    dw    State_07    ;pointer to State 07  
+    dw    State_08    ;pointer to State 08
+    dw    State_09    ;pointer to State 09
+    dw    State_0A    ;pointer to State 0A
+    dw    State_0B    ;pointer to State 0B
+    dw    State_0C    ;pointer to State 0C
+    dw    State_0D    ;pointer to State 0D
+    dw    State_0E    ;pointer to State 0E
+    dw    State_0F    ;pointer to State 0F  
+    dw    State_10    ;pointer to State 10
+    dw    State_11    ;pointer to State 11
+    dw    State_12    ;pointer to State 12
+    dw    State_13    ;pointer to State 13
+    dw    State_14    ;pointer to State 14
+    dw    State_15    ;pointer to State 15
+
+;=====================================================================
+;   State_00
+;
+;This state shows the 'Initialization' screen.  Keypad /INT0 is
+;disabled in this state.  
+;
+;
+;=====================================================================
+
+State_00:                     ;Initialization screen
+    mov     21h,#00h          ;Current State
+
+    clr     B_7447            ;No password prompts
+    clr     A_7447            ;here
+State_06:
+    
+
+    mov     DPTR,#LCD_First   ;State_00 Screen pointer
+    mov     ACC,#00h          ;Points to first char. in string
+    lcall   LCD_Print         ;Display State_06 Screen; 1st line
+
+    ;State_00 Screen - 2nd line
+
+    push    DPH
+    push    DPL               ;Saves DPTR for next line in screen
+
+    mov     DPTR,#LCD_CMD     ;Locates Cursor
+    mov     ACC,#80h + 40h
+    movx    @DPTR,A
+    lcall   LCD_Busy
+
+    pop     DPL
+    pop     DPH               ;Restore next line for screen
+
+    mov     ACC,#00h          ;offset for char in string 
+                              ;00h=>1st char in string
+    lcall   LCD_Print         ;Display State_00 Screen; 2nd line
+
+    ;State_00 Screen - 3rd line
+		
+    push    DPH
+    push    DPL               ;Saves DPTR for next line in screen
+
+    mov     DPTR,#LCD_CMD     ;Locates Cursor
+    mov     ACC,#80h + 14h
+    movx    @DPTR,A
+    lcall   LCD_Busy
+
+    pop     DPL
+    pop     DPH               ;Restore next line for screen
+
+    mov     ACC,#00h          ;offset for char in string 
+                              ;00h=>1st char in string
+    lcall   LCD_Print         ;Display State_00 Screen; 3rd line
+
+    ;State_00 Screen - 4th line
+		
+    push    DPH
+    push    DPL               ;Saves DPTR for next line in screen
+
+    mov     DPTR,#LCD_CMD     ;Locates Cursor
+    mov     ACC,#80h + 54h
+    movx    @DPTR,A
+    lcall   LCD_Busy
+
+    pop     DPL
+    pop     DPH               ;Restore next line for screen
+
+    mov     ACC,#00h          ;offset for char in string 
+                              ;00h=>1st char in string
+    lcall   LCD_Print         ;Display State_06 Screen; 4th line
+
+    mov     DPTR,#LCD_CMD        ;Turns of cursor
+    mov     A,#DISP_ON           ;and stops
+    movx    @DPTR,A              ;blinking
+    lcall   LCD_Busy             ;
+
+    
+    lcall   LCD_Wait_3sec
+    lcall   LCD_Clear
+    ret
+
+;=====================================================================
+;   State_01
+;
+;This state shows the 'Pro-Tex 9000' screen.  Keypad /INT0 is
+;disabled in this state.  
+;
+;
+;=====================================================================
+
+State_01:
+    mov     21h,#01h            ;Current State
+    mov	    DPTR,#LCD_CMD       ;Locates Cursor
+    mov     ACC,#80h + 04h
+    movx    @DPTR,A
+    lcall   LCD_Busy
+
+    mov     DPTR,#LCD_Pro_Tex   ;2st Screen pointer
+    mov     ACC,#00h            ;Points to first char. in string
+    lcall   LCD_Print           ;Display Screen
+
+    lcall   LCD_Wait_3sec
+    lcall   LCD_Clear
+    ret
+
+;=====================================================================
+;   State_02
+;
+;This state shows the 'Enter PW:' screen.  Keypad /INT0 is
+;enabled in this state.  
+;
+;Registers:
+; - R0: Points to MSB of password entered (2Bh)
+; - R1: Points to current state (21h)
+; - R2: Determines BS/non_Func key presses allowed
+;=====================================================================
+
+State_02:
+    mov     R0,#2Bh             ;Pointer for MSB of psswd
+    mov     R1,#21h             ;Pointer for current state
+    mov     R2,#00h             ;BS/Non_Func key presses
+    mov     21h,#02h            ;Current State
+
+    setb    B_7447              ;Three PW attempts left
+    setb    A_7447              ;
+
+    ;mov     DPTR,#LCD_CMD       ;Locates Cursor
+    ;mov     ACC,#80h + 00h
+    ;movx    @DPTR,A
+    ;lcall   LCD_Busy
+
+    mov     DPTR,#LCD_Password_Entry;Screen pointer
+    mov     ACC,#00h                ;Points to first char. in string
+    lcall   LCD_Print               ;Display Screen
+    
+    mov   20h,#00h          ;Address 20h used for determining
+                            ;Caps and function keys pressed
+
+    lcall Key_Func_Blue     ;Starts with numbers as default, Blue LED
+
+
+    mov   DPTR,#LCD_CMD     ;LCD Command
+    mov   ACC,#DISP_CURSOR  ;Shows & blinks cursor
+    movx  @DPTR,A
+    lcall LCD_Busy
+
+    setb  EX0                ;/INT0 Keypad interrupts enabled
+
+    setb  EX1                ;/INT1 Alarm interrupts enabled
+                             ;
+
+    setb  ET1                ;Timer 1 Interrupt enabled
+    setb  TR1                ;Start Timer 1    
+
+    ret
+
+;=====================================================================
+;   State_03
+;
+;This state shows the 'Invalid PW' screen.  Keypad /INT0 is
+;enabled in this state.  
+;
+;Registers:
+; - R0: Points to MSB of password entered (2Bh)
+; - R1: Points to current state (21h)
+; - R2: Determines BS/non_Func key presses allowed
+;=====================================================================
+
+State_03:
+    mov     R0,#2Bh             ;Pointer for MSB of psswd
+    mov     R1,#21h             ;Pointer for current state
+    mov     R2,#00h             ;BS/Non_Func key presses
+    mov     21h,#03h            ;Current State
+
+    setb    B_7447              ;Two PW attempts left
+    clr     A_7447              ;
+
+    lcall   LCD_Clear
+
+    mov     DPTR,#LCD_PW_Bad    ;Screen pointer
+    mov     ACC,#00h            ;Points to first char. in string
+    lcall   LCD_Print           ;Display Screen
+
+    push    DPH
+    push    DPL               ;Saves DPTR for next line in screen
+
+    mov     DPTR,#LCD_CMD     ;Locates Cursor
+    mov     ACC,#80h + 40h
+    movx    @DPTR,A
+    lcall   LCD_Busy
+
+    pop     DPL
+    pop     DPH               ;Restore next line for screen
+
+    mov     ACC,#00h          ;offset for char in string 
+                              ;00h=>1st char in string
+    lcall   LCD_Print         ;Display Screen
+    
+    setb  EX0                ;/INT0 Keypad interrupts enabled
+                             ;on 6th screen
+    ret
+
+;=====================================================================
+;   State_04
+;
+;This state shows the 'Invalid PW' screen.  Keypad /INT0 is
+;enabled in this state.  
+;
+;Registers:
+; - R0: Points to MSB of password entered (2Bh)
+; - R1: Points to current state (21h)
+; - R2: Determines BS/non_Func key presses allowed
+;=====================================================================
+
+State_04:
+    mov     R0,#2Bh             ;Pointer for MSB of psswd
+    mov     R1,#21h             ;Pointer for current state
+    mov     R2,#00h             ;BS/Non_Func key presses
+    mov     21h,#04h            ;Current State
+
+    clr     B_7447              ;One PW attempt left
+    setb    A_7447              ;
+
+    lcall   LCD_Clear
+
+    mov     DPTR,#LCD_PW_Bad    ;Screen pointer
+    mov     ACC,#00h            ;Points to first char. in string
+    lcall   LCD_Print           ;Display Screen
+
+    push    DPH
+    push    DPL               ;Saves DPTR for next line in screen
+
+    mov     DPTR,#LCD_CMD     ;Locates Cursor
+    mov     ACC,#80h + 40h
+    movx    @DPTR,A
+    lcall   LCD_Busy
+
+    pop     DPL
+    pop     DPH               ;Restore next line for screen
+
+    mov     ACC,#00h          ;offset for char in string 
+                              ;00h=>1st char in string
+    lcall   LCD_Print         ;Display Screen
+    
+    setb  EX0                ;/INT0 Keypad interrupts enabled
+                             ;on 6th screen
+    ret
+
+;=====================================================================
+;   State_05
+;
+;This state shows the 'System Locked' screen.  Keypad /INT0 is
+;disabled in this state.  
+;
+;Registers:
+; - R0: Points to MSB of password entered (2Bh)
+; - R1: Points to current state (21h)
+; - R2: Determines BS/non_Func key presses allowed
+;=====================================================================
+
+State_05:
+    clr     EA                   ;Disable all interrupts  
+    lcall   LCD_Clear
+
+    clr     B_7447               ;No PW attempts left
+    clr     A_7447               ;
+    
+    mov     DPTR,#LCD_CMD        ;Locates Cursor
+    mov     ACC,#80h + 03h
+    movx    @DPTR,A
+    lcall   LCD_Busy
+
+    mov     DPTR,#LCD_SysLocked  ;Screen pointer
+    mov     ACC,#00h             ;Points to first char. in string
+    lcall   LCD_Print            ;Display Screen
+
+    mov     DPTR,#LCD_CMD        ;Turns of cursor
+    mov     A,#DISP_ON           ;and stops
+    movx    @DPTR,A              ;blinking
+
+
+    sjmp    $                    ;lock up program because of too many 
+                                 ;password attempts
+
+;=====================================================================
+;   State_06
+;
+;This state shows the 'Home' screen.  Keypad /INT0 is
+;enabled in this state.  
+;
+;Registers:
+; - R1: Points to current state (21h)
+;=====================================================================
+
+State_06:
+    mov     R1,#21h             ;Pointer for current state
+    
+
+    clr     B_7447               ;No password prompts
+    clr     A_7447               ;here
+
+    lcall   LCD_Clear
+
+    mov     DPTR,#LCD_Home    ;State_06 Screen pointer
+    mov     ACC,#00h          ;Points to first char. in string
+    lcall   LCD_Print         ;Display State_06 Screen; 1st line
+
+    ;State_06 Screen - 2nd line
+
+    push    DPH
+    push    DPL               ;Saves DPTR for next line in screen
+
+    mov     DPTR,#LCD_CMD     ;Locates Cursor
+    mov     ACC,#80h + 40h
+    movx    @DPTR,A
+    lcall   LCD_Busy
+
+    pop     DPL
+    pop     DPH               ;Restore next line for screen
+
+    mov     ACC,#00h          ;offset for char in string 
+                              ;00h=>1st char in string
+    lcall   LCD_Print         ;Display State_06 Screen; 2nd line
+
+    ;State_06 Screen - 3rd line
+		
+    push    DPH
+    push    DPL               ;Saves DPTR for next line in screen
+
+    mov     DPTR,#LCD_CMD     ;Locates Cursor
+    mov     ACC,#80h + 14h
+    movx    @DPTR,A
+    lcall   LCD_Busy
+
+    pop     DPL
+    pop     DPH               ;Restore next line for screen
+
+    mov     ACC,#00h          ;offset for char in string 
+                              ;00h=>1st char in string
+    lcall   LCD_Print         ;Display State_06 Screen; 3rd line
+
+    ;State_06 Screen - 4th line
+		
+    push    DPH
+    push    DPL               ;Saves DPTR for next line in screen
+
+    mov     DPTR,#LCD_CMD     ;Locates Cursor
+    mov     ACC,#80h + 54h
+    movx    @DPTR,A
+    lcall   LCD_Busy
+
+    pop     DPL
+    pop     DPH               ;Restore next line for screen
+
+    mov     ACC,#00h          ;offset for char in string 
+                              ;00h=>1st char in string
+    lcall   LCD_Print         ;Display State_06 Screen; 4th line
+
+    mov     DPTR,#LCD_CMD        ;Turns of cursor
+    mov     A,#DISP_ON           ;and stops
+    movx    @DPTR,A              ;blinking
+    lcall   LCD_Busy             ;
+
+    mov     DPTR,#LCD_CMD     ;Locates Cursor for Accel STPT
+    mov     ACC,#80h + 20h
+    movx    @DPTR,A
+    lcall   LCD_Busy
+
+    mov     DPTR,#LCD_WRITE   ;Writes the default Acceleration STPT
+    mov     ACC,27h           ;of 0.75g to LCD
+    movx    @DPTR,A
+    lcall   LCD_BUSY
+    
+    mov     DPTR,#LCD_WRITE
+    mov     ACC,#'.'
+    movx    @DPTR,A
+    lcall   LCD_BUSY
+    
+    mov     DPTR,#LCD_WRITE
+    mov     ACC,26h
+    movx    @DPTR,A
+    lcall   LCD_BUSY
+    
+    mov     DPTR,#LCD_WRITE
+    mov     ACC,25h
+    movx    @DPTR,A
+    lcall   LCD_BUSY
+    
+    mov     DPTR,#LCD_WRITE
+    mov     ACC,#'g'
+    movx    @DPTR,A
+    lcall   LCD_BUSY         ;Last character of Acceleration STPT
+
+    mov     21h,#06h            ;Current State
+    
+    
+    setb  EX0                ;/INT0 Keypad interrupts enabled
+                             ;on State_06 screen
+
+    ret
+
+
+;=====================================================================
+;   State_07
+;
+;This state shows the 'Menu' screen.  Keypad /INT0 is
+;enabled in this state.  
+;
+;Registers:
+; - R1: Points to current state (21h)
+;=====================================================================
+
+State_07:
+    mov     R1,#21h             ;Pointer for current state
+    mov     21h,#07h           ;Current State
+
+    lcall   LCD_Clear
+
+    mov     DPTR,#LCD_Main_Menu ;State_07 Screen pointer
+    mov     ACC,#00h            ;Points to first char. in string
+    lcall   LCD_Print           ;Display State_07 Screen; 1st line
+
+    ;State_07 Screen - 2nd line
+
+    push    DPH
+    push    DPL              ;Saves DPTR for next line in screen
+
+    mov     DPTR,#LCD_CMD    ;Locates Cursor
+    mov     ACC,#80h + 40h
+    movx    @DPTR,A
+    lcall   LCD_Busy
+
+    pop     DPL
+    pop     DPH              ;Restore next line for screen
+ 
+    mov     ACC,#00h         ;offset for char in string
+                             ;00h=>1st char in string
+    lcall   LCD_Print        ;Display State_07 Screen; 2nd line
+
+    ;State_07 Screen - 3rd line
+
+    push    DPH
+    push    DPL             ;Saves DPTR for next line in screen
+
+    mov     DPTR,#LCD_CMD   ;Locates Cursor
+    mov     ACC,#80h + 14h
+    movx    @DPTR,A
+    lcall   LCD_Busy
+
+    pop     DPL
+    pop     DPH             ;Restore next line for screen
+
+    mov     ACC,#00h        ;offset for char in string 
+                            ;00h=>1st char in string
+    lcall   LCD_Print       ;Display State_07 Screen; 3rd line
+
+    ;State_07 Screen - 4th line
+		
+    push    DPH
+    push    DPL             ;Saves DPTR for next line in screen
+
+    mov     DPTR,#LCD_CMD   ;Locates Cursor
+    mov     ACC,#80h + 54h
+    movx    @DPTR,A
+    lcall   LCD_Busy
+
+    pop     DPL
+    pop     DPH             ;Restore next line for screen
+
+    mov     ACC,#00h        ;offset for char in string 
+                            ;00h=>1st char in string
+    lcall   LCD_Print       ;Display State_07 Screen; 4th line
+
+    setb  EX0                ;/INT0 Keypad interrupts enabled
+                             ;on State_07 screen
+
+    ret
+
+;=====================================================================
+;   State_08
+;
+;This state shows the 'Arm/Disarm' screen.  Keypad /INT0 is
+;enabled in this state.  
+;
+;Registers:
+; - R1: Points to current state (21h)
+;=====================================================================
+
+State_08:
+    mov     R1,#21h             ;Pointer for current state
+    mov     21h,#08h            ;Current State
+
+    lcall   LCD_Clear
+
+    mov     DPTR,#LCD_ArmDis    ;State_08 Screen pointer
+    mov     ACC,#00h            ;Points to first char. in string
+    lcall   LCD_Print           ;Display State_08 Screen; 1st line
+
+    ;State_08 Screen - 2nd line
+
+    push    DPH
+    push    DPL              ;Saves DPTR for next line in screen
+
+    mov     DPTR,#LCD_CMD    ;Locates Cursor
+    mov     ACC,#80h + 40h
+    movx    @DPTR,A
+    lcall   LCD_Busy
+
+    pop     DPL
+    pop     DPH              ;Restore next line for screen
+ 
+    mov     ACC,#00h         ;offset for char in string
+                             ;00h=>1st char in string
+    lcall   LCD_Print        ;Display State_08 Screen; 2nd line
+
+    ;State_08 Screen - 3rd line
+
+    push    DPH
+    push    DPL              ;Saves DPTR for next line in screen
+
+    mov     DPTR,#LCD_CMD    ;Locates Cursor
+    mov     ACC,#80h + 54h
+    movx    @DPTR,A
+    lcall   LCD_Busy
+
+    pop     DPL
+    pop     DPH              ;Restore next line for screen
+ 
+    mov     ACC,#00h         ;offset for char in string
+                             ;00h=>1st char in string
+    lcall   LCD_Print        ;Display State_08 Screen; 3rd line
+
+
+    setb  EX0                ;/INT0 Keypad interrupts enabled
+                             ;on State_08 screen
+
+    ret
+
+;=====================================================================
+;   State_09
+;
+;This state shows the 'System Armed' screen.  Keypad /INT0 is
+;enabled in this state.  
+;
+;Registers:
+; - R1: Points to current state (21h)
+;=====================================================================
+
+State_09:
+    mov     R1,#21h             ;Pointer for current state
+    mov     21h,#09h            ;Current State
+    setb    18h                 ;Arming system
+    setb    P1.1                ;Red LED indicator
+
+    lcall   LCD_Clear
+
+    mov     DPTR,#LCD_CMD        ;Locates Cursor
+    mov     ACC,#80h + 04h
+    movx    @DPTR,A
+    lcall   LCD_Busy
+
+    mov     DPTR,#LCD_SysArmed  ;State_09 Screen pointer
+    mov     ACC,#00h            ;Points to first char. in string
+    lcall   LCD_Print           ;Display State_09 Screen; 1st line
+    
+    lcall   LCD_Wait_3sec       ;Screen Delay
+
+    mov     A,#06h              ;Load in State_06
+    lcall   State_Lookup        ;Return to State_06
+    ret
+    
+
+;=====================================================================
+;   State_0A
+;
+;This state shows the 'Enter PW:' screen.  Keypad /INT0 is
+;enabled in this state.  
+;
+;Registers:
+; - R0: Points to MSB of password entered (2Bh)
+; - R1: Points to current state (21h)
+; - R2: Determines BS/non_Func key presses allowed
+;=====================================================================
+
+State_0A:
+    mov     R0,#2Bh             ;Pointer for MSB of psswd
+    mov     R1,#21h             ;Pointer for current state
+    mov     R2,#00h             ;BS/Non_Func key presses
+    mov     21h,#0Ah            ;Current State
+
+    setb    B_7447              ;Three PW attempts left
+    setb    A_7447              ;
+
+    lcall   LCD_Clear
+
+    mov     DPTR,#LCD_Password_Entry;Screen pointer
+    mov     ACC,#00h                ;Points to first char. in string
+    lcall   LCD_Print               ;Display Screen
+    
+  
+    mov   DPTR,#LCD_CMD     ;LCD Command
+    mov   ACC,#DISP_CURSOR  ;Shows & blinks cursor
+    movx  @DPTR,A
+    lcall LCD_Busy
+
+
+    ret
+
+;=====================================================================
+;   State_0B
+;
+;This state shows the 'System  Disarmed' screen.  Keypad /INT0 is
+;enabled in this state.  
+;
+;Registers:
+; - R1: Points to current state (21h)
+;=====================================================================
+
+State_0B:
+    mov     R1,#21h             ;Pointer for current state
+    mov     21h,#0Bh            ;Current State
+    clr     18h                 ;Disarming system
+    clr     P1.1                ;Red LED indicator
+    clr     P1.0                ;Disables flashing Alarm LED
+    clr     P1.2                ;Disables Tamper LED
+
+    lcall   LCD_Clear
+
+    mov     DPTR,#LCD_CMD        ;Turns of cursor
+    mov     A,#DISP_ON           ;and stops
+    movx    @DPTR,A              ;blinking
+    lcall   LCD_Busy
+
+    mov     DPTR,#LCD_CMD        ;Locates Cursor
+    mov     ACC,#80h + 02h
+    movx    @DPTR,A
+    lcall   LCD_Busy
+
+    mov     DPTR,#LCD_SysDisArmed  ;State_0B Screen pointer
+    mov     ACC,#00h            ;Points to first char. in string
+    lcall   LCD_Print           ;Display State_0B Screen; 1st line
+    
+    lcall   LCD_Wait_3sec       ;Screen Delay
+
+    mov     A,#06h              ;Load in State_06
+    lcall   State_Lookup        ;Return to State_06
+
+    setb    EX1                 ;Re-enable /INT1 Alarms
+
+    ret
+
+;=====================================================================
+;   State_0C
+;
+;This state shows the 'Invalid PW' screen.  Keypad /INT0 is
+;enabled in this state.  
+;
+;Registers:
+; - R0: Points to MSB of password entered (2Bh)
+; - R1: Points to current state (21h)
+; - R2: Determines BS/non_Func key presses allowed
+;=====================================================================
+
+State_0C:
+    mov     R0,#2Bh             ;Pointer for MSB of psswd
+    mov     R1,#21h             ;Pointer for current state
+    mov     R2,#00h             ;BS/Non_Func key presses
+    mov     21h,#0Ch            ;Current State
+
+    setb    B_7447              ;Two PW attempts left
+    clr     A_7447              ;
+
+    lcall   LCD_Clear
+
+    mov     DPTR,#LCD_PW_Bad    ;Screen pointer
+    mov     ACC,#00h            ;Points to first char. in string
+    lcall   LCD_Print           ;Display Screen
+
+    push    DPH
+    push    DPL               ;Saves DPTR for next line in screen
+
+    mov     DPTR,#LCD_CMD     ;Locates Cursor
+    mov     ACC,#80h + 40h
+    movx    @DPTR,A
+    lcall   LCD_Busy
+
+    pop     DPL
+    pop     DPH               ;Restore next line for screen
+
+    mov     ACC,#00h          ;offset for char in string 
+                              ;00h=>1st char in string
+    lcall   LCD_Print         ;Display Screen
+    
+    ret
+
+;=====================================================================
+;   State_0D
+;
+;This state shows the 'Invalid PW' screen.  Keypad /INT0 is
+;enabled in this state.  
+;
+;Registers:
+; - R0: Points to MSB of password entered (2Bh)
+; - R1: Points to current state (21h)
+; - R2: Determines BS/non_Func key presses allowed
+;=====================================================================
+
+State_0D:
+    mov     R0,#2Bh             ;Pointer for MSB of psswd
+    mov     R1,#21h             ;Pointer for current state
+    mov     R2,#00h             ;BS/Non_Func key presses
+    mov     21h,#0Dh            ;Current State
+
+    clr     B_7447              ;One PW attempt left
+    setb    A_7447              ;
+
+    lcall   LCD_Clear
+
+    mov     DPTR,#LCD_PW_Bad    ;Screen pointer
+    mov     ACC,#00h            ;Points to first char. in string
+    lcall   LCD_Print           ;Display Screen
+
+    push    DPH
+    push    DPL               ;Saves DPTR for next line in screen
+
+    mov     DPTR,#LCD_CMD     ;Locates Cursor
+    mov     ACC,#80h + 40h
+    movx    @DPTR,A
+    lcall   LCD_Busy
+
+    pop     DPL
+    pop     DPH               ;Restore next line for screen
+
+    mov     ACC,#00h          ;offset for char in string 
+                              ;00h=>1st char in string
+    lcall   LCD_Print         ;Display Screen
+
+    ret
+
+
+
+;=====================================================================
+;   State_0E
+;
+;This state shows the 'New Acc STPT:' screen.  Keypad /INT0 is
+;enabled in this state.  
+;
+;Registers:
+; - R0: Points to MSB of Accel STPT (27h)
+; - R1: Points to current state (21h)
+; - R2: Determines BS/non_Func key presses allowed
+;=====================================================================
+
+State_0E:
+    mov     R0,#27h             ;Pointer for MSB of Accel STPT
+    mov     R1,#21h             ;Pointer for current state
+    mov     R2,#00h             ;
+    mov     21h,#0Eh            ;Current State
+
+    lcall   LCD_Clear
+
+    mov     DPTR,#LCD_AccStpt   ;State_0E Screen pointer
+    mov     ACC,#00h            ;Points to first char. in string
+    lcall   LCD_Print           ;Display State_08 Screen; 1st line
+
+
+    ;State_0E Screen - 2nd line
+
+    push    DPH
+    push    DPL              ;Saves DPTR for next line in screen
+
+    mov     DPTR,#LCD_CMD    ;Locates Cursor
+    mov     ACC,#80h + 40h
+    movx    @DPTR,A
+    lcall   LCD_Busy
+
+    pop     DPL
+    pop     DPH              ;Restore next line for screen
+ 
+    mov     ACC,#00h         ;offset for char in string
+                             ;00h=>1st char in string
+    lcall   LCD_Print        ;Display State_0E Screen; 2nd line
+
+    ;State_0E Screen - 3rd line
+
+    push    DPH
+    push    DPL              ;Saves DPTR for next line in screen
+
+    mov     DPTR,#LCD_CMD    ;Locates Cursor
+    mov     ACC,#80h + 1Ah
+    movx    @DPTR,A
+    lcall   LCD_Busy
+
+    pop     DPL
+    pop     DPH              ;Restore next line for screen
+ 
+    mov     ACC,#00h         ;offset for char in string
+                             ;00h=>1st char in string
+    lcall   LCD_Print        ;Display State_0E Screen; 3rd line
+
+
+    mov   DPTR,#LCD_CMD     ;LCD Command
+    mov   ACC,#DISP_CURSOR  ;Shows & blinks cursor
+    movx  @DPTR,A
+    lcall LCD_Busy
+
+
+    setb  EX0                ;/INT0 Keypad interrupts enabled
+                             ;on State_0E screen
+
+    ret
+
+;=====================================================================
+;   State_0F
+;
+;This state shows the 'Valid Setpoint' screen.  Keypad /INT0 is
+;enabled in this state.  
+;
+;Registers:
+; - R1: Points to current state (21h)
+;=====================================================================
+
+State_0F:
+    mov     R1,#21h             ;Pointer for current state
+    mov     21h,#0Fh            ;Current State
+    
+    lcall   LCD_Clear
+
+    mov     DPTR,#LCD_CMD        ;Turns of cursor
+    mov     A,#DISP_ON           ;and stops
+    movx    @DPTR,A              ;blinking
+    lcall   LCD_Busy
+
+    mov     DPTR,#LCD_CMD        ;Locates Cursor
+    mov     ACC,#80h + 02h
+    movx    @DPTR,A
+    lcall   LCD_Busy
+
+    mov     DPTR,#LCD_Valid_STPT;State_0B Screen pointer
+    mov     ACC,#00h            ;Points to first char. in string
+    lcall   LCD_Print           ;Display State_0B Screen; 1st line
+    
+    lcall   LCD_Wait_3sec       ;Screen Delay
+
+    mov     A,#06h              ;Load in State_06
+    lcall   State_Lookup        ;Return to State_06
+
+    ret
+
+;=====================================================================
+;   State_10
+;
+;This state shows the 'Invalid Accel STPT' screen.  Keypad /INT0 is
+;enabled in this state.  
+;
+;Registers:
+; - R1: Points to current state (21h)
+;=====================================================================
+
+State_10:
+    mov     R1,#21h             ;Pointer for current state
+    mov     21h,#10h            ;Current State
+    
+    lcall   LCD_Clear
+
+    mov     DPTR,#LCD_CMD        ;Turns of cursor
+    mov     A,#DISP_ON           ;and stops
+    movx    @DPTR,A              ;blinking
+    lcall   LCD_Busy
+
+    mov     DPTR,#LCD_CMD        ;Locates Cursor
+    mov     ACC,#80h + 02h
+    movx    @DPTR,A
+    lcall   LCD_Busy
+
+    mov     DPTR,#LCD_Invalid_STPT;State_0B Screen pointer
+    mov     ACC,#00h              ;Points to first char. in string
+    lcall   LCD_Print             ;Display State_0B Screen; 1st line
+    
+    lcall   LCD_Wait_3sec       ;Screen Delay
+
+    mov     A,#0Eh              ;Load in State_0E
+    lcall   State_Lookup        ;Return to State_0E
+
+    ret
+
+;=====================================================================
+;   State_11
+;
+;This state shows the 'Enter Curr PW:' screen.  Keypad /INT0 is
+;enabled in this state.  
+;
+;Registers:
+; - R0: Points to MSB of password entered (2Bh)
+; - R1: Points to current state (21h)
+; - R2: Determines BS/non_Func key presses allowed
+;=====================================================================
+
+State_11:
+    mov     R0,#2Bh             ;Pointer for MSB of psswd
+    mov     R1,#21h             ;Pointer for current state
+    mov     R2,#00h             ;BS/Non_Func key presses
+    mov     21h,#11h            ;Current State
+
+    setb    B_7447              ;Three PW attempts left
+    setb    A_7447              ;
+
+    lcall   LCD_Clear
+
+    mov     DPTR,#LCD_Current_PW    ;Screen pointer
+    mov     ACC,#00h                ;Points to first char. in string
+    lcall   LCD_Print               ;Display Screen
+    
+  
+    mov   DPTR,#LCD_CMD     ;LCD Command
+    mov   ACC,#DISP_CURSOR  ;Shows & blinks cursor
+    movx  @DPTR,A
+    lcall LCD_Busy
+
+    ret
+
+;=====================================================================
+;   State_12
+;
+;This state shows the 'Invalid PW' screen.  Keypad /INT0 is
+;enabled in this state.  
+;
+;Registers:
+; - R0: Points to MSB of password entered (2Bh)
+; - R1: Points to current state (21h)
+; - R2: Determines BS/non_Func key presses allowed
+;=====================================================================
+
+State_12:
+    mov     R0,#2Bh             ;Pointer for MSB of psswd
+    mov     R1,#21h             ;Pointer for current state
+    mov     R2,#00h             ;BS/Non_Func key presses
+    mov     21h,#12h            ;Current State
+
+    setb    B_7447              ;Two PW attempts left
+    clr     A_7447              ;
+
+    lcall   LCD_Clear
+
+    mov     DPTR,#LCD_PW_Bad    ;Screen pointer
+    mov     ACC,#00h            ;Points to first char. in string
+    lcall   LCD_Print           ;Display Screen
+
+    push    DPH
+    push    DPL               ;Saves DPTR for next line in screen
+
+    mov     DPTR,#LCD_CMD     ;Locates Cursor
+    mov     ACC,#80h + 40h
+    movx    @DPTR,A
+    lcall   LCD_Busy
+
+    pop     DPL
+    pop     DPH               ;Restore next line for screen
+
+    mov     ACC,#00h          ;offset for char in string 
+                              ;00h=>1st char in string
+    lcall   LCD_Print         ;Display Screen
+
+    ret
+
+;=====================================================================
+;   State_13
+;
+;This state shows the 'Invalid PW' screen.  Keypad /INT0 is
+;enabled in this state.  
+;
+;Registers:
+; - R0: Points to MSB of password entered (2Bh)
+; - R1: Points to current state (21h)
+; - R2: Determines BS/non_Func key presses allowed
+;=====================================================================
+
+State_13:
+    mov     R0,#2Bh             ;Pointer for MSB of psswd
+    mov     R1,#21h             ;Pointer for current state
+    mov     R2,#00h             ;BS/Non_Func key presses
+    mov     21h,#13h            ;Current State
+
+    clr     B_7447              ;One PW attempt left
+    setb    A_7447              ;
+
+    lcall   LCD_Clear
+
+    mov     DPTR,#LCD_PW_Bad    ;Screen pointer
+    mov     ACC,#00h            ;Points to first char. in string
+    lcall   LCD_Print           ;Display Screen
+
+    push    DPH
+    push    DPL               ;Saves DPTR for next line in screen
+
+    mov     DPTR,#LCD_CMD     ;Locates Cursor
+    mov     ACC,#80h + 40h
+    movx    @DPTR,A
+    lcall   LCD_Busy
+
+    pop     DPL
+    pop     DPH               ;Restore next line for screen
+
+    mov     ACC,#00h          ;offset for char in string 
+                              ;00h=>1st char in string
+    lcall   LCD_Print         ;Display Screen
+
+    ret
+
+;=====================================================================
+;   State_14
+;
+;This state shows the 'Enter New PW:' screen.  Keypad /INT0 is
+;enabled in this state.  
+;
+;Registers:
+; - R1: Points to current state (21h)
+;=====================================================================
+
+State_14:
+    mov     R0,#2Bh             ;Pointer for MSB of psswd
+    mov     R1,#21h             ;Pointer for current state
+    mov     R2,#00h             ;BS/Non_Func key presses
+    mov     21h,#14h            ;Current State
+    
+    clr     B_7447               ;No password prompts
+    clr     A_7447               ;here
+
+    lcall   LCD_Clear
+
+    mov     DPTR,#LCD_New_PW        ;Screen pointer
+    mov     ACC,#00h                ;Points to first char. in string
+    lcall   LCD_Print               ;Display Screen
+    
+  
+    ret
+
+
+;=====================================================================
+;   State_15
+;
+;This state shows the 'Password Changed' screen.  Keypad /INT0 is
+;enabled in this state.  
+;
+;Registers:
+; - R1: Points to current state (21h)
+;=====================================================================
+
+State_15:
+    mov     R1,#21h             ;Pointer for current state
+    mov     21h,#15h            ;Current State
+
+    lcall   LCD_Clear
+
+    mov     DPTR,#LCD_CMD        ;Turns of cursor
+    mov     A,#DISP_ON           ;and stops
+    movx    @DPTR,A              ;blinking
+    lcall   LCD_Busy
+
+    mov     DPTR,#LCD_CMD        ;Locates Cursor
+    mov     ACC,#80h + 02h
+    movx    @DPTR,A
+    lcall   LCD_Busy
+
+    mov     DPTR,#LCD_Changed_PW  ;State_09 Screen pointer
+    mov     ACC,#00h              ;Points to first char. in string
+    lcall   LCD_Print             ;Display State_09 Screen; 1st line
+    
+    lcall   LCD_Wait_3sec       ;Screen Delay
+
+    mov     A,#06h              ;Load in State_06
+    lcall   State_Lookup        ;Return to State_06
+
+    ret
+
+
+;=====================================================================
+;   State Table Lookup
+;
+;
+;Call this routine with the ACC=> 0-n of state needed and the DPTR
+;pointing to the tag of the table of states.
+;
+;
+;=====================================================================
+		
+State_Lookup:
+    mov   DPTR,#State_Table
+    clr   C              
+    rlc   A             ;Multiply * 2 for word access
+    mov   R0, A         ;Save a copy of index
+    inc   A             ;Increment index to the low byte
+    movc  A, @A+DPTR    ;Get Low byte
+    push  ACC           ;Save low byte onto stack
+    mov   A, R0         ;Restore high byte
+    movc  A, @A+DPTR    ;Get high byte
+    push  ACC           ;save high byte onto stack
+    ret                 ;Direct branch to the subroutine    

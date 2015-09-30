@@ -1,0 +1,660 @@
+A51 MACRO ASSEMBLER  KEY                                                                  07/07/2008 20:33:07 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.00d
+NO OBJECT MODULE REQUESTED
+ASSEMBLER INVOKED BY: c:\SiLabs\MCU\IDEfiles\C51\BIN\a51.exe Key.asm XR GEN DB EP NOMOD51
+
+LOC  OBJ            LINE     SOURCE
+
+                       1     ;=====================================================================
+                       2     ;                             Pro-Tex 9000
+                       3     ;
+                       4     ;Revision: R.07031336  (R.MMDDHHMM)
+                       5     ;
+                       6     ;Project Team Members:
+                       7     ; - Vince Watkins
+                       8     ; - Will Smith
+                       9     ; - Tyler Long
+                      10     ;
+                      11     ;
+                      12     ;Keypad Subroutines
+                      13     ;
+                      14     ;
+                      15     ;=====================================================================
+                      16     
+                      17     ;=====================================================================
+                      18     ;   Variable declarations
+                      19     ;=====================================================================
+                      20     
+                      21     ;Keypad Commands
+  4000                22     KEY_READ              EQU 4000h     ;Keypad read cmd addr. for DPTR
+                      23     
+                      24     
+                      25     
+                      26     
+                      27     
+                      28     ;=====================================================================
+                      29     ;   Sub routine - Keypad ISR
+                      30     ;
+                      31     ;Data is left in ACC after this ISR
+                      32     ;
+                      33     ;Registers
+                      34     ; - R1: Determines BS/non_Func key presses allowed
+                      35     ;
+                      36     ;=====================================================================
+                      37     
+0000                  38     Key_ISR:
+                      39     
+0000 C0D0             40         push    PSW
+0002 C083             41         push    DPH
+0004 C082             42         push    DPL
+0006 C0E0             43         push    ACC
+0008 C0F0             44         push    B
+                      45     
+000A 904000           46         mov     DPTR,#KEY_READ
+000D E0               47         movx    A,@DPTR
+000E 540F             48         anl     A,#0Fh          ;Bit mask
+                      49                     
+                      50     ;Function key check
+0010 605E             51         jz      Key_Backspace   ;BS key pressed
+                      52     
+                      53     ;Enter key check
+0012 C0E0             54         push    ACC             ;save ACC with bit masked value
+0014 C3               55         clr     C
+0015 9408             56         subb    A,#08h          ;08h=Enter key
+0017 605C             57         jz      Key_Enter       ;ENT key pressed
+0019 D0E0             58         pop     ACC             ;Restore ACC from Bit masked value
+A51 MACRO ASSEMBLER  KEY                                                                  07/07/2008 20:33:07 PAGE     2
+
+                      59     
+                      60     ;Caps Lock key check
+001B C0E0             61         push    ACC             ;save ACC with bit masked value
+001D C3               62         clr     C
+001E 9404             63         subb    A,#04h          ;04h=Caps lock key
+0020 602B             64         jz      Key_Caps        ;Caps lock key pressed
+0022 D0E0             65         pop     ACC             ;Restore ACC from Bit masked value
+                      66     
+                      67     ;Blue Function key check
+0024 C0E0             68         push    ACC             ;save ACC with bit masked value
+0026 C3               69         clr     C
+0027 940C             70         subb    A,#0Ch          ;0Ch=Blue key
+0029 6029             71         jz      Key_Blue        ;Blue key pressed
+002B D0E0             72         pop     ACC             ;Restore ACC from Bit masked value
+                      73     
+                      74     ;Pink Function key check
+002D C0E0             75         push    ACC             ;save ACC with bit masked value
+002F C3               76         clr     C
+0030 940D             77         subb    A,#0Dh          ;0Dh=Pink key
+0032 6027             78         jz      Key_Pink        ;Pink key pressed
+0034 D0E0             79         pop     ACC             ;Restore ACC from Bit masked value
+                      80     
+                      81     ;Green Function key check
+0036 C0E0             82         push    ACC             ;save ACC with bit masked value
+0038 C3               83         clr     C
+0039 940E             84         subb    A,#0Eh          ;0Eh=Green key
+003B 6025             85         jz      Key_Green       ;Green key pressed
+003D D0E0             86         pop     ACC             ;Restore ACC from Bit masked value
+                      87     
+                      88     ;Red Function key check
+003F C0E0             89         push    ACC             ;save ACC with bit masked value
+0041 C3               90         clr     C
+0042 940F             91         subb    A,#0Fh          ;0Fh=Red key
+0044 6023             92         jz      Key_Red         ;Red key pressed
+0046 D0E0             93         pop     ACC             ;Restore ACC from Bit masked value
+                      94     
+                      95     
+0048 1200DE           96         lcall   Key_State_Chk    ;Program reaches this point if no 
+                      97                                  ;function keys pressed
+                      98     
+004B 802F             99         jmp     Key_KeyRelease
+                     100     
+004D                 101     Key_Caps:
+004D D0E0            102         pop     ACC
+004F 1200C3          103         lcall   Key_Func_Caps
+0052 8028            104         jmp     Key_KeyRelease
+                     105     
+0054                 106     Key_Blue:
+0054 D0E0            107         pop     ACC
+0056 1200C6          108         lcall   Key_Func_Blue
+0059 8021            109         jmp     Key_KeyRelease
+                     110     
+005B                 111     Key_Pink:
+005B D0E0            112         pop     ACC
+005D 1200CC          113         lcall   Key_Func_Pink
+0060 801A            114         jmp     Key_KeyRelease
+                     115     
+0062                 116     Key_Green:
+0062 D0E0            117         pop     ACC
+0064 1200D2          118         lcall   Key_Func_Green
+0067 8013            119         jmp     Key_KeyRelease
+                     120     
+0069                 121     Key_Red:
+0069 D0E0            122         pop     ACC
+006B 1200D8          123         lcall   Key_Func_Red
+006E 800C            124         jmp     Key_KeyRelease
+A51 MACRO ASSEMBLER  KEY                                                                  07/07/2008 20:33:07 PAGE     3
+
+                     125     
+0070                 126     Key_Backspace:
+0070 120091          127         lcall   Key_Func_BS
+0073 8007            128         jmp     Key_KeyRelease
+                     129     
+0075                 130     Key_Enter:
+0075 D0E0            131         pop     ACC               ;Restore ACC
+0077 120087          132         lcall   Key_Func_Ent      ;go to check state
+007A 8000            133         jmp     Key_KeyRelease
+                     134                     
+                     135     
+007C                 136     Key_KeyRelease:
+007C                 137         jnb     P0.0,$    ;Wait for release of key
+*** _____________________________________^
+*** ERROR #A17 IN 137 (Key.asm, LINE 137): INVALID BYTE BASE IN BIT ADDRESS EXPRESSION
+                     138     
+007C D0F0            139         pop     B
+007E D0E0            140         pop     ACC
+0080 D082            141         pop     DPL
+0082 D083            142         pop     DPH
+0084 D0D0            143         pop     PSW
+                     144     
+0086 32              145         reti
+                     146     
+                     147     ;=====================================================================
+                     148     ;   Sub routine - Enter Function Key valid state check
+                     149     ;
+                     150     ;This routine determines if the current state allows for 
+                     151     ;the enter key to be pressed.
+                     152     ;
+                     153     ;Addresses:
+                     154     ; - 21h: Checks for state when Enter key ok to press
+                     155     ;
+                     156     ;Registers:
+                     157     ; - R1: Points to current state (21h)
+                     158     ;=====================================================================
+                     159     
+0087                 160     Key_Func_Ent:
+0087 B70205          161         cjne    @R1,#02h,Key_Func_Ent_Finish
+008A 120090          162         lcall   Key_PW_Check_02h
+                     163     
+008D 8000            164         jmp     Key_Func_Ent_Finish
+                     165         
+008F                 166     Key_Func_Ent_Finish:            
+008F 22              167         ret
+                     168     
+                     169     ;=====================================================================
+                     170     ;   Sub routine - State 02h Password check
+                     171     ;
+                     172     ;This routine determines if the entered password matches that of the
+                     173     ;one stored in RAM.
+                     174     ;
+                     175     ;Addresses:
+                     176     ; - 21h: Checks for state when Enter key ok to press
+                     177     ;
+                     178     ;Registers:
+                     179     ; - R1: Points to current state (21h)
+                     180     ;=====================================================================
+                     181     
+0090                 182     Key_PW_Check_02h:
+                     183         
+                     184         
+0090                 185     Key_PW_Check_02h_Finish:        
+0090 22              186         ret
+                     187     
+                     188     
+A51 MACRO ASSEMBLER  KEY                                                                  07/07/2008 20:33:07 PAGE     4
+
+                     189     
+                     190     ;=====================================================================
+                     191     ;   Sub routine - Backspace Function Key valid state check
+                     192     ;
+                     193     ;This routine determines if the current state allows for 
+                     194     ;the backspace key to be pressed.
+                     195     ;
+                     196     ;Addresses:
+                     197     ; - 21h: Checks for state when BS key ok to press
+                     198     ;
+                     199     ;Registers:
+                     200     ; - R1: Points to current state (21h)
+                     201     ;=====================================================================
+                     202     
+0091                 203     Key_Func_BS:
+0091 B70205          204         cjne    @R1,#02h,Key_Func_BS_Finish
+0094 12009A          205         lcall   Key_BS_Resolve
+0097 8000            206         jmp     Key_Func_BS_Finish
+                     207         
+0099                 208     Key_Func_BS_Finish:     
+0099 22              209         ret
+                     210     
+                     211     ;=====================================================================
+                     212     ;   Sub routine - Backspace Resolve
+                     213     ;
+                     214     ;This routine determines if backspace key can delete a character.
+                     215     ;
+                     216     ;
+                     217     ;
+                     218     ;Registers:
+                     219     ; - R0: Points to MSB of password entered (2Bh)
+                     220     ; - R2: Determines BS/non_Func key presses allowed
+                     221     ;=====================================================================
+009A                 222     Key_BS_Resolve:
+009A C3              223         clr     C
+009B BA0100          224         cjne    R2,#01h,$ + 3
+009E 4022            225         jc      Key_BS_Resolve_Finish
+                     226     
+00A0                 227         mov     DPTR,#LCD_CMD
+*** ___________________________________________^
+*** ERROR #A45 IN 227 (Key.asm, LINE 227): UNDEFINED SYMBOL (PASS-2)
+00A3                 228         mov     ACC,#DISP_BACKSPACE
+*** __________________________________________^
+*** ERROR #A45 IN 228 (Key.asm, LINE 228): UNDEFINED SYMBOL (PASS-2)
+00A6 F0              229         movx    @DPTR,A
+00A7                 230         lcall   LCD_Busy
+*** _____________________________________^
+*** ERROR #A45 IN 230 (Key.asm, LINE 230): UNDEFINED SYMBOL (PASS-2)
+                     231     
+00AA                 232         mov     DPTR,#LCD_WRITE
+*** ___________________________________________^
+*** ERROR #A45 IN 232 (Key.asm, LINE 232): UNDEFINED SYMBOL (PASS-2)
+00AD 75E020          233         mov     ACC,#20h          ;space character
+00B0 F0              234         movx    @DPTR,A
+00B1                 235         lcall   LCD_Busy
+*** _____________________________________^
+*** ERROR #A45 IN 235 (Key.asm, LINE 235): UNDEFINED SYMBOL (PASS-2)
+                     236     
+00B4                 237         mov     DPTR,#LCD_CMD
+*** ___________________________________________^
+*** ERROR #A45 IN 237 (Key.asm, LINE 237): UNDEFINED SYMBOL (PASS-2)
+00B7                 238         mov     ACC,#DISP_BACKSPACE
+*** __________________________________________^
+*** ERROR #A45 IN 238 (Key.asm, LINE 238): UNDEFINED SYMBOL (PASS-2)
+00BA F0              239         movx    @DPTR,A
+00BB                 240         lcall   LCD_Busy
+A51 MACRO ASSEMBLER  KEY                                                                  07/07/2008 20:33:07 PAGE     5
+
+*** _____________________________________^
+*** ERROR #A45 IN 240 (Key.asm, LINE 240): UNDEFINED SYMBOL (PASS-2)
+                     241             
+00BE 1A              242         dec     R2
+00BF 08              243         inc     R0
+00C0 8000            244         jmp     Key_BS_Resolve_Finish
+                     245     
+                     246     
+00C2                 247     Key_BS_Resolve_Finish:    
+00C2 22              248         ret
+                     249     
+                     250     
+                     251     ;=====================================================================
+                     252     ;   Sub routine - Caps lock Function Key
+                     253     ;
+                     254     ;Addresses:
+                     255     ; - 07h: Bit Used to determine caps lock function key pressed
+                     256     ; - 20h: General address location for function keys: caps lock & colors
+                     257     ;
+                     258     ;Registers:
+                     259     ; - ACC enters as 00h
+                     260     ;=====================================================================
+                     261     
+00C3                 262     Key_Func_Caps:
+00C3 B207            263         cpl   07h
+00C5                 264         cpl   P1.3  
+*** ___________________________________^
+*** ERROR #A17 IN 264 (Key.asm, LINE 264): INVALID BYTE BASE IN BIT ADDRESS EXPRESSION
+00C5 22              265         ret
+                     266     
+                     267     
+                     268     ;=====================================================================
+                     269     ;   Sub routine - Blue Function Key
+                     270     ;
+                     271     ;Addresses:
+                     272     ; - 00h: Bit Used to determine blue function key pressed
+                     273     ; - 20h: General address location for function keys: caps lock & colors
+                     274     ;=====================================================================
+                     275     
+00C6                 276     Key_Func_Blue:
+00C6 5320F0          277         anl     20h,#0F0h   ;Bit mask to erase lower nibble for other 
+                     278                             ;function keys previously pressed
+                     279                             ;This also keeps the value of caps lock in tact.
+                     280     
+00C9 D200            281         setb    00h         ;Sets LSB in addy 20h for blue func. key
+00CB                 282         clr     P1.4        ;Turns off Red LED
+*** _____________________________________^
+*** ERROR #A17 IN 282 (Key.asm, LINE 282): INVALID BYTE BASE IN BIT ADDRESS EXPRESSION
+00CB                 283         clr     P1.5        ;Turns off Green LED
+*** _____________________________________^
+*** ERROR #A17 IN 283 (Key.asm, LINE 283): INVALID BYTE BASE IN BIT ADDRESS EXPRESSION
+00CB                 284         clr     P1.6        ;Turns off Pink LED
+*** _____________________________________^
+*** ERROR #A17 IN 284 (Key.asm, LINE 284): INVALID BYTE BASE IN BIT ADDRESS EXPRESSION
+00CB                 285         setb    P1.7        ;Turns on Blue LED
+*** _____________________________________^
+*** ERROR #A17 IN 285 (Key.asm, LINE 285): INVALID BYTE BASE IN BIT ADDRESS EXPRESSION
+00CB 22              286         ret
+                     287     
+                     288     
+                     289     
+                     290     ;=====================================================================
+                     291     ;   Sub routine - Pink Function Key
+                     292     ;
+                     293     ;Addresses:
+                     294     ; - 01h: Bit Used to determine pink function key pressed
+A51 MACRO ASSEMBLER  KEY                                                                  07/07/2008 20:33:07 PAGE     6
+
+                     295     ; - 20h: General address location for function keys: caps lock & colors
+                     296     ;=====================================================================
+                     297     
+00CC                 298     Key_Func_Pink:
+00CC 5320F0          299         anl     20h,#0F0h   ;Bit mask to erase lower nibble for other
+                     300                             ;function keys previously pressed
+                     301                             ;This also keeps the value of caps lock in tact.
+                     302     
+00CF D201            303         setb    01h         ;Sets bit 1 in addy 20h for pink func. key
+00D1                 304         clr     P1.4        ;Turns off Red LED
+*** _____________________________________^
+*** ERROR #A17 IN 304 (Key.asm, LINE 304): INVALID BYTE BASE IN BIT ADDRESS EXPRESSION
+00D1                 305         clr     P1.5        ;Turns off Green LED
+*** _____________________________________^
+*** ERROR #A17 IN 305 (Key.asm, LINE 305): INVALID BYTE BASE IN BIT ADDRESS EXPRESSION
+00D1                 306         setb    P1.6        ;Turns on Pink LED
+*** _____________________________________^
+*** ERROR #A17 IN 306 (Key.asm, LINE 306): INVALID BYTE BASE IN BIT ADDRESS EXPRESSION
+00D1                 307         clr     P1.7        ;Turns off Blue LED
+*** _____________________________________^
+*** ERROR #A17 IN 307 (Key.asm, LINE 307): INVALID BYTE BASE IN BIT ADDRESS EXPRESSION
+00D1 22              308         ret
+                     309     
+                     310     ;=====================================================================
+                     311     ;   Sub routine - Green Function Key
+                     312     ;
+                     313     ;Addresses:
+                     314     ; - 02h: Bit Used to determine pink function key pressed
+                     315     ; - 20h: General address location for function keys: caps lock & colors
+                     316     ;=====================================================================
+                     317     
+00D2                 318     Key_Func_Green:
+00D2 5320F0          319         anl     20h,#0F0h   ;Bit mask to erase lower nibble for other
+                     320                             ;function keys previously pressed
+                     321                             ;This also keeps the value of caps lock in tact.
+                     322     
+00D5 D202            323         setb    02h         ;Sets bit 2 in addy 20h for green func. key
+00D7                 324         clr     P1.4        ;Turns off Red LED
+*** _____________________________________^
+*** ERROR #A17 IN 324 (Key.asm, LINE 324): INVALID BYTE BASE IN BIT ADDRESS EXPRESSION
+00D7                 325         setb    P1.5        ;Turns on Green LED
+*** _____________________________________^
+*** ERROR #A17 IN 325 (Key.asm, LINE 325): INVALID BYTE BASE IN BIT ADDRESS EXPRESSION
+00D7                 326         clr     P1.6        ;Turns off Pink LED
+*** _____________________________________^
+*** ERROR #A17 IN 326 (Key.asm, LINE 326): INVALID BYTE BASE IN BIT ADDRESS EXPRESSION
+00D7                 327         clr     P1.7        ;Turns off Blue LED
+*** _____________________________________^
+*** ERROR #A17 IN 327 (Key.asm, LINE 327): INVALID BYTE BASE IN BIT ADDRESS EXPRESSION
+00D7 22              328         ret
+                     329     
+                     330     ;=====================================================================
+                     331     ;  Sub routine - Red Function Key
+                     332     ;
+                     333     ;Addresses:
+                     334     ; - 03h: Bit Used to determine pink function key pressed
+                     335     ; - 20h: General address location for function keys: caps lock & colors
+                     336     ;=====================================================================
+                     337     
+00D8                 338     Key_Func_Red:
+00D8 5320F0          339         anl     20h,#0F0h   ;Bit mask to erase lower nibble for other 
+                     340                             ;function keys previously pressed
+                     341                             ;This also keeps the value of caps lock in tact.
+                     342     
+00DB D203            343         setb    03h         ;Sets bit 3 in addy 20h for red func. key
+00DD                 344         setb    P1.4        ;Turns on Red LED
+A51 MACRO ASSEMBLER  KEY                                                                  07/07/2008 20:33:07 PAGE     7
+
+*** _____________________________________^
+*** ERROR #A17 IN 344 (Key.asm, LINE 344): INVALID BYTE BASE IN BIT ADDRESS EXPRESSION
+00DD                 345         clr     P1.5        ;Turns off Green LED
+*** _____________________________________^
+*** ERROR #A17 IN 345 (Key.asm, LINE 345): INVALID BYTE BASE IN BIT ADDRESS EXPRESSION
+00DD                 346         clr     P1.6        ;Turns off Pink LED
+*** _____________________________________^
+*** ERROR #A17 IN 346 (Key.asm, LINE 346): INVALID BYTE BASE IN BIT ADDRESS EXPRESSION
+00DD                 347         clr     P1.7        ;Turns off Blue LED
+*** _____________________________________^
+*** ERROR #A17 IN 347 (Key.asm, LINE 347): INVALID BYTE BASE IN BIT ADDRESS EXPRESSION
+00DD 22              348         ret
+                     349     
+                     350     ;=====================================================================
+                     351     ;   Sub routine - Key state valid check
+                     352     ;
+                     353     ;Addresses:
+                     354     ; - 20h: Evaluates this addresed to determine funct. key & caps lock
+                     355     ;status.  Leave this sub with correct lookup table in DPTR.  When this
+                     356     ;sub is initially called, the ACC has the value of the key (according 
+                     357     ;to the actual value as determined by the keypad schematic) pressed.
+                     358     ;
+                     359     ;Registers:
+                     360     ; - R0: Points to MSB of password entered (2Bh)
+                     361     ; - R1: Points to current state (21h)
+                     362     ; - R2: Determines BS/non_Func key presses allowed
+                     363     ;
+                     364     ;=====================================================================
+                     365     
+00DE                 366     Key_State_Chk:
+                     367     
+                     368         ;State 02h is true? then continue else finish
+00DE B70205          369         cjne    @R1,#02h,Key_State_Chk_Finish
+00E1 1200E7          370         lcall   Key_Func_PW
+00E4 8000            371         jmp     Key_State_Chk_Finish
+                     372     
+00E6                 373     Key_State_Chk_Finish:
+00E6 22              374         ret
+                     375     
+                     376     
+                     377     ;=====================================================================
+                     378     ;   Sub routine - Key input resolution for Password states
+                     379     ;
+                     380     ;This sub is to be used for states that require password entry before
+                     381     ;the next state can be achieved.  This sub will write the password
+                     382     ;entered into on chip RAM and allow for a maximum of a 4 char.
+                     383     ;password.
+                     384     ;
+                     385     ;Addresses:
+                     386     ; - 20h: Evaluates this address to determine funct. key & caps lock
+                     387     ;status.  Leave this sub with correct lookup table in DPTR.  When this
+                     388     ;sub is initially called, the ACC has the value of the key (according 
+                     389     ;to the actual value as determined by the keypad schematic) pressed.
+                     390     ;
+                     391     ;Registers:
+                     392     ; - R0: Points to MSB of password entered (2Bh)
+                     393     ; - R1: Points to current state (21h)
+                     394     ; - R2: Determines BS/non_Func key presses allowed
+                     395     ;
+                     396     ;=====================================================================
+                     397     
+00E7                 398     Key_Func_PW:
+00E7 C0D0            399         push    PSW
+00E9 C0E0            400         push    ACC
+00EB C0F0            401         push    B
+                     402                     
+A51 MACRO ASSEMBLER  KEY                                                                  07/07/2008 20:33:07 PAGE     8
+
+00ED C3              403         clr     C
+00EE BA0400          404         cjne    R2,#04h,$ + 3        ;jmp to end if 4 char's entered
+00F1 5045            405         jnc     Key_Func_Restore     ;
+00F3 0A              406         inc     R2                   ;Prog reaches this point if R2<4  
+                     407       
+                     408     
+                     409         ;Check Bit 00h for Blue function key, Numbers only
+00F4 200032          410         jb      00h,Key_Func_Bluekey
+                     411         ;Check Bit 01h for Pink function key
+00F7 200122          412         jb      01h,Key_Func_Pinkkey
+                     413         ;Check Bit 02h for Green function key
+00FA 200212          414         jb      02h,Key_Func_Greenkey
+                     415         ;Check Bit 03h for Red function key
+00FD 200302          416         jb      03h,Key_Func_Redkey
+                     417     
+0100 802A            418         jmp     Key_Func_Finish
+                     419     
+0102                 420     Key_Func_Redkey:
+0102 300705          421         jnb     07h,$ + 8           ;07h=caps lock, jump to 
+                     422                                     ;'Red_LC' if not caps lock
+0105 900187          423         mov     DPTR,#Key_Red_UpC   ;Red uppercase lookup table
+0108 8022            424         sjmp    Key_Func_Finish
+                     425     
+010A 90017B          426         mov     DPTR,#Key_Red_LC    ;Red lowercase lookup table             
+010D 801D            427         jmp     Key_Func_Finish
+                     428     
+010F                 429     Key_Func_Greenkey:
+010F 300705          430         jnb     07h,$ + 8           ;07h=caps lock, jump to 
+                     431                                     ;'Green_LC' if not caps lock
+0112 90016F          432         mov     DPTR,#Key_Green_UpC ;Green uppercase lookup table
+0115 8015            433         sjmp    Key_Func_Finish
+                     434     
+0117 900163          435         mov     DPTR,#Key_Green_LC  ;Green lowercase lookup table           
+011A 8010            436         jmp     Key_Func_Finish
+                     437                     
+                     438     
+011C                 439     Key_Func_Pinkkey:
+011C 300705          440         jnb     07h,$ + 8           ;07h=caps lock, jump to 
+                     441                                     ;'Pink_LC' if not caps lock
+011F 900157          442         mov     DPTR,#Key_Pink_UpC  ;Pink uppercase lookup table
+0122 8008            443         sjmp    Key_Func_Finish
+                     444     
+0124 90014B          445         mov     DPTR,#Key_Pink_LC   ;Pink lowercase lookup table            
+0127 8003            446         jmp     Key_Func_Finish
+                     447     
+0129                 448     Key_Func_Bluekey:
+0129 90013F          449         mov     DPTR,#Key_Blue_Num
+                     450     
+                     451     
+012C                 452     Key_Func_Finish:
+012C 93              453         movc    A,@A + DPTR         ;Updates ACC w/ corresponding
+                     454                                     ;char. in lookup table
+012D F6              455         mov     @R0,A               ;ascii in ACC to R0 pointer
+012E 18              456         dec     R0                  ;Next PW location
+                     457     
+012F                 458         mov     DPTR,#LCD_WRITE     ;write '*' on each char. entry
+*** ___________________________________________^
+*** ERROR #A45 IN 458 (Key.asm, LINE 458): UNDEFINED SYMBOL (PASS-2)
+0132 742A            459         mov     A,#'*'              ;ascii value for '*'
+0134 F0              460         movx    @DPTR,A
+0135                 461         lcall   LCD_Busy
+*** _____________________________________^
+*** ERROR #A45 IN 461 (Key.asm, LINE 461): UNDEFINED SYMBOL (PASS-2)
+                     462     
+                     463         ;mov     DPTR,#LCD_WRITE    ;future use of change PW state
+                     464         ;movx    @DPTR,A
+A51 MACRO ASSEMBLER  KEY                                                                  07/07/2008 20:33:07 PAGE     9
+
+                     465         ;lcall   LCD_Busy
+                     466     
+0138                 467     Key_Func_Restore:
+0138 D0F0            468         pop     B
+013A D0E0            469         pop     ACC
+013C D0D0            470         pop     PSW
+                     471         
+013E 22              472         ret
+                     473     
+                     474     
+                     475     ;------------------------------------
+                     476     ;-  Keypad Lookup Tables  --
+                     477     ;------------------------------------
+                     478     
+013F                 479     Key_Blue_Num:
+013F 00333231        480         db 0,"3","2","1"
+0143 00363534        481         db 0,"6","5","4"
+0147 00393837        482         db 0,"9","8","7"
+                     483     
+014B                 484     Key_Pink_LC:        ;Lower Case
+014B 00757473        485         db 0,"u","t","s"
+014F 00787776        486         db 0,"x","w","v"
+0153 00307A79        487         db 0,"0","z","y"
+                     488     
+0157                 489     Key_Pink_UpC:       ;Upper Case
+0157 00555453        490         db 0,"U","T","S"
+015B 00585756        491         db 0,"X","W","V"
+015F 00305A59        492         db 0,"0","Z","Y"
+                     493     
+0163                 494     Key_Green_LC:       ;Lower Case
+0163 006C6B6A        495         db 0,"l","k","j"
+0167 006F6E6D        496         db 0,"o","n","m"
+016B 00727170        497         db 0,"r","q","p"
+                     498     
+016F                 499     Key_Green_UpC:      ;Upper Case
+016F 004C4B4A        500         db 0,"L","K","J"
+0173 004F4E4D        501         db 0,"O","N","M"
+0177 00525150        502         db 0,"R","Q","P"
+                     503     
+017B                 504     Key_Red_LC:         ;Lower Case
+017B 00636261        505         db 0,"c","b","a"
+017F 00666564        506         db 0,"f","e","d"
+0183 00696867        507         db 0,"i","h","g"
+                     508     
+0187                 509     Key_Red_UpC:        ;Upper Case
+0187 00434241        510         db 0,"C","B","A"
+018B 00464544        511         db 0,"F","E","D"
+018F 00494847        512         db 0,"I","H","G"
+                     513     
+*** WARNING #A41 IN 513 (Key.asm, LINE 513): MISSING 'END' STATEMENT
+A51 MACRO ASSEMBLER  KEY                                                                  07/07/2008 20:33:07 PAGE    10
+
+XREF SYMBOL TABLE LISTING
+---- ------ ----- -------
+
+
+N A M E                  T Y P E  V A L U E   ATTRIBUTES / REFERENCES
+
+ACC . . . . . . . . . .  D ADDR   00E0H   A      43 54 58 61 65 68 72 75 79 82 86 89 93 102 107 112 117 122 131 140
+                                                228 233 238 400 469
+B . . . . . . . . . . .  D ADDR   00F0H   A      44 139 401 468
+DISP_BACKSPACE. . . . .    ----   -----          228 238
+DPH . . . . . . . . . .  D ADDR   0083H   A      41 142
+DPL . . . . . . . . . .  D ADDR   0082H   A      42 141
+KEY_BACKSPACE . . . . .  C ADDR   0070H   A      51 126#
+KEY_BLUE. . . . . . . .  C ADDR   0054H   A      71 106#
+KEY_BLUE_NUM. . . . . .  C ADDR   013FH   A      449 479#
+KEY_BS_RESOLVE. . . . .  C ADDR   009AH   A      205 222#
+KEY_BS_RESOLVE_FINISH .  C ADDR   00C2H   A      225 244 247#
+KEY_CAPS. . . . . . . .  C ADDR   004DH   A      64 101#
+KEY_ENTER . . . . . . .  C ADDR   0075H   A      57 130#
+KEY_FUNC_BLUE . . . . .  C ADDR   00C6H   A      108 276#
+KEY_FUNC_BLUEKEY. . . .  C ADDR   0129H   A      410 448#
+KEY_FUNC_BS . . . . . .  C ADDR   0091H   A      127 203#
+KEY_FUNC_BS_FINISH. . .  C ADDR   0099H   A      204 206 208#
+KEY_FUNC_CAPS . . . . .  C ADDR   00C3H   A      103 262#
+KEY_FUNC_ENT. . . . . .  C ADDR   0087H   A      132 160#
+KEY_FUNC_ENT_FINISH . .  C ADDR   008FH   A      161 164 166#
+KEY_FUNC_FINISH . . . .  C ADDR   012CH   A      418 424 427 433 436 443 446 452#
+KEY_FUNC_GREEN. . . . .  C ADDR   00D2H   A      118 318#
+KEY_FUNC_GREENKEY . . .  C ADDR   010FH   A      414 429#
+KEY_FUNC_PINK . . . . .  C ADDR   00CCH   A      113 298#
+KEY_FUNC_PINKKEY. . . .  C ADDR   011CH   A      412 439#
+KEY_FUNC_PW . . . . . .  C ADDR   00E7H   A      370 398#
+KEY_FUNC_RED. . . . . .  C ADDR   00D8H   A      123 338#
+KEY_FUNC_REDKEY . . . .  C ADDR   0102H   A      416 420#
+KEY_FUNC_RESTORE. . . .  C ADDR   0138H   A      405 467#
+KEY_GREEN . . . . . . .  C ADDR   0062H   A      85 116#
+KEY_GREEN_LC. . . . . .  C ADDR   0163H   A      435 494#
+KEY_GREEN_UPC . . . . .  C ADDR   016FH   A      432 499#
+KEY_ISR . . . . . . . .  C ADDR   0000H   A      38#
+KEY_KEYRELEASE. . . . .  C ADDR   007CH   A      99 104 109 114 119 124 128 133 136#
+KEY_PINK. . . . . . . .  C ADDR   005BH   A      78 111#
+KEY_PINK_LC . . . . . .  C ADDR   014BH   A      445 484#
+KEY_PINK_UPC. . . . . .  C ADDR   0157H   A      442 489#
+KEY_PW_CHECK_02H. . . .  C ADDR   0090H   A      162 182#
+KEY_PW_CHECK_02H_FINISH  C ADDR   0090H   A      185#
+KEY_READ. . . . . . . .  N NUMB   4000H   A      22# 46
+KEY_RED . . . . . . . .  C ADDR   0069H   A      92 121#
+KEY_RED_LC. . . . . . .  C ADDR   017BH   A      426 504#
+KEY_RED_UPC . . . . . .  C ADDR   0187H   A      423 509#
+KEY_STATE_CHK . . . . .  C ADDR   00DEH   A      96 366#
+KEY_STATE_CHK_FINISH. .  C ADDR   00E6H   A      369 371 373#
+LCD_BUSY. . . . . . . .    ----   -----          230 235 240 461
+LCD_CMD . . . . . . . .    ----   -----          227 237
+LCD_WRITE . . . . . . .    ----   -----          232 458
+P0. . . . . . . . . . .    ----   -----          137
+P1. . . . . . . . . . .    ----   -----          264 282 283 284 285 304 305 306 307 324 325 326 327 344 345 346 347
+PSW . . . . . . . . . .  D ADDR   00D0H   A      40 143 399 470
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  1 WARNING(S), 28 ERROR(S)

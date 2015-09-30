@@ -1,0 +1,188 @@
+numG=[1 2]
+
+numG =
+
+     1     2
+
+denG=[1 1 .25]
+
+denG =
+
+    1.0000    1.0000    0.2500
+
+[resG,polG,otherG]=residue(numG,denG)
+
+resG =
+
+    1.0000
+    1.5000
+
+
+polG =
+
+   -0.5000
+   -0.5000
+
+
+otherG =
+
+     []
+
+[numG,denG]=residue(resG,polG,otherG)
+
+numG =
+
+     1     2
+
+
+denG =
+
+    1.0000    1.0000    0.2500
+
+n1=[2 11 5]
+
+n1 =
+
+     2    11     5
+
+d1=[1 7 32 60]
+
+d1 =
+
+     1     7    32    60
+
+G1=tf(n1,d1)
+ 
+Transfer function:
+   2 s^2 + 11 s + 5
+-----------------------
+s^3 + 7 s^2 + 32 s + 60
+ 
+n2=[4 22 10]
+
+n2 =
+
+     4    22    10
+
+d2=[1 4 3 6]
+
+d2 =
+
+     1     4     3     6
+
+G2=tf(n1,d2)
+ 
+Transfer function:
+  2 s^2 + 11 s + 5
+---------------------
+s^3 + 4 s^2 + 3 s + 6
+ 
+G2=tf(n2,d2)
+ 
+Transfer function:
+  4 s^2 + 22 s + 10
+---------------------
+s^3 + 4 s^2 + 3 s + 6
+ 
+G1
+ 
+Transfer function:
+   2 s^2 + 11 s + 5
+-----------------------
+s^3 + 7 s^2 + 32 s + 60
+ 
+G2
+ 
+Transfer function:
+  4 s^2 + 22 s + 10
+---------------------
+s^3 + 4 s^2 + 3 s + 6
+ 
+[z1,p1,k1]=tf2zp(n1,d1)
+
+z1 =
+
+   -5.0000
+   -0.5000
+
+
+p1 =
+
+  -2.0000 + 4.0000i
+  -2.0000 - 4.0000i
+  -3.0000          
+
+
+k1 =
+
+     2
+
+%Above are the zeros, poles, and gain for G1
+[z2,p2,k2]=tf2zp(n2,d2)
+
+z2 =
+
+   -5.0000
+   -0.5000
+
+
+p2 =
+
+  -3.6289          
+  -0.1855 + 1.2724i
+  -0.1855 - 1.2724i
+
+
+k2 =
+
+     4
+
+%Above are the zeros, poles, and gain for G2
+[resG1,polG1,otherG1]=residue(n1,d1)
+
+resG1 =
+
+   1.2941 - 0.0515i
+   1.2941 + 0.0515i
+  -0.5882          
+
+
+polG1 =
+
+  -2.0000 + 4.0000i
+  -2.0000 - 4.0000i
+  -3.0000          
+
+
+otherG1 =
+
+     []
+
+%Above are the partial fraction expansion for G1
+[resG2,polG2,otherG2]=residue(n2,d2)
+
+resG2 =
+
+  -1.2734          
+   2.6367 - 0.9264i
+   2.6367 + 0.9264i
+
+
+polG2 =
+
+  -3.6289          
+  -0.1855 + 1.2724i
+  -0.1855 - 1.2724i
+
+
+otherG2 =
+
+     []
+
+%Above are the partial fraction expansion for G2
+impulse(G1)
+impulse(G2)
+impulse(G1)
+impulse(G2)
+pzmap(n1,d1)
+pzmap(n2,d2)

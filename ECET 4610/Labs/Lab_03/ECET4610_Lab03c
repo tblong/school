@@ -1,0 +1,1521 @@
+%This begins Part II
+%This begins Part III
+num=318
+
+num =
+
+   318
+
+den=[1 1.71 318]
+
+den =
+
+    1.0000    1.7100  318.0000
+
+G=tf(num,den)
+ 
+Transfer function:
+       318
+------------------
+s^2 + 1.71 s + 318
+ 
+step(G)
+impulse(G)
+step(G)
+hold
+Current plot held
+impulse(G)
+step(G)
+hold
+Current plot held
+impulse(G)
+% Modify expression to add input arguments.
+% Example:
+%   a = [1 2 3; 4 5 6]; 
+%   foo(a);
+
+Lab03_PartII
+Enter a value for mass in Kg: .5
+Enter a value for the spring constant in N/m: 1
+Enter a value for the damping coefficient in N-s/m: .24
+Enter a value for the step input: 1
+
+ans =
+
+Peak time Tp = 2.2214 seconds
+
+
+ans =
+
+Percent overshoot %OS = 58.1544 percent
+
+
+ans =
+
+Zeta = 0.17003
+
+
+ans =
+
+Settling time Ts = 16.3923 seconds
+
+
+ans =
+
+Natural frequency Wn = 1.4351
+
+
+ans =
+
+Rise time Tr = 0.84575 seconds
+
+
+ans =
+
+Maximum displacement y1 = 1.5815 meters
+
+
+ans =
+
+Time during maximum displacement Tp = 2.2214 seconds
+
+
+ans =
+
+The displacement at t=5 seconds is Y5 = 0.73646 meters
+
+% Modify expression to add input arguments.
+% Example:
+%   a = [1 2 3; 4 5 6]; 
+%   foo(a);
+
+Lab03_PartII
+Enter a value for mass in Kg: .5
+Enter a value for the spring constant in N/m: 1
+Enter a value for the damping coefficient in N-s/m: .24
+Enter a value for the step input: 1
+
+ans =
+
+Peak time Tp = 2.2214 seconds
+
+
+ans =
+
+Percent overshoot %OS = 58.1544 percent
+
+
+ans =
+
+Zeta = 0.17003
+
+
+ans =
+
+Settling time Ts = 16.3923 seconds
+
+
+ans =
+
+Natural frequency Wn = 1.4351
+
+
+ans =
+
+Rise time Tr = 0.84575 seconds
+
+
+ans =
+
+Maximum displacement y1 = 1.5815 meters
+
+
+ans =
+
+Time during maximum displacement Tp = 2.2214 seconds
+
+
+ans =
+
+The displacement at t=5 seconds is Y5 = 0.73646 meters
+
+% Modify expression to add input arguments.
+% Example:
+%   a = [1 2 3; 4 5 6]; 
+%   foo(a);
+
+Lab03_PartII
+Enter a value for mass in Kg: .5
+Enter a value for the spring constant in N/m: 1
+Enter a value for the damping coefficient in N-s/m: .24
+Enter a value for the step input: 1
+
+ans =
+
+Peak time Tp = 2.2214 seconds
+
+
+ans =
+
+Percent overshoot %OS = 58.1544 percent
+
+
+ans =
+
+Zeta = 0.17003
+
+
+ans =
+
+Settling time Ts = 16.3923 seconds
+
+
+ans =
+
+Natural frequency Wn = 1.4351
+
+
+ans =
+
+Rise time Tr = 0.84575 seconds
+
+
+ans =
+
+Maximum displacement y1 = 1.5815 meters
+
+
+ans =
+
+Time during maximum displacement Tp = 2.2214 seconds
+
+
+ans =
+
+The displacement at t=5 seconds is Y5 = 0.73646 meters
+
+
+ans =
+
+Natural frequency for Part III Wn = 17.8326
+
+
+ans =
+
+Zeta for Part III = 0.00268
+
+% Modify expression to add input arguments.
+% Example:
+%   a = [1 2 3; 4 5 6]; 
+%   foo(a);
+
+Lab03_PartII
+Enter a value for mass in Kg: .5
+Enter a value for the spring constant in N/m: 1
+Enter a value for the damping coefficient in N-s/m: .24
+Enter a value for the step input: 1
+
+ans =
+
+Peak time Tp = 2.2214 seconds
+
+
+ans =
+
+Percent overshoot %OS = 58.1544 percent
+
+
+ans =
+
+Zeta = 0.17003
+
+
+ans =
+
+Settling time Ts = 16.3923 seconds
+
+
+ans =
+
+Natural frequency Wn = 1.4351
+
+
+ans =
+
+Rise time Tr = 0.84575 seconds
+
+
+ans =
+
+Maximum displacement y1 = 1.5815 meters
+
+
+ans =
+
+Time during maximum displacement Tp = 2.2214 seconds
+
+
+ans =
+
+The displacement at t=5 seconds is Y5 = 0.73646 meters
+
+
+ans =
+
+Natural frequency for Part III Wn = 17.8326
+
+
+ans =
+
+Zeta for Part III = 0.0026887
+
+% Modify expression to add input arguments.
+% Example:
+%   a = [1 2 3; 4 5 6]; 
+%   foo(a);
+
+Lab03_PartII
+Enter a value for mass in Kg: .5
+Enter a value for the spring constant in N/m: 1
+Enter a value for the damping coefficient in N-s/m: .24
+Enter a value for the step input: 1
+
+ans =
+
+Peak time Tp = 2.2214 seconds
+
+
+ans =
+
+Percent overshoot %OS = 58.1544 percent
+
+
+ans =
+
+Zeta = 0.17003
+
+
+ans =
+
+Settling time Ts = 16.3923 seconds
+
+
+ans =
+
+Natural frequency Wn = 1.4351
+
+
+ans =
+
+Rise time Tr = 0.84575 seconds
+
+
+ans =
+
+Maximum displacement y1 = 1.5815 meters
+
+
+ans =
+
+Time during maximum displacement Tp = 2.2214 seconds
+
+
+ans =
+
+The displacement at t=5 seconds is Y5 = 0.73646 meters
+
+
+ans =
+
+Natural frequency for Part III Wn = 17.8326
+
+
+ans =
+
+Zeta for Part III = 0.0026887
+
+
+ans =
+
+Settling time for Part III Ts = 83.4272 seconds
+
+% Modify expression to add input arguments.
+% Example:
+%   a = [1 2 3; 4 5 6]; 
+%   foo(a);
+
+Lab03_PartII
+Enter a value for mass in Kg: .5
+Enter a value for the spring constant in N/m: 1
+Enter a value for the damping coefficient in N-s/m: .24
+Enter a value for the step input: 1
+
+ans =
+
+Peak time Tp = 2.2214 seconds
+
+
+ans =
+
+Percent overshoot %OS = 58.1544 percent
+
+
+ans =
+
+Zeta = 0.17003
+
+
+ans =
+
+Settling time Ts = 16.3923 seconds
+
+
+ans =
+
+Natural frequency Wn = 1.4351
+
+
+ans =
+
+Rise time Tr = 0.84575 seconds
+
+
+ans =
+
+Maximum displacement y1 = 1.5815 meters
+
+
+ans =
+
+Time during maximum displacement Tp = 2.2214 seconds
+
+
+ans =
+
+The displacement at t=5 seconds is Y5 = 0.73646 meters
+
+
+ans =
+
+Natural frequency for Part III Wn = 17.8326
+
+
+ans =
+
+Zeta for Part III = 0.0026887
+
+
+ans =
+
+Settling time for Part III Ts = 83.4272 seconds
+
+
+ans =
+
+Peak time for Part III Tp = 0.17617 seconds
+
+% Modify expression to add input arguments.
+% Example:
+%   a = [1 2 3; 4 5 6]; 
+%   foo(a);
+
+Lab03_PartII
+Enter a value for mass in Kg: .5
+Enter a value for the spring constant in N/m: 1
+Enter a value for the damping coefficient in N-s/m: .24
+Enter a value for the step input: 1
+
+ans =
+
+Peak time Tp = 2.2214 seconds
+
+
+ans =
+
+Percent overshoot %OS = 58.1544 percent
+
+
+ans =
+
+Zeta = 0.17003
+
+
+ans =
+
+Settling time Ts = 16.3923 seconds
+
+
+ans =
+
+Natural frequency Wn = 1.4351
+
+
+ans =
+
+Rise time Tr = 0.84575 seconds
+
+
+ans =
+
+Maximum displacement y1 = 1.5815 meters
+
+
+ans =
+
+Time during maximum displacement Tp = 2.2214 seconds
+
+
+ans =
+
+The displacement at t=5 seconds is Y5 = 0.73646 meters
+
+
+ans =
+
+Natural frequency for Part III Wn = 17.8326
+
+
+ans =
+
+Zeta for Part III = 0.0026887
+
+
+ans =
+
+Settling time for Part III Ts = 83.4272 seconds
+
+
+ans =
+
+Peak time for Part III Tp = 0.17617 seconds
+
+
+ans =
+
+Percent overshoot for Part III %OS = 99.1589 percent
+
+% Modify expression to add input arguments.
+% Example:
+%   a = [1 2 3; 4 5 6]; 
+%   foo(a);
+
+Lab03_PartII
+??? Error: <a href="error:j:\Lab03_PartII.m,118,17">File: Lab03_PartII.m Line: 118 Column: 17</a>
+Unbalanced or unexpected parenthesis or bracket.
+
+% Modify expression to add input arguments.
+% Example:
+%   a = [1 2 3; 4 5 6]; 
+%   foo(a);
+
+Lab03_PartII
+Enter a value for mass in Kg: .5
+Enter a value for the spring constant in N/m: 1
+Enter a value for the damping coefficient in N-s/m: .24
+Enter a value for the step input: 1
+
+ans =
+
+Peak time Tp = 2.2214 seconds
+
+
+ans =
+
+Percent overshoot %OS = 58.1544 percent
+
+
+ans =
+
+Zeta = 0.17003
+
+
+ans =
+
+Settling time Ts = 16.3923 seconds
+
+
+ans =
+
+Natural frequency Wn = 1.4351
+
+
+ans =
+
+Rise time Tr = 0.84575 seconds
+
+
+ans =
+
+Maximum displacement y1 = 1.5815 meters
+
+
+ans =
+
+Time during maximum displacement Tp = 2.2214 seconds
+
+
+ans =
+
+The displacement at t=5 seconds is Y5 = 0.73646 meters
+
+
+ans =
+
+Natural frequency for Part III Wn = 17.8326
+
+
+ans =
+
+Zeta for Part III = 0.0026887
+
+
+ans =
+
+Settling time for Part III Ts = 83.4272 seconds
+
+
+ans =
+
+Peak time for Part III Tp = 0.17617 seconds
+
+
+ans =
+
+Percent overshoot for Part III %OS = 99.1589 percent
+
+
+ans =
+
+Rise time for Part III Tr = 1.1198 seconds
+
+% Modify expression to add input arguments.
+% Example:
+%   a = [1 2 3; 4 5 6]; 
+%   foo(a);
+
+Lab03_PartII
+Enter a value for mass in Kg: .5
+Enter a value for the spring constant in N/m: 1
+Enter a value for the damping coefficient in N-s/m: .24
+Enter a value for the step input: 1
+
+ans =
+
+Peak time Tp = 2.2214 seconds
+
+
+ans =
+
+Percent overshoot %OS = 58.1544 percent
+
+
+ans =
+
+Zeta = 0.17003
+
+
+ans =
+
+Settling time Ts = 16.3923 seconds
+
+
+ans =
+
+Natural frequency Wn = 1.4351
+
+
+ans =
+
+Rise time Tr = 0.84575 seconds
+
+
+ans =
+
+Maximum displacement y1 = 1.5815 meters
+
+
+ans =
+
+Time during maximum displacement Tp = 2.2214 seconds
+
+
+ans =
+
+The displacement at t=5 seconds is Y5 = 0.73646 meters
+
+
+ans =
+
+Natural frequency for Part III Wn = 17.8326
+
+
+ans =
+
+Zeta for Part III = 0.0026887
+
+
+ans =
+
+Settling time for Part III Ts = 83.4272 seconds
+
+
+ans =
+
+Peak time for Part III Tp = 0.17617 seconds
+
+
+ans =
+
+Percent overshoot for Part III %OS = 99.1589 percent
+
+
+ans =
+
+Rise time for Part III Tr = 0.062796 seconds
+
+edit
+% Modify expression to add input arguments.
+% Example:
+%   a = [1 2 3; 4 5 6]; 
+%   foo(a);
+
+Lab03_PartII
+Enter a value for mass in Kg: 1
+Enter a value for the spring constant in N/m: 1
+Enter a value for the damping coefficient in N-s/m: 1
+Enter a value for the step input: 1
+
+ans =
+
+Peak time Tp = 3.6029 seconds
+
+
+ans =
+
+Percent overshoot %OS = 16.2983 percent
+
+
+ans =
+
+Zeta = 0.50006
+
+
+ans =
+
+Settling time Ts = 7.9441 seconds
+
+
+ans =
+
+Natural frequency Wn = 1.0069
+
+
+ans =
+
+Rise time Tr = 1.6442 seconds
+
+
+ans =
+
+Maximum displacement y1 = 1.163 meters
+
+
+ans =
+
+Time during maximum displacement Tp = 3.6029 seconds
+
+
+ans =
+
+The displacement at t=5 seconds is Y5 = 1.0747 meters
+
+
+ans =
+
+Natural frequency for Part III Wn = 17.8326
+
+
+ans =
+
+Zeta for Part III = 0.0026887
+
+
+ans =
+
+Settling time for Part III Ts = 83.4272 seconds
+
+
+ans =
+
+Peak time for Part III Tp = 0.17617 seconds
+
+
+ans =
+
+Percent overshoot for Part III %OS = 99.1589 percent
+
+
+ans =
+
+Rise time for Part III Tr = 0.062796 seconds
+
+% Modify expression to add input arguments.
+% Example:
+%   a = [1 2 3; 4 5 6]; 
+%   foo(a);
+
+Lab03_PartII
+Enter a value for mass in Kg: .5
+Enter a value for the spring constant in N/m: 1
+Enter a value for the damping coefficient in N-s/m: .24
+Enter a value for the step input: 1
+
+ans =
+
+Peak time Tp = 2.2214 seconds
+
+
+ans =
+
+Percent overshoot %OS = 58.1544 percent
+
+
+ans =
+
+Zeta = 0.17003
+
+
+ans =
+
+Settling time Ts = 16.3923 seconds
+
+
+ans =
+
+Natural frequency Wn = 1.4351
+
+
+ans =
+
+Rise time Tr = 0.84575 seconds
+
+
+ans =
+
+Maximum displacement y1 = 1.5815 meters
+
+
+ans =
+
+Time during maximum displacement Tp = 2.2214 seconds
+
+
+ans =
+
+The displacement at t=5 seconds is Y5 = 0.73646 meters
+
+
+ans =
+
+Natural frequency for Part III Wn = 17.8326
+
+
+ans =
+
+Zeta for Part III = 0.0026887
+
+
+ans =
+
+Settling time for Part III Ts = 83.4272 seconds
+
+
+ans =
+
+Peak time for Part III Tp = 0.17617 seconds
+
+
+ans =
+
+Percent overshoot for Part III %OS = 99.1589 percent
+
+
+ans =
+
+Rise time for Part III Tr = 0.062796 seconds
+
+% Modify expression to add input arguments.
+% Example:
+%   a = [1 2 3; 4 5 6]; 
+%   foo(a);
+
+Lab03_PartII
+Enter a value for mass in Kg: .5
+Enter a value for the spring constant in N/m: 1
+Enter a value for the damping coefficient in N-s/m: .48
+Enter a value for the step input: 1
+
+ans =
+
+Peak time Tp = 2.4284 seconds
+
+
+ans =
+
+Percent overshoot %OS = 32.0474 percent
+
+
+ans =
+
+Zeta = 0.34057
+
+
+ans =
+
+Settling time Ts = 8.536 seconds
+
+
+ans =
+
+Natural frequency Wn = 1.3759
+
+
+ans =
+
+Rise time Tr = 0.98693 seconds
+
+
+ans =
+
+Maximum displacement y1 = 1.3205 meters
+
+
+ans =
+
+Time during maximum displacement Tp = 2.4284 seconds
+
+
+ans =
+
+The displacement at t=5 seconds is Y5 = 0.90442 meters
+
+
+ans =
+
+Natural frequency for Part III Wn = 17.8326
+
+
+ans =
+
+Zeta for Part III = 0.0026887
+
+
+ans =
+
+Settling time for Part III Ts = 83.4272 seconds
+
+
+ans =
+
+Peak time for Part III Tp = 0.17617 seconds
+
+
+ans =
+
+Percent overshoot for Part III %OS = 99.1589 percent
+
+
+ans =
+
+Rise time for Part III Tr = 0.062796 seconds
+
+% Modify expression to add input arguments.
+% Example:
+%   a = [1 2 3; 4 5 6]; 
+%   foo(a);
+
+Lab03_PartII
+Enter a value for mass in Kg: .5
+Enter a value for the spring constant in N/m: 1
+Enter a value for the damping coefficient in N-s/m: 0
+Enter a value for the step input: 1
+
+ans =
+
+Peak time Tp = 513.153 seconds
+
+
+ans =
+
+Percent overshoot %OS = 100 percent
+
+
+ans =
+
+Settling time Ts = infinity; System is undamped
+
+
+ans =
+
+Natural frequency Wn = 1.4142
+
+
+ans =
+
+Rise time Tr = NaN; System is undamped
+
+
+ans =
+
+Maximum displacement y1 = 2 meters
+
+
+ans =
+
+Time during maximum displacement Tp = 513.153 seconds
+
+
+ans =
+
+The displacement at t=5 seconds is Y5 = 0.30335 meters
+
+
+ans =
+
+Natural frequency for Part III Wn = 17.8326
+
+
+ans =
+
+Zeta for Part III = 0.0026887
+
+
+ans =
+
+Settling time for Part III Ts = 83.4272 seconds
+
+
+ans =
+
+Peak time for Part III Tp = 0.17617 seconds
+
+
+ans =
+
+Percent overshoot for Part III %OS = 99.1589 percent
+
+
+ans =
+
+Rise time for Part III Tr = 0.062796 seconds
+
+% Modify expression to add input arguments.
+% Example:
+%   a = [1 2 3; 4 5 6]; 
+%   foo(a);
+
+Lab03_PartII
+Enter a value for mass in Kg: .5
+Enter a value for the spring constant in N/m: 1
+Enter a value for the damping coefficient in N-s/m: .22
+Enter a value for the step input: 1
+
+ans =
+
+Peak time Tp = 2.2214 seconds
+
+
+ans =
+
+Percent overshoot %OS = 60.9271 percent
+
+
+ans =
+
+Zeta = 0.15579
+
+
+ans =
+
+Settling time Ts = 17.9332 seconds
+
+
+ans =
+
+Natural frequency Wn = 1.4317
+
+
+ans =
+
+Rise time Tr = 0.83537 seconds
+
+
+ans =
+
+Maximum displacement y1 = 1.6093 meters
+
+
+ans =
+
+Time during maximum displacement Tp = 2.2214 seconds
+
+
+ans =
+
+The displacement at t=5 seconds is Y5 = 0.71467 meters
+
+
+ans =
+
+Natural frequency for Part III Wn = 17.8326
+
+
+ans =
+
+Zeta for Part III = 0.0026887
+
+
+ans =
+
+Settling time for Part III Ts = 83.4272 seconds
+
+
+ans =
+
+Peak time for Part III Tp = 0.17617 seconds
+
+
+ans =
+
+Percent overshoot for Part III %OS = 99.1589 percent
+
+
+ans =
+
+Rise time for Part III Tr = 0.062796 seconds
+
+% Modify expression to add input arguments.
+% Example:
+%   a = [1 2 3; 4 5 6]; 
+%   foo(a);
+
+Lab03_PartII
+Enter a value for mass in Kg: .5
+Enter a value for the spring constant in N/m: 1
+Enter a value for the damping coefficient in N-s/m: .24
+Enter a value for the step input: 1
+
+ans =
+
+Peak time Tp = 2.2214 seconds
+
+
+ans =
+
+Percent overshoot %OS = 58.1544 percent
+
+
+ans =
+
+Zeta = 0.17003
+
+
+ans =
+
+Settling time Ts = 16.3923 seconds
+
+
+ans =
+
+Natural frequency Wn = 1.4351
+
+
+ans =
+
+Rise time Tr = 0.84575 seconds
+
+
+ans =
+
+Maximum displacement y1 = 1.5815 meters
+
+
+ans =
+
+Time during maximum displacement Tp = 2.2214 seconds
+
+
+ans =
+
+The displacement at t=5 seconds is Y5 = 0.73646 meters
+
+
+ans =
+
+Natural frequency for Part III Wn = 17.8326
+
+
+ans =
+
+Zeta for Part III = 0.0026887
+
+
+ans =
+
+Settling time for Part III Ts = 83.4272 seconds
+
+
+ans =
+
+Peak time for Part III Tp = 0.17617 seconds
+
+
+ans =
+
+Percent overshoot for Part III %OS = 99.1589 percent
+
+
+ans =
+
+Rise time for Part III Tr = 0.062796 seconds
+
+% Modify expression to add input arguments.
+% Example:
+%   a = [1 2 3; 4 5 6]; 
+%   foo(a);
+
+Lab03_PartII
+Enter a value for mass in Kg: .5
+Enter a value for the spring constant in N/m: 1
+Enter a value for the damping coefficient in N-s/m: .24
+Enter a value for the step input: 1
+
+ans =
+
+Peak time Tp = 2.2214 seconds
+
+
+ans =
+
+Percent overshoot %OS = 58.1544 percent
+
+
+ans =
+
+Zeta = 0.17003
+
+
+ans =
+
+Settling time Ts = 16.3923 seconds
+
+
+ans =
+
+Natural frequency Wn = 1.4351
+
+
+ans =
+
+Rise time Tr = 0.84575 seconds
+
+
+ans =
+
+Maximum displacement y1 = 1.5815 meters
+
+
+ans =
+
+Time during maximum displacement Tp = 2.2214 seconds
+
+
+ans =
+
+The displacement at t=5 seconds is Y5 = 0.73646 meters
+
+
+ans =
+
+Natural frequency for Part III Wn = 17.8326
+
+
+ans =
+
+Zeta for Part III = 0.0026887
+
+
+ans =
+
+Settling time for Part III Ts = 83.4272 seconds
+
+
+ans =
+
+Peak time for Part III Tp = 0.17617 seconds
+
+
+ans =
+
+Percent overshoot for Part III %OS = 99.1589 percent
+
+
+ans =
+
+Rise time for Part III Tr = 0.062796 seconds
+
+% Modify expression to add input arguments.
+% Example:
+%   a = [1 2 3; 4 5 6]; 
+%   foo(a);
+
+Lab03_PartII
+Enter a value for mass in Kg: 1
+Enter a value for the spring constant in N/m: 1
+Enter a value for the damping coefficient in N-s/m: 1
+Enter a value for the step input: 1
+
+ans =
+
+Peak time Tp = 3.6029 seconds
+
+
+ans =
+
+Percent overshoot %OS = 16.2983 percent
+
+
+ans =
+
+Zeta = 0.50006
+
+
+ans =
+
+Settling time Ts = 7.9441 seconds
+
+
+ans =
+
+Natural frequency Wn = 1.0069
+
+
+ans =
+
+Rise time Tr = 1.6442 seconds
+
+
+ans =
+
+Maximum displacement y1 = 1.163 meters
+
+
+ans =
+
+Time during maximum displacement Tp = 3.6029 seconds
+
+
+ans =
+
+The displacement at t=5 seconds is Y5 = 1.0747 meters
+
+
+ans =
+
+Natural frequency for Part III Wn = 17.8326
+
+
+ans =
+
+Zeta for Part III = 0.0026887
+
+
+ans =
+
+Settling time for Part III Ts = 83.4272 seconds
+
+
+ans =
+
+Peak time for Part III Tp = 0.17617 seconds
+
+
+ans =
+
+Percent overshoot for Part III %OS = 99.1589 percent
+
+
+ans =
+
+Rise time for Part III Tr = 0.062796 seconds
+
+% Modify expression to add input arguments.
+% Example:
+%   a = [1 2 3; 4 5 6]; 
+%   foo(a);
+
+Lab03_PartII
+Enter a value for mass in Kg: .5
+Enter a value for the spring constant in N/m: 1
+Enter a value for the damping coefficient in N-s/m: .48
+Enter a value for the step input: 1
+
+ans =
+
+Peak time Tp = 2.4284 seconds
+
+
+ans =
+
+Percent overshoot %OS = 32.0474 percent
+
+
+ans =
+
+Zeta = 0.34057
+
+
+ans =
+
+Settling time Ts = 8.536 seconds
+
+
+ans =
+
+Natural frequency Wn = 1.3759
+
+
+ans =
+
+Rise time Tr = 0.98693 seconds
+
+
+ans =
+
+Maximum displacement y1 = 1.3205 meters
+
+
+ans =
+
+Time during maximum displacement Tp = 2.4284 seconds
+
+
+ans =
+
+The displacement at t=5 seconds is Y5 = 0.90442 meters
+
+
+ans =
+
+Natural frequency for Part III Wn = 17.8326
+
+
+ans =
+
+Zeta for Part III = 0.0026887
+
+
+ans =
+
+Settling time for Part III Ts = 83.4272 seconds
+
+
+ans =
+
+Peak time for Part III Tp = 0.17617 seconds
+
+
+ans =
+
+Percent overshoot for Part III %OS = 99.1589 percent
+
+
+ans =
+
+Rise time for Part III Tr = 0.062796 seconds
+
+% Modify expression to add input arguments.
+% Example:
+%   a = [1 2 3; 4 5 6]; 
+%   foo(a);
+
+Lab03_PartII
+Enter a value for mass in Kg: .5
+Enter a value for the spring constant in N/m: 1
+Enter a value for the damping coefficient in N-s/m: .24
+Enter a value for the step input: 1
+
+ans =
+
+Peak time Tp = 2.2214 seconds
+
+
+ans =
+
+Percent overshoot %OS = 58.1544 percent
+
+
+ans =
+
+Zeta = 0.17003
+
+
+ans =
+
+Settling time Ts = 16.3923 seconds
+
+
+ans =
+
+Natural frequency Wn = 1.4351
+
+
+ans =
+
+Rise time Tr = 0.84575 seconds
+
+
+ans =
+
+Maximum displacement y1 = 1.5815 meters
+
+
+ans =
+
+Time during maximum displacement Tp = 2.2214 seconds
+
+
+ans =
+
+The displacement at t=5 seconds is Y5 = 0.73646 meters
+
+
+ans =
+
+Natural frequency for Part III Wn = 17.8326
+
+
+ans =
+
+Zeta for Part III = 0.0026887
+
+
+ans =
+
+Settling time for Part III Ts = 83.4272 seconds
+
+
+ans =
+
+Peak time for Part III Tp = 0.17617 seconds
+
+
+ans =
+
+Percent overshoot for Part III %OS = 99.1589 percent
+
+
+ans =
+
+Rise time for Part III Tr = 0.062796 seconds
+

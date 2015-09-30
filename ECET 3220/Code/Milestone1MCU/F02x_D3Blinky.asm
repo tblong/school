@@ -1,0 +1,134 @@
+$NOMOD51
+;-----------------------------------------------------------------------------
+;  Copyright (C) 2007 Silicon Laboratories, Inc.
+;  All rights reserved.
+;
+;
+;
+;  FILE NAME   :  F02x_BLINKY.ASM 
+;  TARGET MCU  :  C8051F020 
+;  DESCRIPTION :  This program illustrates how to disable the watchdog timer,
+;                 configure the Crossbar, configure a port and write to a port
+;                 I/O pin.
+;
+; 	NOTES: 
+;
+;-----------------------------------------------------------------------------
+
+$include (c8051f020.inc)               ; Include register definition file.
+
+;-----------------------------------------------------------------------------
+; EQUATES
+;-----------------------------------------------------------------------------
+
+ALRMAC_LED      bit   P1.0             ; Port pin connected to GAL FLASH LED.
+ALRMAR_LED			bit		P1.1						 ; Port pin connected to GAL ARMED LED.
+TAMPER_LED			bit		P1.2						 ; Port pin connected to GAL TAMPER LED.
+CAPLOCK_LED			bit		P1.3						 ; Port pin connected to GAL CAPLOCK LED.
+REDMODE_LED			bit		P1.4						 ; Port pin connected to GAL REDMODE LED.
+GREENMODE_LED		bit		P1.5						 ; Port pin connected to GAL GREENMODE LED.
+PURPLEMODE_LED	bit		P1.6						 ; Port pin connected to GAL PURPLEMODE LED.
+BLUEMODE_LED		bit		P1.7						 ; Port pin connected to GAL BLUEMODE LED.
+
+;-----------------------------------------------------------------------------
+; RESET and INTERRUPT VECTORS
+;-----------------------------------------------------------------------------
+
+               ; Reset Vector
+               cseg AT 0
+               ljmp Main               ; Locate a jump to the start of code at 
+                                       ; the reset vector.
+
+;-----------------------------------------------------------------------------
+; MAIN CODE SEGMENT
+;-----------------------------------------------------------------------------
+
+
+Blink          segment  CODE
+
+               rseg     Blink          ; Switch to this code segment.
+               using    0              ; Specify register bank for the following
+                                       ; program code.
+
+Main:          
+			
+
+			Init_Device:
+    					lcall Chip_Init
+    					
+
+
+							 
+               ; Initialize all LED's to OFF
+               clr   ALRMAC_LED
+							 clr   ALRMAR_LED
+							 clr   TAMPER_LED
+							 clr   CAPLOCK_LED
+							 clr   REDMODE_LED
+							 clr   GREENMODE_LED
+							 clr   PURPLEMODE_LED
+							 clr   BLUEMODE_LED
+
+							 mov	 ACC, #0Fh				;Provide count to exit LED loop
+               
+Loop2:         mov   R7, #03h				; Simple delay loop.
+Loop1:         mov   R6, #00h
+Loop0:         mov   R5, #00h
+							 
+						 	 
+							 djnz  R5, $
+               djnz  R6, Loop0
+               dec	 ACC			;Exit blink LED loop after 16 blinks 
+               jz		 Finish
+							 djnz  R7, Loop1
+							 setb	 ALRMAC_LED			; Turn on GAL Flashing Ckt
+               cpl   ALRMAR_LED			; Toggle LED's.
+							 cpl   TAMPER_LED			; Toggle LED's.
+							 cpl   CAPLOCK_LED		; Toggle LED's.
+							 cpl   REDMODE_LED		; Toggle LED's.
+							 cpl   GREENMODE_LED	; Toggle LED's.
+							 cpl   PURPLEMODE_LED	; Toggle LED's.
+							 cpl   BLUEMODE_LED		; Toggle LED's.					             
+               jmp   Loop2
+
+Finish:
+							 clr ALRMAC_LED 			;Turn off GAL Flashing Ckt
+							 sjmp $								; Lock up program
+
+;-------------------------------------------------------------------
+;             Chip Initialization Sub Routine
+;-------------------------------------------------------------------
+Chip_Init:
+    					mov  OSCXCN,    #067h				; Enables the Crystal Oscillator 
+    					mov  R0,        #030        ; Wait 1ms for initialization
+			Osc_Wait1:
+    					clr  A
+    					djnz ACC,	$
+    					djnz R0,	Osc_Wait1
+			Osc_Wait2:
+    					mov  A,	OSCXCN
+    					jnb  ACC.7,	Osc_Wait2
+    					mov  OSCICN,	#08h
+    			
+							 
+Wdt_Setup:						 
+							 ; Disable the WDT. (IRQs not enabled at this point.)
+               ; If interrupts were enabled, we would need to explicitly disable
+               ; them so that the 2nd move to WDTCN occurs no more than four clock 
+               ; cycles after the first move to WDTCN.
+
+               mov   WDTCN, #0DEh
+               mov   WDTCN, #0ADh
+					
+Crossbar_Setup:               
+               mov   XBR2, #40h ; Enable the Port I/O Crossbar
+							 mov	 XBR1, #80h ; Places system clock on P0.0
+							 ret
+
+;-----------------------------------------------------------------------------
+; End of file.
+
+END
+
+
+

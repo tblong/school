@@ -1,0 +1,1 @@
+"C:\Documents and Settings\Tyler Long\My Documents\School\ECET 3220\Code\Oscillator Test\F02x_Blinky.obj"  TO "C:\Documents and Settings\Tyler Long\My Documents\School\ECET 3220\Code\Oscillator Test\F02x_Blinky." RS(256) PL(68) PW(78) 

@@ -1,0 +1,178 @@
+;=====================================================================
+;                             Pro-Tex 9000
+;
+;Revision: R.07031336  (R.MMDDHHMM)
+;
+;Project Team Members:
+; - Vince Watkins
+; - Will Smith
+; - Tyler Long
+;
+;=Alarm Subroutines=
+;
+;
+;
+;Registers Used:
+;
+;=====================================================================
+
+
+;=====================================================================
+;   Variable declarations
+;=====================================================================
+
+
+
+
+
+
+;=====================================================================
+;   Sub routine - Check Alarm Status and Switches
+;
+;The end of this subroutine will disable its own external interrupt
+;before the 'reti' and also re-enable the Timer 1 count for getting
+;the current acceleration.  /INT1 will only be re-enabled once the 
+;system has been sucessifully disarmed witht the correct password.
+;
+;Alarms:
+; - P3.2: Tamper Alarm
+; - P3.3: Door Ajar Alarm
+; - P3.4: Panic Alarm
+;
+;=====================================================================
+
+Alarm_Check:
+    clr   TR1           ;Stop Timer 1 from interrupting
+
+    push    PSW
+    push    DPH
+    push    DPL
+    push    ACC
+    push    B
+
+Alarm_Panic:
+    jnb   P3.4,Alarm_Check_Armed
+    setb  P1.0
+    clr   EX1         ;Disable /INT1
+    lcall Alarm_Ser_Panic
+    jmp   Alarm_Check_Done
+
+Alarm_Check_Armed:
+    jnb   18h,Alarm_Check_Done
+    jb    P3.2,Alarm_Tamper      ;Tamper Alarm
+    jb    P3.3,Alarm_Door        ;Door Ajar Alarm
+    jmp   Alarm_Check_Done
+
+Alarm_Tamper:
+    setb  P1.2    ;Illuminates Yellow Tamper LED
+    setb  P1.0    ;Illuminates alternating flashing LEDs
+    clr   EX1         ;Disable /INT1
+    lcall Alarm_Ser_Tamper
+    jmp   Alarm_Check_Done
+
+Alarm_Door:
+    setb  P1.0
+    clr   EX1         ;Disable /INT1
+    lcall Alarm_Ser_Door
+    jmp   Alarm_Check_Done
+
+Alarm_Check_Done:
+
+    pop     B
+    pop     ACC
+    pop     DPL
+    pop     DPH
+    pop     PSW
+
+    setb  TR1         ;Start Timer 1 
+
+    reti
+
+;=====================================================================
+;   Sub routine - Serial routine for Panic Alarm
+;
+;=====================================================================
+
+Alarm_Ser_Panic:
+    mov   DPTR,#Alarm_Panic_Serial
+    mov   A,#00h
+Alarm_Ser_Panic_Loop:
+    mov   A,#00h
+    movc  A,@A + DPTR
+    jz    Alarm_Ser_Panic_Finish
+    mov   SBUF1,A
+
+    mov   A,SCON1
+    jnb   ACC.1,$ - 2
+    mov   SCON1,#40h
+    inc   DPTR
+  
+    sjmp  Alarm_Ser_Panic_Loop
+  
+Alarm_Ser_Panic_Finish:
+    ret
+
+;=====================================================================
+;   Sub routine - Serial routine for Tamper Alarm
+;
+;=====================================================================
+
+Alarm_Ser_Tamper:
+    mov   DPTR,#Alarm_Tamper_Serial
+    mov   A,#00h
+Alarm_Ser_Tamper_Loop:
+    mov   A,#00h
+    movc  A,@A + DPTR
+    jz    Alarm_Ser_Tamper_Finish
+    mov   SBUF1,A
+
+    mov   A,SCON1
+    jnb   ACC.1,$ - 2
+    mov   SCON1,#40h
+    inc   DPTR
+  
+    sjmp  Alarm_Ser_Tamper_Loop
+  
+Alarm_Ser_Tamper_Finish:
+    ret
+
+;=====================================================================
+;   Sub routine - Serial routine for Door Alarm
+;
+;=====================================================================
+
+Alarm_Ser_Door:
+    mov   DPTR,#Alarm_Door_Serial
+    mov   A,#00h
+Alarm_Ser_Door_Loop:
+    mov   A,#00h
+    movc  A,@A + DPTR
+    jz    Alarm_Ser_Door_Finish
+    mov   SBUF1,A
+
+    mov   A,SCON1
+    jnb   ACC.1,$ - 2
+    mov   SCON1,#40h
+    inc   DPTR
+  
+    sjmp  Alarm_Ser_Door_Loop
+  
+Alarm_Ser_Door_Finish:
+    ret
+
+
+
+Alarm_Panic_Serial: 
+    db "************************",0Dh,0Ah
+    db "*  Panic Activated!!!  *",0Dh,0Ah
+    db "************************",0Dh,0Ah,0
+
+Alarm_Tamper_Serial: 
+    db "*****************************",0Dh,0Ah
+    db "*  Alarm Tamper Tripped!!!  *",0Dh,0Ah
+    db "*****************************",0Dh,0Ah,0
+
+Alarm_Door_Serial: 
+    db "**********************",0Dh,0Ah
+    db "*  Car Door Open!!!  *",0Dh,0Ah
+    db "**********************",0Dh,0Ah,0

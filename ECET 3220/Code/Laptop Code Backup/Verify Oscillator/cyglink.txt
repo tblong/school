@@ -1,0 +1,1 @@
+"C:\Documents and Settings\Tyler Long\My Documents\School\ECET 3220\Code\Verify Oscillator\verify.obj"  TO "C:\Documents and Settings\Tyler Long\My Documents\School\ECET 3220\Code\Verify Oscillator\Verify Oscillator Freq"  RS(256) PL(68) PW(78)   
