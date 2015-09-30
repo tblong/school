@@ -1,0 +1,76 @@
+A51 MACRO ASSEMBLER  STATE                                                                07/06/2008 16:06:00 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.00d
+OBJECT MODULE PLACED IN State.OBJ
+ASSEMBLER INVOKED BY: c:\SiLabs\MCU\IDEfiles\C51\BIN\a51.exe State.asm XR GEN DB EP NOMOD51
+
+LOC  OBJ            LINE     SOURCE
+
+                       1     ;=====================================================================
+                       2     ;                             Pro-Tex 9000
+                       3     ;
+                       4     ;Revision: R.07031336  (R.MMDDHHMM)
+                       5     ;
+                       6     ;Project Team Members:
+                       7     ; - Vince Watkins
+                       8     ; - Will Smith
+                       9     ; - Tyler Long
+                      10     ;
+                      11     ;=State Machine Routines=
+                      12     ;
+                      13     ;
+                      14     ;
+                      15     ;
+                      16     ;Registers Used:
+                      17     ; -
+                      18     ;=====================================================================
+                      19     
+                      20     
+                      21     ;=====================================================================
+                      22     ;   Variable declarations
+                      23     ;=====================================================================
+                      24     
+                      25     
+                      26     
+                      27     
+                      28     
+                      29     
+                      30     ;=====================================================================
+                      31     ;   Table for State machine
+                      32     ;=====================================================================
+                      33     
+0000                  34     State_Table:
+0000 0006             35         dw    State_00    ;pointer to State 0
+0002                  36         dw    State_01    ;pointer to State 1
+*** ___________________________________^
+*** ERROR #A45 IN 36 (State.asm, LINE 36): UNDEFINED SYMBOL (PASS-2)
+0004                  37         dw    State_02    ;pointer to State 2
+*** ___________________________________^
+*** ERROR #A45 IN 37 (State.asm, LINE 37): UNDEFINED SYMBOL (PASS-2)
+                      38     
+                      39     
+                      40     
+                      41     
+0006                  42     State_00:
+                      43         
+                      44                     
+*** WARNING #A41 IN 44 (State.asm, LINE 44): MISSING 'END' STATEMENT
+A51 MACRO ASSEMBLER  STATE                                                                07/06/2008 16:06:00 PAGE     2
+
+XREF SYMBOL TABLE LISTING
+---- ------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES / REFERENCES
+
+STATE_00 . . . . .  C ADDR   0006H   A      35 42#
+STATE_01 . . . . .    ----   -----          36
+STATE_02 . . . . .    ----   -----          37
+STATE_TABLE. . . .  C ADDR   0000H   A      34#
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  1 WARNING(S), 2 ERROR(S)

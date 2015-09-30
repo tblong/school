@@ -1,0 +1,239 @@
+A51 MACRO ASSEMBLER  RAM                                                                  07/13/2008 13:09:18 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.00d
+OBJECT MODULE PLACED IN RAM.OBJ
+ASSEMBLER INVOKED BY: c:\SiLabs\MCU\IDEfiles\C51\BIN\a51.exe RAM.asm XR GEN DB EP NOMOD51
+
+LOC  OBJ            LINE     SOURCE
+
+                       1     ;=====================================================================
+                       2     ;                             Pro-Tex 9000
+                       3     ;
+                       4     ;Revision: R.07031336  (R.MMDDHHMM)
+                       5     ;
+                       6     ;Project Team Members:
+                       7     ; - Vince Watkins
+                       8     ; - Will Smith
+                       9     ; - Tyler Long
+                      10     ;
+                      11     ;=RAM Subroutines=
+                      12     ;
+                      13     ;'RAM_Read' & 'RAM_Write' subroutines will be called from the Main.asm.
+                      14     ;The DPTR shall have the proper location to either read from 
+                      15     ;or write to.
+                      16     ;
+                      17     ;
+                      18     ;Registers Used:
+                      19     ; - R2: Contains value to write to RAM or value read from RAM upon
+                      20     ;       exit of subroutine.
+                      21     ; - ACC: Used to transfer from/to RAM
+                      22     ;=====================================================================
+                      23     
+                      24     
+                      25     ;=====================================================================
+                      26     ;   Variable declarations
+                      27     ;=====================================================================
+                      28     
+                      29     ;RAM Commands
+  2000                30     RAM_RdWr              EQU 2000h     ;RAM read/write cmd addr. for DPTR
+                      31     
+                      32     
+                      33     
+                      34     
+                      35     ;=====================================================================
+                      36     ;   Sub routine - Read from RAM
+                      37     ;
+                      38     ; - R0: Points to LSB of password from RAM (2Ch)
+                      39     ;=====================================================================
+                      40     
+0000                  41     RAM_Read_PW:
+0000 782C             42         mov   R0,#2Ch         ;Pointer to LSB in scratch pad RAM
+0002 902000           43         mov   DPTR,#RAM_RdWr  ;LSB of PW in RAM
+                      44     
+0005 E0               45         movx  A,@DPTR         ;Save LSB of PW from RAM=>ACC
+0006 F6               46         mov   @R0,A           ;Save LSB of PW to scratch pad RAM '2Ch'
+0007 A3               47         inc   DPTR            ;next PW character in RAM 
+0008 08               48         inc   R0              ;next scratch pad RAM location
+                      49                               ;next character
+                      50     
+0009 E0               51         movx  A,@DPTR         ;Save next PW char from RAM=>ACC
+000A F6               52         mov   @R0,A           ;Save next PW char to scratch pad RAM '2Dh'
+000B A3               53         inc   DPTR            ;next PW character in RAM 
+000C 08               54         inc   R0              ;next scratch pad RAM location
+                      55                               ;next character
+                      56     
+000D E0               57         movx  A,@DPTR         ;Save next PW char from RAM=>ACC
+000E F6               58         mov   @R0,A           ;Save next PW char to scratch pad RAM '2Eh'
+A51 MACRO ASSEMBLER  RAM                                                                  07/13/2008 13:09:18 PAGE     2
+
+000F A3               59         inc   DPTR            ;next PW character in RAM 
+0010 08               60         inc   R0              ;next scratch pad RAM location
+                      61                               ;next character
+                      62     
+0011 E0               63         movx  A,@DPTR         ;Save MSB of PW from RAM=>ACC
+0012 F6               64         mov   @R0,A           ;Save MSB of PW to scratch pad RAM '2Fh'
+                      65                               ;Last char of PW saved
+                      66     
+                      67     
+0013 22               68         ret
+                      69     
+                      70     ;=====================================================================
+                      71     ;   Sub routine - Write to RAM
+                      72     ;
+                      73     ; - R0: Points to LSB of password entered into scratch RAM (28h)
+                      74     ;=====================================================================
+                      75     
+0014                  76     RAM_Write_PW:
+0014 7828             77         mov   R0,#28h         ;Pointer to LSB in scratch pad RAM
+0016 902000           78         mov   DPTR,#RAM_RdWr  ;LSB of PW in RAM
+                      79     
+0019 E6               80         mov   A,@R0           ;Save LSB of PW to ACC
+001A F0               81         movx  @DPTR,A         ;mov ACC=>RAM
+001B A3               82         inc   DPTR            ;next PW character in RAM 
+001C 08               83         inc   R0              ;next scratch pad RAM location
+                      84                               ;next character
+                      85     
+001D E6               86         mov   A,@R0           ;Save next PW char to ACC
+001E F0               87         movx  @DPTR,A         ;mov ACC=>RAM
+001F A3               88         inc   DPTR            ;next PW character in RAM 
+0020 08               89         inc   R0              ;next scratch pad RAM location
+                      90                               ;next character
+                      91     
+0021 E6               92         mov   A,@R0           ;Save next PW char to ACC
+0022 F0               93         movx  @DPTR,A         ;mov ACC=>RAM
+0023 A3               94         inc   DPTR            ;next PW character in RAM 
+0024 08               95         inc   R0              ;next scratch pad RAM location
+                      96                               ;next character
+                      97     
+0025 E6               98         mov   A,@R0           ;Save MSB PW char to ACC
+0026 F0               99         movx  @DPTR,A         ;mov ACC=>RAM
+                     100     
+                     101     
+0027 22              102         ret
+                     103     
+                     104     
+                     105     
+                     106     ;=====================================================================
+                     107     ;   Sub routine - Write to ADC string to RAM
+                     108     ;
+                     109     ; - R0: Points to LSB of password entered into scratch RAM (28h)
+                     110     ;=====================================================================
+                     111     
+                     112                     
+0028                 113     RAM_Write_ADC:
+0028 C0D0            114         push  PSW
+002A C083            115         push  DPH ;save DPTR for table
+002C C082            116         push  DPL ;save DPTR for table
+002E C0E0            117         push  ACC
+0030 C0F0            118         push  B
+                     119         
+0032 752404          120         mov   24h, #04h
+0035 93              121         movc  A,@A + DPTR
+0036 A3              122         inc   DPTR    ;increment DPTR for table
+0037 6031            123         jz    RAM_Write_ADC_Return
+0039 758320          124         mov   DPH,#20h
+A51 MACRO ASSEMBLER  RAM                                                                  07/13/2008 13:09:18 PAGE     3
+
+003C 852482          125         mov   DPL,24h
+003F C083            126         push  DPH   ;save new DPTR for table
+0041 C082            127         push  DPL   ;save new DPTR for table
+                     128     
+0043 6025            129         jz    RAM_Write_ADC_Return      ;Null Character Reached
+                     130     
+                     131     
+0045 902004          132         mov   DPTR,#RAM_RdWr + 4  ;+- character
+0048 902005          133         mov   DPTR,#RAM_RdWr + 5  ;one's digit
+004B 902006          134         mov   DPTR,#RAM_RdWr + 6  ;decimal
+004E 902007          135         mov   DPTR,#RAM_RdWr + 7  ;tenth's digit
+0051 902008          136         mov   DPTR,#RAM_RdWr + 8  ;hundredth's digit
+0054 902009          137         mov   DPTR,#RAM_RdWr + 9  ;'g'
+                     138     
+                     139     
+0057 F0              140         movx  @DPTR,A
+                     141     
+0058 A3              142         inc   DPTR
+0059 C083            143         push  DPH
+005B C082            144         push  DPL
+                     145         
+                     146     
+005D                 147     RAM_Write_ADC_Restore:
+005D D0F0            148         pop   B
+005F D0E0            149         pop   ACC
+0061 D082            150         pop   DPL
+0063 D083            151         pop   DPH
+0065 D0D0            152         pop   PSW
+0067 A3              153         inc   DPTR
+                     154     
+0068 80BE            155         jmp   RAM_Write_ADC
+                     156     
+006A                 157     RAM_Write_ADC_Return:
+006A D0F0            158         pop   B
+006C D0E0            159         pop   ACC
+006E D082            160         pop   DPL
+0070 D083            161         pop   DPH
+0072 D0D0            162         pop   PSW
+0074 A3              163         inc   DPTR       ;Leave sub with DPTR at next string in db
+                     164     
+0075 22              165         ret
+                     166     
+                     167     
+                     168     
+                     169     
+                     170     
+                     171     
+                     172     
+                     173     
+                     174     ;=====================================================================
+                     175     ;   Sub routine - Initialize RAM w/Default password
+                     176     ;=====================================================================
+                     177     
+0076                 178     RAM_Init:
+0076 902000          179         mov   DPTR,#RAM_RdWr  ;
+                     180     
+0079 7434            181         mov   A,#'4'          ;Fourth PW Char
+007B F0              182         movx  @DPTR,A         ;
+                     183         
+007C A3              184         inc   DPTR            ;
+007D 7433            185         mov   A,#'3'          ;Third PW Char
+007F F0              186         movx  @DPTR,A         ;
+                     187     
+0080 A3              188         inc   DPTR            ;
+0081 7432            189         mov   A,#'2'          ;Second PW Char
+0083 F0              190         movx  @DPTR,A         ;
+A51 MACRO ASSEMBLER  RAM                                                                  07/13/2008 13:09:18 PAGE     4
+
+                     191     
+0084 A3              192         inc   DPTR            ;
+0085 7431            193         mov   A,#'1'          ;First PW Char  
+0087 F0              194         movx  @DPTR,A         ;
+                     195     
+0088 22              196         ret
+                     197                     
+*** WARNING #A41 IN 197 (RAM.asm, LINE 197): MISSING 'END' STATEMENT
+A51 MACRO ASSEMBLER  RAM                                                                  07/13/2008 13:09:18 PAGE     5
+
+XREF SYMBOL TABLE LISTING
+---- ------ ----- -------
+
+
+N A M E                T Y P E  V A L U E   ATTRIBUTES / REFERENCES
+
+ACC . . . . . . . . .  D ADDR   00E0H   A      117 149 159
+B . . . . . . . . . .  D ADDR   00F0H   A      118 148 158
+DPH . . . . . . . . .  D ADDR   0083H   A      115 124 126 143 151 161
+DPL . . . . . . . . .  D ADDR   0082H   A      116 125 127 144 150 160
+PSW . . . . . . . . .  D ADDR   00D0H   A      114 152 162
+RAM_INIT. . . . . . .  C ADDR   0076H   A      178#
+RAM_RDWR. . . . . . .  N NUMB   2000H   A      30# 43 78 132 133 134 135 136 137 179
+RAM_READ_PW . . . . .  C ADDR   0000H   A      41#
+RAM_WRITE_ADC . . . .  C ADDR   0028H   A      113# 155
+RAM_WRITE_ADC_RESTORE  C ADDR   005DH   A      147#
+RAM_WRITE_ADC_RETURN.  C ADDR   006AH   A      123 129 157#
+RAM_WRITE_PW. . . . .  C ADDR   0014H   A      76#
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  1 WARNING(S), 0 ERROR(S)

@@ -1,0 +1,206 @@
+;=====================================================================
+;                             Pro-Tex 9000
+;
+;Revision: R.07031336  (R.MMDDHHMM)
+;
+;Project Team Members:
+; - Vince Watkins
+; - Will Smith
+; - Tyler Long
+;
+;=Deleted Code=
+;
+;This file is code that was only needed for Milestone #2
+;=====================================================================
+
+
+
+;=====================================================================
+;   Screen #4
+;=====================================================================
+
+
+    ;4th Screen - 1st line
+
+
+    mov     DPTR,#LCD_CMD     ;Locates Cursor
+    mov     ACC,#80h + 00h
+    movx    @DPTR,A
+    lcall   LCD_Busy
+
+    mov     DPTR,#LCD_Home    ;4th Screen pointer
+    mov     ACC,#00h          ;Points to first char. in string
+    lcall   LCD_Print         ;Display 4th Screen; 1st line
+
+    ;4th Screen - 2nd line
+
+    push    DPH
+    push    DPL               ;Saves DPTR for next line in screen
+
+    mov     DPTR,#LCD_CMD     ;Locates Cursor
+    mov     ACC,#80h + 40h
+    movx    @DPTR,A
+    lcall   LCD_Busy
+
+    pop     DPL
+    pop     DPH               ;Restore next line for screen
+
+    mov     ACC,#00h          ;offset for char in string 
+                              ;00h=>1st char in string
+    lcall   LCD_Print         ;Display 4th Screen; 2nd line
+
+    ;4th Screen - 3rd line
+		
+    push    DPH
+    push    DPL               ;Saves DPTR for next line in screen
+
+    mov     DPTR,#LCD_CMD     ;Locates Cursor
+    mov     ACC,#80h + 14h
+    movx    @DPTR,A
+    lcall   LCD_Busy
+
+    pop     DPL
+    pop     DPH               ;Restore next line for screen
+
+    mov     ACC,#00h          ;offset for char in string 
+                              ;00h=>1st char in string
+    lcall   LCD_Print         ;Display 4th Screen; 3rd line
+
+    ;4th Screen - 4th line
+		
+    push    DPH
+    push    DPL               ;Saves DPTR for next line in screen
+
+    mov     DPTR,#LCD_CMD     ;Locates Cursor
+    mov     ACC,#80h + 54h
+    movx    @DPTR,A
+    lcall   LCD_Busy
+
+    pop     DPL
+    pop     DPH               ;Restore next line for screen
+
+    mov     ACC,#00h          ;offset for char in string 
+                              ;00h=>1st char in string
+    lcall   LCD_Print         ;Display 4th Screen; 4th line
+
+    lcall   LCD_Wait_3sec
+    lcall   LCD_Clear
+
+;=====================================================================
+;   Screen #5
+;=====================================================================
+
+
+;5th Screen - 1st line
+
+    mov     DPTR,#LCD_CMD     ;Locates Cursor
+    mov     ACC,#80h + 00h
+    movx    @DPTR,A
+    lcall   LCD_Busy
+
+    mov     DPTR,#LCD_Main_Menu ;5th Screen pointer
+    mov     ACC,#00h            ;Points to first char. in string
+    lcall   LCD_Print           ;Display 5th Screen; 1st line
+
+    ;5th Screen - 2nd line
+
+    push    DPH
+    push    DPL              ;Saves DPTR for next line in screen
+
+    mov     DPTR,#LCD_CMD    ;Locates Cursor
+    mov     ACC,#80h + 40h
+    movx    @DPTR,A
+    lcall   LCD_Busy
+
+    pop     DPL
+    pop     DPH              ;Restore next line for screen
+ 
+    mov     ACC,#00h         ;offset for char in string
+                             ;00h=>1st char in string
+    lcall   LCD_Print        ;Display 5th Screen; 2nd line
+
+    ;5th Screen - 3rd line
+
+    push    DPH
+    push    DPL             ;Saves DPTR for next line in screen
+
+    mov     DPTR,#LCD_CMD   ;Locates Cursor
+    mov     ACC,#80h + 14h
+    movx    @DPTR,A
+    lcall   LCD_Busy
+
+    pop     DPL
+    pop     DPH             ;Restore next line for screen
+
+    mov     ACC,#00h        ;offset for char in string 
+                            ;00h=>1st char in string
+    lcall   LCD_Print       ;Display 5th Screen; 3rd line
+
+    ;5th Screen - 4th line
+		
+    push    DPH
+    push    DPL             ;Saves DPTR for next line in screen
+
+    mov     DPTR,#LCD_CMD   ;Locates Cursor
+    mov     ACC,#80h + 54h
+    movx    @DPTR,A
+    lcall   LCD_Busy
+
+    pop     DPL
+    pop     DPH             ;Restore next line for screen
+
+    mov     ACC,#00h        ;offset for char in string 
+                            ;00h=>1st char in string
+    lcall   LCD_Print       ;Display 5th Screen; 4th line
+
+    lcall   LCD_Wait_3sec
+    lcall   LCD_Clear
+		
+;=====================================================================
+;   Screen #6
+;=====================================================================
+
+    mov     DPTR,#LCD_CMD     ;Locates Cursor
+    mov     ACC,#80h + 00h
+    movx    @DPTR,A
+    lcall   LCD_Busy
+
+    mov     DPTR,#LCD_Current_PW ;6th Screen pointer
+    mov     ACC,#00h             ;Points to first char. in string
+    lcall   LCD_Print            ;Display 3rd Screen
+
+
+;=====================================================================
+;   End of Screen displays
+;=====================================================================
+
+mov   DPTR,#RAM_RdWr
+    mov   R2,#31h
+    lcall RAM_Write
+
+    inc   DPTR
+    mov   R2,#0FFh
+    lcall RAM_Write
+
+    inc   DPTR
+    mov   R2,#42h
+    lcall RAM_Write
+
+    inc   DPTR
+    mov   R2,#67h
+    lcall RAM_Write
+
+    mov   DPTR,#RAM_RdWr
+    lcall RAM_Read
+    inc   DPTR
+    lcall RAM_Read
+    inc   DPTR
+    lcall RAM_Read
+    inc   DPTR
+    lcall RAM_Read
+
+
+
+
+
+;State code template

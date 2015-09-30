@@ -1,0 +1,211 @@
+;=====================================================================
+;                             Pro-Tex 9000
+;
+;Revision: R.07031336  (R.MMDDHHMM)
+;
+;Project Team Members:
+; - Vince Watkins
+; - Will Smith
+; - Tyler Long
+;
+;LCD Subroutines
+;
+;
+;
+;=====================================================================
+
+
+;=====================================================================
+;   Variable declarations
+;=====================================================================
+
+;LCD Commands
+DISP_CLR              EQU 00000001b ;Clears Disp & sets DDRAM addy to zero
+DISP_FUNCTION_CMD     EQU 00111000b ;Sets disp to 8-bit & 5x10 chars.
+DISP_ON               EQU 00001100b ;Turns disp ON,
+DISP_CURSOR           EQU 00001111b ;Turns disp & cursor ON, cursor flashing
+DISP_ENTRY_MODE       EQU 00000110b ;Sets cursor move direction
+DISP_AUTOSHIFT_CURSOR EQU 00010100b ;Automatic move cursor right after send
+DISP_BACKSPACE        EQU 00010000b ;Shifts cursor left
+DISP_SHIFTRT          EQU 00011100b ;Shifts entire display Right
+
+LCD_WRITE             EQU 1000h     ;LCD Write address RS=1 & RW=0
+LCD_READ              EQU 1100h     ;LCD Read busy address RS=0 & RW =1
+LCD_CMD               EQU 1200h     ;LCD Command address RS=0 & RW =0
+
+
+;=====================================================================
+;   Sub routine - Initialize LCD
+;=====================================================================
+
+LCD_Init:
+    mov   DPTR,#LCD_CMD
+    mov   ACC,#DISP_FUNCTION_CMD
+    movx  @DPTR,A
+    lcall LCD_Busy
+
+    mov   DPTR,#LCD_CMD
+    mov   ACC,#DISP_ON
+    movx  @DPTR,A
+    lcall LCD_Busy
+
+    mov   DPTR,#LCD_CMD
+    mov   ACC,#DISP_ENTRY_MODE
+    movx  @DPTR,A
+    lcall LCD_Busy	
+
+    lcall LCD_Clear
+
+    ret
+
+		
+;=====================================================================
+;   Sub routine - Prints string to LCD
+;
+;Enter subroutine with cursor in correct location, DPTR pointing at
+;string to print, and ACC pointing to first location of string.
+;
+;=====================================================================
+
+		
+LCD_Print:
+    push  PSW
+    push  DPH
+    push  DPL
+    push  ACC
+    push  B
+    movc  A,@A + DPTR
+    jz    LCD_Return      ;Null Character Reached
+    mov   DPTR,#LCD_WRITE
+    movx  @DPTR,A
+    lcall LCD_Busy
+
+LCD_Restore:
+    pop   B
+    pop   ACC
+    pop   DPL
+    pop   DPH
+    pop   PSW
+    inc   DPTR
+
+    jmp   LCD_Print
+
+LCD_Return:
+    pop   B
+    pop   ACC
+    pop   DPL
+    pop   DPH
+    pop   PSW
+    inc   DPTR       ;Leave sub with DPTR at next string in db
+
+    ret
+
+;=====================================================================
+;   Sub routine - 3.0 second wait delay for screen transitions
+;
+;Registers used:
+; - R2
+;
+;Timers used:
+; - Timer0
+;
+;=====================================================================
+
+LCD_Wait_3sec:
+    mov     R2,#60    ;15=1sec.
+    mov     TH0,#00h
+    mov     TL0,#00h
+    setb    TR0
+
+LCD_Timer0_OV:
+    jnb     TF0,LCD_Timer0_OV
+    clr     TF0
+    djnz    R2,LCD_Timer0_OV
+    clr     TR0
+    ret
+
+
+
+;=====================================================================
+;  Sub routine - Clear LCD
+;=====================================================================
+
+LCD_Clear:
+    mov   DPTR,#LCD_CMD
+    mov   ACC,#DISP_CLR
+    movx  @DPTR,A
+    lcall LCD_Busy
+    ret
+
+;=====================================================================
+;  Sub routine - Wait for LCD
+;=====================================================================
+
+LCD_Busy:
+    mov   DPTR,#LCD_READ
+    movx  A,@DPTR
+    JB    ACC.7,LCD_Busy  ;If bit 7 high, LCD still busy
+    ret
+
+
+
+;------------------------------------
+;-  LCD Screen Strings  --
+;------------------------------------
+
+LCD_Initializing:   ;State_00h
+    db "Initializing....",0
+
+LCD_Pro_Tex:        ;State_01h
+    db "Pro-Tex 9000",0
+
+LCD_Password_Entry: ;State_02h & 0Ah
+    db "Enter PW:",0
+
+LCD_PW_Bad:         ;State_03h,04h,0Ch, & 0Dh
+    db "Invalid PW",0
+    db "Try Again:",0
+
+LCD_SysLocked:      ;State_05h
+    db "System  Locked",0
+
+LCD_Home:       ;State_06h
+    db "Home",0
+    db "Accel:      ",0
+    db "Accel STPT:     ",0
+    db "Press ",22h,"ENT",22h," for Menu",0
+
+LCD_Main_Menu:  ;State_07h
+    db "Menu  ",22h,"ENT",22h,"=","Home",0
+    db "1. Arm/Dis",0
+    db "2. Change Acc STPT",0
+    db "3. Change PW",0
+
+LCD_ArmDis:     ;State_08h
+    db "1. Arm",0
+    db "2. Disarm",0
+    db "Press ",22h,"ENT",22h," for Menu",0
+
+LCD_SysArmed:   ;State_09h
+    db "System Armed",0
+
+LCD_SysDisArmed:   ;State_0Bh
+    db "System  Disarmed",0
+
+LCD_AccStpt:     ;State_0Eh
+    db "Enter New Acc STPT",0
+    db " 0",7Eh,"120 ","= ","0",7Eh,"+/-","1.20g ",0
+    db 7Eh,0
+
+LCD_Valid_STPT:   ;State_0Fh
+    db "Setpoint Changed",0
+
+LCD_Current_PW:   ;State_11h
+    db "Enter Curr PW:",0
+
+LCD_New_PW:   ;State_14h
+    db "Enter New PW:",0
+
+LCD_Changed_PW:   ;State_15h
+    db "Password Changed",0
+

@@ -1,0 +1,898 @@
+A51 MACRO ASSEMBLER  ADC                                                                  07/16/2008 23:51:47 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.00d
+OBJECT MODULE PLACED IN ADC.OBJ
+ASSEMBLER INVOKED BY: c:\SiLabs\MCU\IDEfiles\C51\BIN\a51.exe ADC.asm XR GEN DB EP NOMOD51
+
+LOC  OBJ            LINE     SOURCE
+
+                       1     ;=====================================================================
+                       2     ;                             Pro-Tex 9000
+                       3     ;
+                       4     ;Revision: R.07031336  (R.MMDDHHMM)
+                       5     ;
+                       6     ;Project Team Members:
+                       7     ; - Vince Watkins
+                       8     ; - Will Smith
+                       9     ; - Tyler Long
+                      10     ;
+                      11     ;=ADC Subroutines=
+                      12     ;
+                      13     ;'ADC_Read' & 'ADC_Kick'subroutines will be called from the Main.asm.
+                      14     ;The DPTR shall have the proper location to either read from 
+                      15     ;or kick start the ADC.  Call 'ADC_Init' routine to kick start the
+                      16     ;ADC.
+                      17     ;
+                      18     ;Addresses Used:
+                      19     ; - 22h: 8051 scratch pad RAM location used to store the ADC value on
+                      20     ;        exit of    
+                      21     ;
+                      22     ;Registers Used:
+                      23     ; 
+                      24     ;=====================================================================
+                      25     
+                      26     
+                      27     ;=====================================================================
+                      28     ;   Variable declarations
+                      29     ;=====================================================================
+                      30     
+                      31     ;ADC Commands
+  3800                32     ADC_KICK      EQU 3800h     ;Kick start address for ADC
+  3000                33     ADC_READ      EQU 3000h     ;Read address for ADC    
+                      34     
+                      35     
+                      36     
+                      37     
+                      38     ;=====================================================================
+                      39     ;   Sub routine - ADC gets current accleration
+                      40     ;
+                      41     ;
+                      42     ;This sub gets the current accleration and writes that value to the
+                      43     ;LCD if in State_06, else it just keeps the current value from the
+                      44     ;ADC stored in address 22h.  This sub will be called based upon an
+                      45     ;overflow of 
+                      46     ;
+                      47     ;
+                      48     ;Registers:
+                      49     ; - R1: Points to current state (21h)
+                      50     ;=====================================================================
+                      51     
+0000                  52     ADC_GetAcc:
+0000 C0D0             53         push    PSW
+0002 C083             54         push    DPH
+0004 C082             55         push    DPL
+0006 C0E0             56         push    ACC
+0008 C0F0             57         push    B
+                      58     
+A51 MACRO ASSEMBLER  ADC                                                                  07/16/2008 23:51:47 PAGE     2
+
+                      59     
+000A 903800           60         mov   DPTR,#ADC_KICK    ;
+000D F0               61         movx  @DPTR,A           ;Kick starts ADC to convert
+                      62     
+000E                  63     ADC_Delay_Init:
+000E 7BF5             64         mov   R3,#245          ;
+0010                  65     ADC_Delay_Loop:    
+0010 00               66         nop
+0011 00               67         nop
+0012 00               68         nop
+0013 00               69         nop
+0014 00               70         nop
+0015 00               71         nop
+0016 00               72         nop
+0017 DBF7             73         djnz    R3,ADC_Delay_Loop
+                      74                
+                      75     
+0019 903000           76         mov   DPTR,#ADC_READ    ;
+001C E0               77         movx  A,@DPTR           ;Get current Acceleration
+001D F522             78         mov   22h,A             ;Store ADC value in stratch RAM
+                      79     
+                      80     
+001F                  81     ADC_State_Chk:
+                      82         
+                      83     
+                      84     
+001F 12004E           85         lcall   ADC_Convert
+                      86     
+                      87         
+                      88             
+0022                  89         lcall   RAM_Write_ADC   ;Write string to ext RAM starting
+*** _____________________________________^
+*** ERROR #A45 IN 89 (ADC.asm, LINE 89): UNDEFINED SYMBOL (PASS-2)
+                      90                                 ;at address loc. 2004h
+                      91     
+0025 12006A           92         lcall   ADC_Compare     ;compare here for alarm condition vs. STPT
+                      93         
+                      94         
+                      95     
+0028 B70618           96         cjne    @R1,#06,ADC_Finished  ;If State=06 then convert and print
+                      97                                       ;ADC value to LCD
+                      98     
+                      99         
+002B C083            100         push    DPH
+002D C082            101         push    DPL
+                     102     
+002F                 103         mov     DPTR,#LCD_CMD        ;Locates Cursor
+*** ___________________________________________^
+*** ERROR #A45 IN 103 (ADC.asm, LINE 103): UNDEFINED SYMBOL (PASS-2)
+0032 75E0C7          104         mov     ACC,#80h + 47h
+0035 F0              105         movx    @DPTR,A
+0036                 106         lcall   LCD_Busy
+*** _____________________________________^
+*** ERROR #A45 IN 106 (ADC.asm, LINE 106): UNDEFINED SYMBOL (PASS-2)
+                     107     
+0039 D082            108         pop     DPL
+003B D083            109         pop     DPH
+                     110     
+003D 75E000          111         mov     ACC,#00h            ;First char in string
+0040                 112         lcall LCD_Print
+*** ___________________________________^
+*** ERROR #A45 IN 112 (ADC.asm, LINE 112): UNDEFINED SYMBOL (PASS-2)
+                     113     
+0043                 114     ADC_Finished:
+                     115     
+0043 D0F0            116         pop     B
+A51 MACRO ASSEMBLER  ADC                                                                  07/16/2008 23:51:47 PAGE     3
+
+0045 D0E0            117         pop     ACC
+0047 D082            118         pop     DPL
+0049 D083            119         pop     DPH
+004B D0D0            120         pop     PSW
+                     121     
+004D 32              122         reti
+                     123     
+                     124     
+                     125     ;=====================================================================
+                     126     ;   Sub routine - ADC Convert
+                     127     ;
+                     128     ;DPTR exits this routine pointing to the first letter in string
+                     129     ;assuming the ACC is @ zero when using the 'movc A,@A + DPTR' command.
+                     130     ;
+                     131     ;Registers:
+                     132     ; - ACC: The ACC on entry into sub ='s the value from the ADC: 0-255
+                     133     ; - B: This ='s the number of characters in each string (07h)
+                     134     ; - R3: Used to manipulate the value of the B register
+                     135     ;
+                     136     ;=====================================================================
+                     137     
+004E                 138     ADC_Convert:
+                     139     
+004E 90011E          140         mov   DPTR,#ADC_AccelTable    ;Acceleration lookup table 
+0051 75F007          141         mov   B,#07h                  ;Num of Char. per string
+0054 A4              142         mul   AB                      ;Get num of times to increment DPTR
+                     143                                       ;for correct location in table
+0055 ABF0            144         mov   R3,B
+                     145     
+0057                 146     ADC_Convert_CheckACC:
+0057 6005            147         jz      ADC_Convert_CheckR3   ;if ACC=00h then check B
+0059 15E0            148         dec     ACC
+005B A3              149         inc     DPTR
+005C 80F9            150         jmp     ADC_Convert_CheckACC    
+                     151     
+005E                 152     ADC_Convert_CheckR3:
+005E BB0100          153         cjne    R3,#01h,$ + 3
+0061 4006            154         jc      ADC_Convert_Finish    ;if B=00h then exit
+0063 1B              155         dec     R3
+0064 15E0            156         dec     ACC
+0066 A3              157         inc     DPTR
+0067 80EE            158         jmp     ADC_Convert_CheckACC   
+                     159     
+0069                 160     ADC_Convert_Finish:
+0069 22              161         ret
+                     162     
+                     163     ;=====================================================================
+                     164     ;   Sub routine - ADC Compare
+                     165     ;
+                     166     ;DPTR exits this routine pointing to the first letter in string
+                     167     ;assuming the ACC is @ zero when using the 'movc A,@A + DPTR' command.
+                     168     ;
+                     169     ;Registers:
+                     170     ; - ACC: The ACC on entry into sub ='s the value from the ADC: 0-255
+                     171     ; returns with the LSB of the actual Acceleration.
+                     172     ; 27h MSB of the Setpoint in Ascii
+                     173     ; 26h Next Byte of the Setpoint in Ascii
+                     174     ; 25h LSB of the Setpoint in Ascii
+                     175     ;
+                     176     ;=====================================================================
+                     177     
+006A                 178     ADC_Compare:
+                     179     
+006A C083            180         push  DPH
+006C C082            181         push  DPL
+                     182     
+A51 MACRO ASSEMBLER  ADC                                                                  07/16/2008 23:51:47 PAGE     4
+
+006E 9007D5          183         mov   DPTR,#2005    ;Location of the MSB of Acceleration in RAM
+0071 E0              184         movx  A,@DPTR
+0072 C527            185         xch   A,27h         ;Exchanges MSB of Setpoint with MSB
+                     186                             ;of Acceleration for easier compare.
+0074 B52700          187         cjne  A,27h,$+3     ;Compare the setpoint to the Acceleration
+0077 C527            188         xch   A,27h         ;Exchanges MSB of Setpoint with MSB
+                     189                             ;of Acceleration to restore the original value.
+0079 401C            190         jc    ADC_Serial
+                     191         
+007B 9007D7          192         mov   DPTR,#2007    ;Location of the next byte of Accel in RAM
+007E E0              193         movx  A,@DPTR
+007F C526            194         xch   A,26h         ;Exchanges NB of Setpoint with NB
+                     195                             ;of Acceleration for easier compare.
+0081 B52600          196         cjne  A,26h,$+3     ;Compare the setpoint to the Acceleration
+0084 C526            197         xch   A,26h         ;Exchanges NB of Setpoint with NB
+                     198                             ;of Acceleration to restore the original value.
+0086 400F            199         jc    ADC_Serial
+                     200       
+0088 9007D8          201         mov   DPTR,#2008    ;Location of the LSB of Acceleration in RAM
+008B E0              202         movx  A,@DPTR
+008C C525            203         xch   A,25h         ;Exchanges LSB of Setpoint with LSB
+                     204                             ;of Acceleration for easier compare.
+008E B52500          205         cjne  A,25h,$+3     ;Compare the setpoint to the Acceleration
+0091 C525            206         xch   A,25h         ;Exchanges LSB of Setpoint with LSB
+                     207                             ;of Acceleration to restore the original value.
+0093 4002            208         jc    ADC_Serial
+0095 8003            209         sjmp  ADC_Compare_Finish
+                     210         
+0097                 211     ADC_Serial:
+                     212     
+0097 12009F          213         lcall ADC_Serial_Print
+                     214     
+009A                 215     ADC_Compare_Finish:
+                     216         
+009A D082            217         pop  DPL
+009C D083            218         pop  DPH
+                     219     
+009E 22              220         ret
+                     221     ;=====================================================================
+                     222     ;   Sub routine - ADC_Alarm: This routine will print an Alarm string
+                     223     ;   if the Acceleration Setpoint is less than the actual Acceleration
+                     224     ;
+                     225     ;
+                     226     ; 
+                     227     ;=====================================================================
+                     228     
+009F                 229     ADC_Serial_Print:
+009F 20192A          230         jb    19h,ADC_Serial_Finish   ;Only allows for one String to print
+00A2 9000CF          231         mov   DPTR,#ADC_Alarm_Table
+00A5 7400            232         mov   A,#00h
+00A7                 233     ADC_Ser_Loop:
+00A7 7400            234         mov   A,#00h
+00A9 93              235         movc  A,@A + DPTR
+00AA 600D            236         jz    ADC_Print_Accel         ;Print the Acceleration if Null ACC
+00AC                 237         mov   SBUF1,A                 ;Moves first Character to serial port
+*** ___________________________________^
+*** ERROR #A45 IN 237 (ADC.asm, LINE 237): UNDEFINED SYMBOL (PASS-2)
+                     238     
+00AE                 239         mov   A,SCON1
+*** _____________________________________^
+*** ERROR #A45 IN 239 (ADC.asm, LINE 239): UNDEFINED SYMBOL (PASS-2)
+00B0 30E1FB          240         jnb   ACC.1,$ - 2             ;Poll for Transmit flag
+00B3                 241         mov   SCON1,#40h              ;Clear Transmit Flag
+*** ___________________________________^
+*** ERROR #A45 IN 241 (ADC.asm, LINE 241): UNDEFINED SYMBOL (PASS-2)
+00B6 A3              242         inc   DPTR                    ;Point to next character in string
+A51 MACRO ASSEMBLER  ADC                                                                  07/16/2008 23:51:47 PAGE     5
+
+                     243       
+00B7 80EE            244         sjmp  ADC_Ser_Loop
+                     245     
+00B9                 246     ADC_Print_Accel:
+                     247     
+00B9 902004          248         mov   DPTR, #2004h            ;Load the location of the first Char.
+00BC                 249     ADC_Ser_Loop2:
+00BC E0              250         movx  A,@DPTR                 ;Bring in Char from RAM
+00BD 600D            251         jz    ADC_Serial_Finish       ;Jump to end if Null hit in RAM
+00BF                 252         mov   SBUF1, A                ;Start Serial Transmission
+*** ___________________________________^
+*** ERROR #A45 IN 252 (ADC.asm, LINE 252): UNDEFINED SYMBOL (PASS-2)
+00C1                 253         mov   A,SCON1                 
+*** _____________________________________^
+*** ERROR #A45 IN 253 (ADC.asm, LINE 253): UNDEFINED SYMBOL (PASS-2)
+00C3 30E1FB          254         jnb   ACC.1,$ - 2             ;Poll for Transmit Flag
+00C6                 255         mov   SCON1,#40h              ;Clear Transmit Flag
+*** ___________________________________^
+*** ERROR #A45 IN 255 (ADC.asm, LINE 255): UNDEFINED SYMBOL (PASS-2)
+00C9 A3              256         inc   DPTR                    ;Point to next Location in RAM
+00CA 80F0            257         sjmp  ADC_Ser_Loop2    
+                     258     
+00CC                 259     ADC_Serial_Finish:
+00CC D219            260         setb  19h
+00CE 22              261         ret
+                     262     
+00CF                 263     ADC_Alarm_Table:
+00CF 2A2A2A2A        264         db "************************",0Dh,0Ah
+00D3 2A2A2A2A                
+00D7 2A2A2A2A                
+00DB 2A2A2A2A                
+00DF 2A2A2A2A                
+00E3 2A2A2A2A                
+00E7 0D0A                    
+00E9 2A202041        265         db "*  Acceleration Alarm  *",0Dh,0Ah
+00ED 6363656C                
+00F1 65726174                
+00F5 696F6E20                
+00F9 416C6172                
+00FD 6D20202A                
+0101 0D0A                    
+0103 2A2A2A2A        266         db "************************",0Dh,0Ah,0
+0107 2A2A2A2A                
+010B 2A2A2A2A                
+010F 2A2A2A2A                
+0113 2A2A2A2A                
+0117 2A2A2A2A                
+011B 0D0A00                  
+                     267     
+011E                 268     ADC_AccelTable:
+011E 2D312E32        269       db "-1.20g",0
+0122 306700                  
+0125 2D312E31        270       db "-1.19g",0
+0129 396700                  
+012C 2D312E31        271       db "-1.18g",0
+0130 386700                  
+0133 2D312E31        272       db "-1.17g",0
+0137 376700                  
+013A 2D312E31        273       db "-1.16g",0
+013E 366700                  
+0141 2D312E31        274       db "-1.15g",0
+0145 356700                  
+0148 2D312E31        275       db "-1.14g",0
+014C 346700                  
+014F 2D312E31        276       db "-1.13g",0
+0153 336700                  
+A51 MACRO ASSEMBLER  ADC                                                                  07/16/2008 23:51:47 PAGE     6
+
+0156 2D312E31        277       db "-1.12g",0
+015A 326700                  
+015D 2D312E31        278       db "-1.11g",0
+0161 316700                  
+0164 2D312E31        279       db "-1.10g",0
+0168 306700                  
+016B 2D312E30        280       db "-1.09g",0
+016F 396700                  
+0172 2D312E30        281       db "-1.08g",0
+0176 386700                  
+0179 2D312E30        282       db "-1.07g",0
+017D 376700                  
+0180 2D312E30        283       db "-1.06g",0
+0184 366700                  
+0187 2D312E30        284       db "-1.05g",0
+018B 356700                  
+018E 2D312E30        285       db "-1.04g",0
+0192 346700                  
+0195 2D312E30        286       db "-1.03g",0
+0199 336700                  
+019C 2D312E30        287       db "-1.02g",0
+01A0 326700                  
+01A3 2D312E30        288       db "-1.01g",0
+01A7 316700                  
+01AA 2D312E30        289       db "-1.00g",0
+01AE 306700                  
+01B1 2D302E39        290       db "-0.99g",0
+01B5 396700                  
+01B8 2D302E39        291       db "-0.98g",0
+01BC 386700                  
+01BF 2D302E39        292       db "-0.97g",0
+01C3 376700                  
+01C6 2D302E39        293       db "-0.96g",0
+01CA 366700                  
+01CD 2D302E39        294       db "-0.95g",0
+01D1 356700                  
+01D4 2D302E39        295       db "-0.94g",0
+01D8 346700                  
+01DB 2D302E39        296       db "-0.93g",0
+01DF 336700                  
+01E2 2D302E39        297       db "-0.92g",0
+01E6 326700                  
+01E9 2D302E39        298       db "-0.91g",0
+01ED 316700                  
+01F0 2D302E39        299       db "-0.90g",0
+01F4 306700                  
+01F7 2D302E38        300       db "-0.89g",0
+01FB 396700                  
+01FE 2D302E38        301       db "-0.88g",0
+0202 386700                  
+0205 2D302E38        302       db "-0.87g",0
+0209 376700                  
+020C 2D302E38        303       db "-0.86g",0
+0210 366700                  
+0213 2D302E38        304       db "-0.85g",0
+0217 356700                  
+021A 2D302E38        305       db "-0.84g",0
+021E 346700                  
+0221 2D302E38        306       db "-0.83g",0
+0225 336700                  
+0228 2D302E38        307       db "-0.82g",0
+022C 326700                  
+022F 2D302E38        308       db "-0.81g",0
+0233 316700                  
+0236 2D302E38        309       db "-0.80g",0
+023A 306700                  
+A51 MACRO ASSEMBLER  ADC                                                                  07/16/2008 23:51:47 PAGE     7
+
+023D 2D302E37        310       db "-0.79g",0
+0241 396700                  
+0244 2D302E37        311       db "-0.78g",0
+0248 386700                  
+024B 2D302E37        312       db "-0.77g",0
+024F 376700                  
+0252 2D302E37        313       db "-0.76g",0
+0256 366700                  
+0259 2D302E37        314       db "-0.75g",0
+025D 356700                  
+0260 2D302E37        315       db "-0.74g",0
+0264 346700                  
+0267 2D302E37        316       db "-0.73g",0
+026B 336700                  
+026E 2D302E37        317       db "-0.72g",0
+0272 326700                  
+0275 2D302E37        318       db "-0.71g",0
+0279 316700                  
+027C 2D302E37        319       db "-0.70g",0
+0280 306700                  
+0283 2D302E36        320       db "-0.69g",0
+0287 396700                  
+028A 2D302E36        321       db "-0.68g",0
+028E 386700                  
+0291 2D302E36        322       db "-0.67g",0
+0295 376700                  
+0298 2D302E36        323       db "-0.66g",0
+029C 366700                  
+029F 2D302E36        324       db "-0.65g",0
+02A3 356700                  
+02A6 2D302E36        325       db "-0.64g",0
+02AA 346700                  
+02AD 2D302E36        326       db "-0.63g",0
+02B1 336700                  
+02B4 2D302E36        327       db "-0.62g",0
+02B8 326700                  
+02BB 2D302E36        328       db "-0.61g",0
+02BF 316700                  
+02C2 2D302E36        329       db "-0.60g",0
+02C6 306700                  
+02C9 2D302E35        330       db "-0.59g",0
+02CD 396700                  
+02D0 2D302E35        331       db "-0.58g",0
+02D4 386700                  
+02D7 2D302E35        332       db "-0.57g",0
+02DB 376700                  
+02DE 2D302E35        333       db "-0.56g",0
+02E2 366700                  
+02E5 2D302E35        334       db "-0.55g",0
+02E9 356700                  
+02EC 2D302E35        335       db "-0.54g",0
+02F0 346700                  
+02F3 2D302E35        336       db "-0.53g",0
+02F7 336700                  
+02FA 2D302E35        337       db "-0.52g",0
+02FE 326700                  
+0301 2D302E35        338       db "-0.51g",0
+0305 316700                  
+0308 2D302E35        339       db "-0.50g",0
+030C 306700                  
+030F 2D302E34        340       db "-0.49g",0
+0313 396700                  
+0316 2D302E34        341       db "-0.48g",0
+031A 386700                  
+031D 2D302E34        342       db "-0.47g",0
+0321 376700                  
+A51 MACRO ASSEMBLER  ADC                                                                  07/16/2008 23:51:47 PAGE     8
+
+0324 2D302E34        343       db "-0.46g",0
+0328 366700                  
+032B 2D302E34        344       db "-0.45g",0
+032F 356700                  
+0332 2D302E34        345       db "-0.44g",0
+0336 346700                  
+0339 2D302E34        346       db "-0.43g",0
+033D 336700                  
+0340 2D302E34        347       db "-0.42g",0
+0344 326700                  
+0347 2D302E34        348       db "-0.41g",0
+034B 316700                  
+034E 2D302E34        349       db "-0.40g",0
+0352 306700                  
+0355 2D302E33        350       db "-0.39g",0
+0359 396700                  
+035C 2D302E33        351       db "-0.38g",0
+0360 386700                  
+0363 2D302E33        352       db "-0.37g",0
+0367 376700                  
+036A 2D302E33        353       db "-0.36g",0
+036E 366700                  
+0371 2D302E33        354       db "-0.35g",0
+0375 356700                  
+0378 2D302E33        355       db "-0.34g",0
+037C 346700                  
+037F 2D302E33        356       db "-0.33g",0
+0383 336700                  
+0386 2D302E33        357       db "-0.32g",0
+038A 326700                  
+038D 2D302E33        358       db "-0.31g",0
+0391 316700                  
+0394 2D302E33        359       db "-0.30g",0
+0398 306700                  
+039B 2D302E32        360       db "-0.29g",0
+039F 396700                  
+03A2 2D302E32        361       db "-0.28g",0
+03A6 386700                  
+03A9 2D302E32        362       db "-0.27g",0
+03AD 376700                  
+03B0 2D302E32        363       db "-0.26g",0
+03B4 366700                  
+03B7 2D302E32        364       db "-0.25g",0
+03BB 356700                  
+03BE 2D302E32        365       db "-0.24g",0
+03C2 346700                  
+03C5 2D302E32        366       db "-0.23g",0
+03C9 336700                  
+03CC 2D302E32        367       db "-0.22g",0
+03D0 326700                  
+03D3 2D302E32        368       db "-0.21g",0
+03D7 316700                  
+03DA 2D302E32        369       db "-0.20g",0
+03DE 306700                  
+03E1 2D302E31        370       db "-0.19g",0
+03E5 396700                  
+03E8 2D302E31        371       db "-0.18g",0
+03EC 386700                  
+03EF 2D302E31        372       db "-0.17g",0
+03F3 376700                  
+03F6 2D302E31        373       db "-0.16g",0
+03FA 366700                  
+03FD 2D302E31        374       db "-0.15g",0
+0401 356700                  
+0404 2D302E31        375       db "-0.14g",0
+0408 346700                  
+A51 MACRO ASSEMBLER  ADC                                                                  07/16/2008 23:51:47 PAGE     9
+
+040B 2D302E31        376       db "-0.13g",0
+040F 336700                  
+0412 2D302E31        377       db "-0.12g",0
+0416 326700                  
+0419 2D302E31        378       db "-0.11g",0
+041D 316700                  
+0420 2D302E31        379       db "-0.10g",0
+0424 306700                  
+0427 2D302E30        380       db "-0.09g",0
+042B 396700                  
+042E 2D302E30        381       db "-0.08g",0
+0432 386700                  
+0435 2D302E30        382       db "-0.07g",0
+0439 376700                  
+043C 2D302E30        383       db "-0.06g",0
+0440 366700                  
+0443 2D302E30        384       db "-0.05g",0
+0447 356700                  
+044A 2D302E30        385       db "-0.04g",0
+044E 346700                  
+0451 2D302E30        386       db "-0.03g",0
+0455 336700                  
+0458 2D302E30        387       db "-0.02g",0
+045C 326700                  
+045F 2D302E30        388       db "-0.01g",0
+0463 316700                  
+0466 20302E30        389       db " 0.00g",0
+046A 306700                  
+046D 20302E30        390       db " 0.00g",0
+0471 306700                  
+0474 20302E30        391       db " 0.00g",0
+0478 306700                  
+047B 20302E30        392       db " 0.00g",0
+047F 306700                  
+0482 20302E30        393       db " 0.00g",0
+0486 306700                  
+0489 20302E30        394       db " 0.00g",0
+048D 306700                  
+0490 20302E30        395       db " 0.00g",0
+0494 306700                  
+0497 20302E30        396       db " 0.00g",0
+049B 306700                  
+049E 20302E30        397       db " 0.00g",0
+04A2 306700                  
+04A5 20302E30        398       db " 0.00g",0
+04A9 306700                  
+04AC 20302E30        399       db " 0.00g",0
+04B0 306700                  
+04B3 20302E30        400       db " 0.00g",0
+04B7 306700                  
+04BA 20302E30        401       db " 0.00g",0
+04BE 306700                  
+04C1 20302E30        402       db " 0.00g",0
+04C5 306700                  
+04C8 20302E30        403       db " 0.00g",0
+04CC 306700                  
+04CF 20302E30        404       db " 0.00g",0
+04D3 306700                  
+04D6 2B302E30        405       db "+0.01g",0
+04DA 316700                  
+04DD 2B302E30        406       db "+0.02g",0
+04E1 326700                  
+04E4 2B302E30        407       db "+0.03g",0
+04E8 336700                  
+04EB 2B302E30        408       db "+0.04g",0
+04EF 346700                  
+A51 MACRO ASSEMBLER  ADC                                                                  07/16/2008 23:51:47 PAGE    10
+
+04F2 2B302E30        409       db "+0.05g",0
+04F6 356700                  
+04F9 2B302E30        410       db "+0.06g",0
+04FD 366700                  
+0500 2B302E30        411       db "+0.07g",0
+0504 376700                  
+0507 2B302E30        412       db "+0.08g",0
+050B 386700                  
+050E 2B302E30        413       db "+0.09g",0
+0512 396700                  
+0515 2B302E31        414       db "+0.10g",0
+0519 306700                  
+051C 2B302E31        415       db "+0.11g",0
+0520 316700                  
+0523 2B302E31        416       db "+0.12g",0
+0527 326700                  
+052A 2B302E31        417       db "+0.13g",0
+052E 336700                  
+0531 2B302E31        418       db "+0.14g",0
+0535 346700                  
+0538 2B302E31        419       db "+0.15g",0
+053C 356700                  
+053F 2B302E31        420       db "+0.16g",0
+0543 366700                  
+0546 2B302E31        421       db "+0.17g",0
+054A 376700                  
+054D 2B302E31        422       db "+0.18g",0
+0551 386700                  
+0554 2B302E31        423       db "+0.19g",0
+0558 396700                  
+055B 2B302E32        424       db "+0.20g",0
+055F 306700                  
+0562 2B302E32        425       db "+0.21g",0
+0566 316700                  
+0569 2B302E32        426       db "+0.22g",0
+056D 326700                  
+0570 2B302E32        427       db "+0.23g",0
+0574 336700                  
+0577 2B302E32        428       db "+0.24g",0
+057B 346700                  
+057E 2B302E32        429       db "+0.25g",0
+0582 356700                  
+0585 2B302E32        430       db "+0.26g",0
+0589 366700                  
+058C 2B302E32        431       db "+0.27g",0
+0590 376700                  
+0593 2B302E32        432       db "+0.28g",0
+0597 386700                  
+059A 2B302E32        433       db "+0.29g",0
+059E 396700                  
+05A1 2B302E33        434       db "+0.30g",0
+05A5 306700                  
+05A8 2B302E33        435       db "+0.31g",0
+05AC 316700                  
+05AF 2B302E33        436       db "+0.32g",0
+05B3 326700                  
+05B6 2B302E33        437       db "+0.33g",0
+05BA 336700                  
+05BD 2B302E33        438       db "+0.34g",0
+05C1 346700                  
+05C4 2B302E33        439       db "+0.35g",0
+05C8 356700                  
+05CB 2B302E33        440       db "+0.36g",0
+05CF 366700                  
+05D2 2B302E33        441       db "+0.37g",0
+05D6 376700                  
+A51 MACRO ASSEMBLER  ADC                                                                  07/16/2008 23:51:47 PAGE    11
+
+05D9 2B302E33        442       db "+0.38g",0
+05DD 386700                  
+05E0 2B302E33        443       db "+0.39g",0
+05E4 396700                  
+05E7 2B302E34        444       db "+0.40g",0
+05EB 306700                  
+05EE 2B302E34        445       db "+0.41g",0
+05F2 316700                  
+05F5 2B302E34        446       db "+0.42g",0
+05F9 326700                  
+05FC 2B302E34        447       db "+0.43g",0
+0600 336700                  
+0603 2B302E34        448       db "+0.44g",0
+0607 346700                  
+060A 2B302E34        449       db "+0.45g",0
+060E 356700                  
+0611 2B302E34        450       db "+0.46g",0
+0615 366700                  
+0618 2B302E34        451       db "+0.47g",0
+061C 376700                  
+061F 2B302E34        452       db "+0.48g",0
+0623 386700                  
+0626 2B302E34        453       db "+0.49g",0
+062A 396700                  
+062D 2B302E35        454       db "+0.50g",0
+0631 306700                  
+0634 2B302E35        455       db "+0.51g",0
+0638 316700                  
+063B 2B302E35        456       db "+0.52g",0
+063F 326700                  
+0642 2B302E35        457       db "+0.53g",0
+0646 336700                  
+0649 2B302E35        458       db "+0.54g",0
+064D 346700                  
+0650 2B302E35        459       db "+0.55g",0
+0654 356700                  
+0657 2B302E35        460       db "+0.56g",0
+065B 366700                  
+065E 2B302E35        461       db "+0.57g",0
+0662 376700                  
+0665 2B302E35        462       db "+0.58g",0
+0669 386700                  
+066C 2B302E35        463       db "+0.59g",0
+0670 396700                  
+0673 2B302E36        464       db "+0.60g",0
+0677 306700                  
+067A 2B302E36        465       db "+0.61g",0
+067E 316700                  
+0681 2B302E36        466       db "+0.62g",0
+0685 326700                  
+0688 2B302E36        467       db "+0.63g",0
+068C 336700                  
+068F 2B302E36        468       db "+0.64g",0
+0693 346700                  
+0696 2B302E36        469       db "+0.65g",0
+069A 356700                  
+069D 2B302E36        470       db "+0.66g",0
+06A1 366700                  
+06A4 2B302E36        471       db "+0.67g",0
+06A8 376700                  
+06AB 2B302E36        472       db "+0.68g",0
+06AF 386700                  
+06B2 2B302E36        473       db "+0.69g",0
+06B6 396700                  
+06B9 2B302E37        474       db "+0.70g",0
+06BD 306700                  
+A51 MACRO ASSEMBLER  ADC                                                                  07/16/2008 23:51:47 PAGE    12
+
+06C0 2B302E37        475       db "+0.71g",0
+06C4 316700                  
+06C7 2B302E37        476       db "+0.72g",0
+06CB 326700                  
+06CE 2B302E37        477       db "+0.73g",0
+06D2 336700                  
+06D5 2B302E37        478       db "+0.74g",0
+06D9 346700                  
+06DC 2B302E37        479       db "+0.75g",0
+06E0 356700                  
+06E3 2B302E37        480       db "+0.76g",0
+06E7 366700                  
+06EA 2B302E37        481       db "+0.77g",0
+06EE 376700                  
+06F1 2B302E37        482       db "+0.78g",0
+06F5 386700                  
+06F8 2B302E37        483       db "+0.79g",0
+06FC 396700                  
+06FF 2B302E38        484       db "+0.80g",0
+0703 306700                  
+0706 2B302E38        485       db "+0.81g",0
+070A 316700                  
+070D 2B302E38        486       db "+0.82g",0
+0711 326700                  
+0714 2B302E38        487       db "+0.83g",0
+0718 336700                  
+071B 2B302E38        488       db "+0.84g",0
+071F 346700                  
+0722 2B302E38        489       db "+0.85g",0
+0726 356700                  
+0729 2B302E38        490       db "+0.86g",0
+072D 366700                  
+0730 2B302E38        491       db "+0.87g",0
+0734 376700                  
+0737 2B302E38        492       db "+0.88g",0
+073B 386700                  
+073E 2B302E38        493       db "+0.89g",0
+0742 396700                  
+0745 2B302E39        494       db "+0.90g",0
+0749 306700                  
+074C 2B302E39        495       db "+0.91g",0
+0750 316700                  
+0753 2B302E39        496       db "+0.92g",0
+0757 326700                  
+075A 2B302E39        497       db "+0.93g",0
+075E 336700                  
+0761 2B302E39        498       db "+0.94g",0
+0765 346700                  
+0768 2B302E39        499       db "+0.95g",0
+076C 356700                  
+076F 2B302E39        500       db "+0.96g",0
+0773 366700                  
+0776 2B302E39        501       db "+0.97g",0
+077A 376700                  
+077D 2B302E39        502       db "+0.98g",0
+0781 386700                  
+0784 2B302E39        503       db "+0.99g",0
+0788 396700                  
+078B 2B312E30        504       db "+1.00g",0
+078F 306700                  
+0792 2B312E30        505       db "+1.01g",0
+0796 316700                  
+0799 2B312E30        506       db "+1.02g",0
+079D 326700                  
+07A0 2B312E30        507       db "+1.03g",0
+07A4 336700                  
+A51 MACRO ASSEMBLER  ADC                                                                  07/16/2008 23:51:47 PAGE    13
+
+07A7 2B312E30        508       db "+1.04g",0
+07AB 346700                  
+07AE 2B312E30        509       db "+1.05g",0
+07B2 356700                  
+07B5 2B312E30        510       db "+1.06g",0
+07B9 366700                  
+07BC 2B312E30        511       db "+1.07g",0
+07C0 376700                  
+07C3 2B312E30        512       db "+1.08g",0
+07C7 386700                  
+07CA 2B312E30        513       db "+1.09g",0
+07CE 396700                  
+07D1 2B312E31        514       db "+1.10g",0
+07D5 306700                  
+07D8 2B312E31        515       db "+1.11g",0
+07DC 316700                  
+07DF 2B312E31        516       db "+1.12g",0
+07E3 326700                  
+07E6 2B312E31        517       db "+1.13g",0
+07EA 336700                  
+07ED 2B312E31        518       db "+1.14g",0
+07F1 346700                  
+07F4 2B312E31        519       db "+1.15g",0
+07F8 356700                  
+07FB 2B312E31        520       db "+1.16g",0
+07FF 366700                  
+0802 2B312E31        521       db "+1.17g",0
+0806 376700                  
+0809 2B312E31        522       db "+1.18g",0
+080D 386700                  
+0810 2B312E31        523       db "+1.19g",0
+0814 396700                  
+0817 2B312E32        524       db "+1.20g",0
+081B 306700                  
+*** WARNING #A41 IN 524 (ADC.asm, LINE 524): MISSING 'END' STATEMENT
+A51 MACRO ASSEMBLER  ADC                                                                  07/16/2008 23:51:47 PAGE    14
+
+XREF SYMBOL TABLE LISTING
+---- ------ ----- -------
+
+
+N A M E               T Y P E  V A L U E   ATTRIBUTES / REFERENCES
+
+ACC. . . . . . . . .  D ADDR   00E0H   A      56 104 111 117 148 156 240 254
+ADC_ACCELTABLE . . .  C ADDR   011EH   A      140 268#
+ADC_ALARM_TABLE. . .  C ADDR   00CFH   A      231 263#
+ADC_COMPARE. . . . .  C ADDR   006AH   A      92 178#
+ADC_COMPARE_FINISH .  C ADDR   009AH   A      209 215#
+ADC_CONVERT. . . . .  C ADDR   004EH   A      85 138#
+ADC_CONVERT_CHECKACC  C ADDR   0057H   A      146# 150 158
+ADC_CONVERT_CHECKR3.  C ADDR   005EH   A      147 152#
+ADC_CONVERT_FINISH .  C ADDR   0069H   A      154 160#
+ADC_DELAY_INIT . . .  C ADDR   000EH   A      63#
+ADC_DELAY_LOOP . . .  C ADDR   0010H   A      65# 73
+ADC_FINISHED . . . .  C ADDR   0043H   A      96 114#
+ADC_GETACC . . . . .  C ADDR   0000H   A      52#
+ADC_KICK . . . . . .  N NUMB   3800H   A      32# 60
+ADC_PRINT_ACCEL. . .  C ADDR   00B9H   A      236 246#
+ADC_READ . . . . . .  N NUMB   3000H   A      33# 76
+ADC_SERIAL . . . . .  C ADDR   0097H   A      190 199 208 211#
+ADC_SERIAL_FINISH. .  C ADDR   00CCH   A      230 251 259#
+ADC_SERIAL_PRINT . .  C ADDR   009FH   A      213 229#
+ADC_SER_LOOP . . . .  C ADDR   00A7H   A      233# 244
+ADC_SER_LOOP2. . . .  C ADDR   00BCH   A      249# 257
+ADC_STATE_CHK. . . .  C ADDR   001FH   A      81#
+B. . . . . . . . . .  D ADDR   00F0H   A      57 116 141 144
+DPH. . . . . . . . .  D ADDR   0083H   A      54 100 109 119 180 218
+DPL. . . . . . . . .  D ADDR   0082H   A      55 101 108 118 181 217
+LCD_BUSY . . . . . .    ----   -----          106
+LCD_CMD. . . . . . .    ----   -----          103
+LCD_PRINT. . . . . .    ----   -----          112
+PSW. . . . . . . . .  D ADDR   00D0H   A      53 120
+RAM_WRITE_ADC. . . .    ----   -----          89
+SBUF1. . . . . . . .    ----   -----          237 252
+SCON1. . . . . . . .    ----   -----          239 241 253 255
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  1 WARNING(S), 10 ERROR(S)

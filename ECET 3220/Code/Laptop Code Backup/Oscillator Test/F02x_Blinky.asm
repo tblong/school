@@ -1,0 +1,189 @@
+$NOMOD51
+;-----------------------------------------------------------------------------
+;  Copyright (C) 2007 Silicon Laboratories, Inc.
+;  All rights reserved.
+;
+;
+;
+;  FILE NAME   :  F02x_BLINKY.ASM 
+;  TARGET MCU  :  C8051F020 
+;  DESCRIPTION :  This program illustrates how to disable the watchdog timer,
+;                 configure the Crossbar, configure a port and write to a port
+;                 I/O pin.
+;
+; 	NOTES: 
+;
+;-----------------------------------------------------------------------------
+
+$include (c8051f020.inc)               ; Include register definition file.
+
+;-----------------------------------------------------------------------------
+; EQUATES
+;-----------------------------------------------------------------------------
+
+LED1      equ   P1.0             ; Port pin connected to GAL FLASH LED.
+LED2			equ		P1.1						 ; Port pin connected to GAL ARMED LED.
+LED3			equ		P1.2						 ; Port pin connected to GAL TAMPER LED.
+LED4			equ		P1.3						 ; Port pin connected to GAL CAPLOCK LED.
+LED5 			equ		P1.4						 ; Port pin connected to GAL REDMODE LED.
+LED6			equ		P1.5						 ; Port pin connected to GAL GREENMODE LED.
+LED7			equ		P1.6						 ; Port pin connected to GAL PURPLEMODE LED.
+LED8	  	equ		P1.7						 ; Port pin connected to GAL BLUEMODE LED.
+
+;-----------------------------------------------------------------------------
+; RESET and INTERRUPT VECTORS
+;-----------------------------------------------------------------------------
+
+               ; Reset Vector
+               cseg AT 0
+               ljmp Main               ; Locate a jump to the start of code at 
+                                       ; the reset vector.
+
+;-----------------------------------------------------------------------------
+; CODE SEGMENT
+;-----------------------------------------------------------------------------
+
+
+Blink          segment  CODE
+
+               rseg     Blink          ; Switch to this code segment.
+               using    0              ; Specify register bank for the following
+                                       ; program code.
+
+Main:          ; Disable the WDT. (IRQs not enabled at this point.)
+               ; If interrupts were enabled, we would need to explicitly disable
+               ; them so that the 2nd move to WDTCN occurs no more than four clock 
+               ; cycles after the first move to WDTCN.
+
+               mov   WDTCN, #0DEh
+               mov   WDTCN, #0ADh
+
+               ; Enable the Port I/O Crossbar
+               ;mov   XBR2, #40h
+							 call Port_IO_Init
+							 call Oscillator_Init
+
+               ; Set P1.6 (LED) as digital output in push-pull mode.  
+               orl   P1MDIN, #40h	 
+               orl   P1MDOUT,#40h 
+
+               ; Initialize LED's to OFF
+               clr   LED1
+							 clr   LED2
+							 clr   LED3
+							 clr   LED4
+							 clr   LED5
+							 clr   LED6
+							 clr   LED7
+							 clr   LED8
+
+							 mov	 acc, #0FFh				;Provide count to exit LED loop
+               
+Loop2:         mov   R7, #03h				; Simple delay loop.
+Loop1:         mov   R6, #00h
+Loop0:         mov   R5, #00h
+							 
+						 	 
+               djnz  R5, $
+               djnz  R6, Loop0
+               djnz  R7, Loop1
+							 dec	 acc
+							 jz		 Finish
+							 setb	 LED1			; Turn on GAL Flashing Ckt
+               cpl   LED2			; Toggle LED's.
+							 cpl   LED3			; Toggle LED's.
+							 cpl   LED4			; Toggle LED's.
+							 cpl   LED5			; Toggle LED's.
+							 cpl   LED6			; Toggle LED's.
+							 cpl   LED7			; Toggle LED's.
+							 cpl   LED8			; Toggle LED's.					             
+               jmp   Loop2
+
+Finish:
+							 clr LED1 			;Turn off GAL Flashing Ckt
+							 sjmp $								; Lock up program
+
+
+;-----------------------------------------------------------------------------
+; End of file.
+
+;------------------------------------
+;-  Generated Initialization File  --
+;------------------------------------
+
+;$include (C8051F020.inc)
+
+;public  Init_Device
+
+;INIT SEGMENT CODE
+ ;   rseg INIT
+
+; Peripheral specific initialization functions,
+; Called from the Init_Device label
+Port_IO_Init:
+    ; P0.0  -  SYSCLK,      Open-Drain, Digital
+    ; P0.1  -  Unassigned,  Open-Drain, Digital
+    ; P0.2  -  Unassigned,  Open-Drain, Digital
+    ; P0.3  -  Unassigned,  Open-Drain, Digital
+    ; P0.4  -  Unassigned,  Open-Drain, Digital
+    ; P0.5  -  Unassigned,  Open-Drain, Digital
+    ; P0.6  -  Unassigned,  Open-Drain, Digital
+    ; P0.7  -  Unassigned,  Open-Drain, Digital
+
+    ; P1.0  -  Unassigned,  Open-Drain, Digital
+    ; P1.1  -  Unassigned,  Open-Drain, Digital
+    ; P1.2  -  Unassigned,  Open-Drain, Digital
+    ; P1.3  -  Unassigned,  Open-Drain, Digital
+    ; P1.4  -  Unassigned,  Open-Drain, Digital
+    ; P1.5  -  Unassigned,  Open-Drain, Digital
+    ; P1.6  -  Unassigned,  Open-Drain, Digital
+    ; P1.7  -  Unassigned,  Open-Drain, Digital
+
+    ; P2.0  -  Unassigned,  Open-Drain, Digital
+    ; P2.1  -  Unassigned,  Open-Drain, Digital
+    ; P2.2  -  Unassigned,  Open-Drain, Digital
+    ; P2.3  -  Unassigned,  Open-Drain, Digital
+    ; P2.4  -  Unassigned,  Open-Drain, Digital
+    ; P2.5  -  Unassigned,  Open-Drain, Digital
+    ; P2.6  -  Unassigned,  Open-Drain, Digital
+    ; P2.7  -  Unassigned,  Open-Drain, Digital
+
+    ; P3.0  -  Unassigned,  Open-Drain, Digital
+    ; P3.1  -  Unassigned,  Open-Drain, Digital
+    ; P3.2  -  Unassigned,  Open-Drain, Digital
+    ; P3.3  -  Unassigned,  Open-Drain, Digital
+    ; P3.4  -  Unassigned,  Open-Drain, Digital
+    ; P3.5  -  Unassigned,  Open-Drain, Digital
+    ; P3.6  -  Unassigned,  Open-Drain, Digital
+    ; P3.7  -  Unassigned,  Open-Drain, Digital
+
+    mov  XBR1,      #080h
+    mov  XBR2,      #040h
+    ret
+
+Oscillator_Init:
+    mov  OSCXCN,    #067h
+    mov  R0,        #030        ; Wait 1ms for initialization
+Osc_Wait1:
+    clr  A
+    djnz ACC,       $
+    djnz R0,        Osc_Wait1
+Osc_Wait2:
+    mov  A,         OSCXCN
+    jnb  ACC.7,     Osc_Wait2
+    mov  OSCICN,    #08h
+    ret
+
+; Initialization function for device,
+; Call Init_Device from your main program
+;Init_Device:
+ ;   lcall Port_IO_Init
+  ;  lcall Oscillator_Init
+   ; ret
+
+END
+
+
+
+
+

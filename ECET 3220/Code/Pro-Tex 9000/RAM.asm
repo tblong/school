@@ -1,0 +1,190 @@
+;=====================================================================
+;                             Pro-Tex 9000
+;
+;Revision: R.07031336  (R.MMDDHHMM)
+;
+;Project Team Members:
+; - Vince Watkins
+; - Will Smith
+; - Tyler Long
+;
+;=RAM Subroutines=
+;
+;'RAM_Read' & 'RAM_Write' subroutines will be called from the Main.asm.
+;The DPTR shall have the proper location to either read from 
+;or write to.
+;
+;
+;Registers Used:
+; - R2: Contains value to write to RAM or value read from RAM upon
+;       exit of subroutine.
+; - ACC: Used to transfer from/to RAM
+;=====================================================================
+
+
+;=====================================================================
+;   Variable declarations
+;=====================================================================
+
+;RAM Commands
+RAM_RdWr              EQU 2000h     ;RAM read/write cmd addr. for DPTR
+
+
+
+
+;=====================================================================
+;   Sub routine - Read from RAM
+;
+; - R0: Points to LSB of password from RAM (2Ch)
+;=====================================================================
+
+RAM_Read_PW:
+    mov   R0,#2Ch         ;Pointer to LSB in scratch pad RAM
+    mov   DPTR,#RAM_RdWr  ;LSB of PW in RAM
+
+    movx  A,@DPTR         ;Save LSB of PW from RAM=>ACC
+    mov   @R0,A           ;Save LSB of PW to scratch pad RAM '2Ch'
+    inc   DPTR            ;next PW character in RAM 
+    inc   R0              ;next scratch pad RAM location
+                          ;next character
+
+    movx  A,@DPTR         ;Save next PW char from RAM=>ACC
+    mov   @R0,A           ;Save next PW char to scratch pad RAM '2Dh'
+    inc   DPTR            ;next PW character in RAM 
+    inc   R0              ;next scratch pad RAM location
+                          ;next character
+
+    movx  A,@DPTR         ;Save next PW char from RAM=>ACC
+    mov   @R0,A           ;Save next PW char to scratch pad RAM '2Eh'
+    inc   DPTR            ;next PW character in RAM 
+    inc   R0              ;next scratch pad RAM location
+                          ;next character
+
+    movx  A,@DPTR         ;Save MSB of PW from RAM=>ACC
+    mov   @R0,A           ;Save MSB of PW to scratch pad RAM '2Fh'
+                          ;Last char of PW saved
+
+
+    ret
+
+;=====================================================================
+;   Sub routine - Write to RAM
+;
+; - R0: Points to LSB of password entered into scratch RAM (28h)
+;=====================================================================
+
+RAM_Write_PW:
+    mov   R0,#28h         ;Pointer to LSB in scratch pad RAM
+    mov   DPTR,#RAM_RdWr  ;LSB of PW in RAM
+
+    mov   A,@R0           ;Save LSB of PW to ACC
+    movx  @DPTR,A         ;mov ACC=>RAM
+    inc   DPTR            ;next PW character in RAM 
+    inc   R0              ;next scratch pad RAM location
+                          ;next character
+
+    mov   A,@R0           ;Save next PW char to ACC
+    movx  @DPTR,A         ;mov ACC=>RAM
+    inc   DPTR            ;next PW character in RAM 
+    inc   R0              ;next scratch pad RAM location
+                          ;next character
+
+    mov   A,@R0           ;Save next PW char to ACC
+    movx  @DPTR,A         ;mov ACC=>RAM
+    inc   DPTR            ;next PW character in RAM 
+    inc   R0              ;next scratch pad RAM location
+                          ;next character
+
+    mov   A,@R0           ;Save MSB PW char to ACC
+    movx  @DPTR,A         ;mov ACC=>RAM
+
+
+    ret
+
+
+
+;=====================================================================
+;   Sub routine - Write to ADC string to RAM
+;
+; - R0: Points to LSB of password entered into scratch RAM (28h)
+;=====================================================================
+
+		
+RAM_Write_ADC:
+    push  DPH                   ;save DPTR for table
+    push  DPL                   ;save DPTR for table
+    mov   24h, #04h             ;Initial DPL value for ext RAM
+
+RAM_Write_Loop:
+		mov		A,#00h
+    movc  A,@A + DPTR           ;ascii char from table
+    jz    RAM_Write_ADC_Return
+
+    push  DPH                   ;save DPTR for table
+    push  DPL                   ;save DPTR for table
+
+    mov   DPH,#20h              ;Masked 'RAM_RdWr' address to help
+    mov   DPL,24h               ;w/ loading new DPTR addy for RAM
+
+    movx  @DPTR,A
+    inc   DPTR                  ;DPTR inc for RAM location
+    mov   24h,DPL               ;Save low byte of DPTR to scratch
+
+    pop   DPL                   ;Restore table DPTR
+    pop   DPH                   ;
+
+    inc   DPTR                  ;Next character in table
+    sjmp  RAM_Write_Loop        ;rinse and repeat
+
+RAM_Write_ADC_Return:
+    pop   DPL                   ;This will restore the DPTR for the
+    pop   DPH                   ;initial charcter in table for printing
+                                ;as long as current State=06h  
+         
+
+    ret
+
+
+
+
+
+
+
+
+;=====================================================================
+;   Sub routine - Initialize RAM w/Default password
+;=====================================================================
+
+RAM_Init:
+    mov   DPTR,#RAM_RdWr  ;
+
+    mov   A,#'4'          ;Fourth PW Char
+    movx  @DPTR,A         ;
+    
+    inc   DPTR            ;
+    mov   A,#'3'          ;Third PW Char
+    movx  @DPTR,A         ;
+
+    inc   DPTR            ;
+    mov   A,#'2'          ;Second PW Char
+    movx  @DPTR,A         ;
+
+    inc   DPTR            ;
+    mov   A,#'1'          ;First PW Char  
+    movx  @DPTR,A         ;
+
+    mov   DPTR,#200Ah     ;Sets location of null character string
+    mov   A,#0Dh          ;Carriage Return Char
+    movx  @DPTR,A
+		inc 	DPTR
+
+		mov   A,#0Ah          ;Line Feed Char
+    movx  @DPTR,A
+
+		inc 	DPTR
+
+		mov   A,#00h          ;Null Character
+    movx  @DPTR,A
+    
+    ret
+		

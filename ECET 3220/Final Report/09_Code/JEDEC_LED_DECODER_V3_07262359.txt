@@ -1,0 +1,60 @@
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.std_logic_arith.all;
+use ieee.std_logic_unsigned.all;
+
+entity william is
+-----------------------------------------------------------------------------
+ port(ACTAL,SYARM,TAMPS,CAPLK,REDBUT,GRNBUT,PURBUT,BLUBUT:in bit;
+	OALMLED:out std_logic_vector (1 downto 0);
+     	CLK:in std_logic;SYSARMD,TAMPERS,CAPSLOC,REDLUT,GRNLUT,
+	PURLUT,BLULUT,OPTO:out bit);
+----------------INPUTS-------------------------------------------------------
+ attribute LOC: string;
+ attribute LOC of ACTAL: signal is "P2";---IPT activate alarm
+ attribute LOC of SYARM: signal is "P3";---IPT alarm armed 
+ attribute LOC OF TAMPS: signal is "P4";---IPT tamper alarm
+ attribute LOC OF CAPLK: signal is "P5";---IPT caps lock
+ attribute LOC OF REDBUT: signal is "P6";--IPT red letters LUT selected
+ attribute LOC OF GRNBUT: signal is "P7";--IPT green letters LUT selected
+ attribute LOC OF PURBUT: signal is "P8";--IPT purple letters LUT selected
+ attribute LOC OF BLUBUT: signal is "P9";--IPT blue letters LUT selected
+------------------OUTPUTS----------------------------------------------------
+ attribute LOC of OALMLED: signal is "P23 P22";--OPT oscillating leds for 
+						active alarm LEDS
+ attribute LOC of SYSARMD: signal is "P21";------OPT SYSTEM ARMED  activted LED
+ attribute LOC of TAMPERS: signal is "P20";------OPT TAMPER switch activted LED
+ attribute LOC of CAPSLOC: signal is "P19";------OPT caps lock key activated LED
+ attribute LOC of REDLUT: signal is "P18";-------OPT red LUT is selected LED
+ attribute LOC of GRNLUT: signal is "P17";-------OPT green LUT is selected LED
+ attribute LOC of PURLUT: signal is "P16";-------OPT purple LUT is selected LED
+ attribute LOC of BLULUT: signal is "P15";-------OPT blue LUT is selected LED
+ attribute LOC of OPTO: signal is "P14";---------OPT OPTO/ SIREN 
+ end;
+-----------------------------------------------------------------------------
+architecture behavioral of william is
+-------------OSCILLATING ALARM LEDS------------------------------------------
+process (ACTAL,CLK)
+ begin
+   if ACTAL ='0' then OALMLED <= "11";OFF OFF
+   elsif ACTAL ='1'and CLK ='0' then OALMLED<="10";OFF ON -->AT 1 HZ GIVES 
+						   OSCILLATING AFFECT
+   elsif ACTAL='1' and CLK ='1' then OALMLED<="01";ON OFF --> AT 1 HZ GIVES 
+						   OSCILLATING AFFECT
+   else OALMLED<="11";OFF OFF
+ end if;
+end process;
+---------------OUTPUT LEDS---------------------------------------------------
+process (SYARM,TAMPS,CAPLK,REDBUT,GRNBUT,PURBUT,BLUBUT)
+ begin
+  SYSARMD<=not SYARM;REVERSE LOGIC TO SINK OUTPUT AND TURN ON LEDS
+  TAMPERS<=not TAMPS;REVERSE LOGIC TO SINK OUTPUT AND TURN ON LEDS
+  CAPSLOC<=not CAPLK;REVERSE LOGIC TO SINK OUTPUT AND TURN ON LEDS
+  REDLUT<=not REDBUT;REVERSE LOGIC TO SINK OUTPUT AND TURN ON LEDS
+  GRNLUT<=not GRNBUT;REVERSE LOGIC TO SINK OUTPUT AND TURN ON LEDS
+  PURLUT<=not PURBUT;REVERSE LOGIC TO SINK OUTPUT AND TURN ON LEDS
+  BLULUT<=not BLUBUT;REVERSE LOGIC TO SINK OUTPUT AND TURN ON LEDS
+  OPTO<=not ACTAL;REVESE LOGIC TO SINK OUTPUT AND TURN ON SIREN
+ end process;
+----------------------------------------------------------------------------
+end behavioral;

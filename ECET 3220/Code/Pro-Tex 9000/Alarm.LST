@@ -1,0 +1,287 @@
+A51 MACRO ASSEMBLER  ALARM                                                                07/14/2008 20:54:23 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.00d
+NO OBJECT MODULE REQUESTED
+ASSEMBLER INVOKED BY: c:\SiLabs\MCU\IDEfiles\C51\BIN\a51.exe Alarm.asm XR GEN DB EP NOMOD51
+
+LOC  OBJ            LINE     SOURCE
+
+                       1     ;=====================================================================
+                       2     ;                             Pro-Tex 9000
+                       3     ;
+                       4     ;Revision: R.07031336  (R.MMDDHHMM)
+                       5     ;
+                       6     ;Project Team Members:
+                       7     ; - Vince Watkins
+                       8     ; - Will Smith
+                       9     ; - Tyler Long
+                      10     ;
+                      11     ;=Alarm Subroutines=
+                      12     ;
+                      13     ;
+                      14     ;
+                      15     ;Registers Used:
+                      16     ;
+                      17     ;=====================================================================
+                      18     
+                      19     
+                      20     ;=====================================================================
+                      21     ;   Variable declarations
+                      22     ;=====================================================================
+                      23     
+                      24     
+                      25     
+                      26     
+                      27     
+                      28     
+                      29     ;=====================================================================
+                      30     ;   Sub routine - Check Alarm Status and Switches
+                      31     ;
+                      32     ;The end of this subroutine will disable its own external interrupt
+                      33     ;before the 'reti' and also re-enable the Timer 1 count for getting
+                      34     ;the current acceleration.  /INT1 will only be re-enabled once the 
+                      35     ;system has been sucessifully disarmed witht the correct password.
+                      36     ;
+                      37     ;Alarms:
+                      38     ; - P3.2: Tamper Alarm
+                      39     ; - P3.3: Door Ajar Alarm
+                      40     ; - P3.4: Panic Alarm
+                      41     ;
+                      42     ;=====================================================================
+                      43     
+0000                  44     Alarm_Check:
+0000                  45         clr   TR1           ;Stop Timer 1 from interrupting
+*** ___________________________________^
+*** ERROR #A45 IN 45 (Alarm.asm, LINE 45): UNDEFINED SYMBOL (PASS-2)
+                      46     
+0002 C0D0             47         push    PSW
+0004 C083             48         push    DPH
+0006 C082             49         push    DPL
+0008 C0E0             50         push    ACC
+000A C0F0             51         push    B
+                      52     
+000C                  53     Alarm_Panic:
+000C                  54         jnb   P3.4,Alarm_Check_Armed
+*** ___________________________________^
+*** ERROR #A17 IN 54 (Alarm.asm, LINE 54): INVALID BYTE BASE IN BIT ADDRESS EXPRESSION
+A51 MACRO ASSEMBLER  ALARM                                                                07/14/2008 20:54:23 PAGE     2
+
+000C                  55         setb  P1.0
+*** ___________________________________^
+*** ERROR #A17 IN 55 (Alarm.asm, LINE 55): INVALID BYTE BASE IN BIT ADDRESS EXPRESSION
+000C                  56         clr   EX1         ;Disable /INT1
+*** ___________________________________^
+*** ERROR #A45 IN 56 (Alarm.asm, LINE 56): UNDEFINED SYMBOL (PASS-2)
+000E 120033           57         lcall Alarm_Ser_Panic
+0011 8013             58         jmp   Alarm_Check_Done
+                      59     
+0013                  60     Alarm_Check_Armed:
+0013 301810           61         jnb   18h,Alarm_Check_Done
+0016                  62         jb    P3.2,Alarm_Tamper      ;Tamper Alarm
+*** ___________________________________^
+*** ERROR #A17 IN 62 (Alarm.asm, LINE 62): INVALID BYTE BASE IN BIT ADDRESS EXPRESSION
+0016                  63         jb    P3.3,Alarm_Door        ;Door Ajar Alarm
+*** ___________________________________^
+*** ERROR #A17 IN 63 (Alarm.asm, LINE 63): INVALID BYTE BASE IN BIT ADDRESS EXPRESSION
+0016 800E             64         jmp   Alarm_Check_Done
+                      65     
+0018                  66     Alarm_Tamper:
+0018                  67         setb  P1.2    ;Illuminates Yellow Tamper LED
+*** ___________________________________^
+*** ERROR #A17 IN 67 (Alarm.asm, LINE 67): INVALID BYTE BASE IN BIT ADDRESS EXPRESSION
+0018                  68         setb  P1.0    ;Illuminates alternating flashing LEDs
+*** ___________________________________^
+*** ERROR #A17 IN 68 (Alarm.asm, LINE 68): INVALID BYTE BASE IN BIT ADDRESS EXPRESSION
+0018                  69         clr   EX1         ;Disable /INT1
+*** ___________________________________^
+*** ERROR #A45 IN 69 (Alarm.asm, LINE 69): UNDEFINED SYMBOL (PASS-2)
+001A 12004B           70         lcall Alarm_Ser_Tamper
+001D 8007             71         jmp   Alarm_Check_Done
+                      72     
+001F                  73     Alarm_Door:
+001F                  74         setb  P1.0
+*** ___________________________________^
+*** ERROR #A17 IN 74 (Alarm.asm, LINE 74): INVALID BYTE BASE IN BIT ADDRESS EXPRESSION
+001F                  75         clr   EX1         ;Disable /INT1
+*** ___________________________________^
+*** ERROR #A45 IN 75 (Alarm.asm, LINE 75): UNDEFINED SYMBOL (PASS-2)
+0021 120063           76         lcall Alarm_Ser_Door
+0024 8000             77         jmp   Alarm_Check_Done
+                      78     
+0026                  79     Alarm_Check_Done:
+                      80     
+0026 D0F0             81         pop     B
+0028 D0E0             82         pop     ACC
+002A D082             83         pop     DPL
+002C D083             84         pop     DPH
+002E D0D0             85         pop     PSW
+                      86     
+0030                  87         setb  TR1         ;Start Timer 1 
+*** ___________________________________^
+*** ERROR #A45 IN 87 (Alarm.asm, LINE 87): UNDEFINED SYMBOL (PASS-2)
+                      88     
+0032 32               89         reti
+                      90     
+                      91     ;=====================================================================
+                      92     ;   Sub routine - Serial routine for Panic Alarm
+                      93     ;
+                      94     ;=====================================================================
+                      95     
+0033                  96     Alarm_Ser_Panic:
+0033 90007B           97         mov   DPTR,#Alarm_Panic_Serial
+0036 7400             98         mov   A,#00h
+0038                  99     Alarm_Ser_Panic_Loop:
+0038 7400            100         mov   A,#00h
+A51 MACRO ASSEMBLER  ALARM                                                                07/14/2008 20:54:23 PAGE     3
+
+003A 93              101         movc  A,@A + DPTR
+003B 600D            102         jz    Alarm_Ser_Panic_Finish
+003D                 103         mov   SBUF1,A
+*** ___________________________________^
+*** ERROR #A45 IN 103 (Alarm.asm, LINE 103): UNDEFINED SYMBOL (PASS-2)
+                     104     
+003F                 105         mov   A,SCON1
+*** _____________________________________^
+*** ERROR #A45 IN 105 (Alarm.asm, LINE 105): UNDEFINED SYMBOL (PASS-2)
+0041 30E1FB          106         jnb   ACC.1,$ - 2
+0044                 107         mov   SCON1,#40h
+*** ___________________________________^
+*** ERROR #A45 IN 107 (Alarm.asm, LINE 107): UNDEFINED SYMBOL (PASS-2)
+0047 A3              108         inc   DPTR
+                     109       
+0048 80EE            110         sjmp  Alarm_Ser_Panic_Loop
+                     111       
+004A                 112     Alarm_Ser_Panic_Finish:
+004A 22              113         ret
+                     114     
+                     115     ;=====================================================================
+                     116     ;   Sub routine - Serial routine for Tamper Alarm
+                     117     ;
+                     118     ;=====================================================================
+                     119     
+004B                 120     Alarm_Ser_Tamper:
+004B 90008F          121         mov   DPTR,#Alarm_Tamper_Serial
+004E 7400            122         mov   A,#00h
+0050                 123     Alarm_Ser_Tamper_Loop:
+0050 7400            124         mov   A,#00h
+0052 93              125         movc  A,@A + DPTR
+0053 600D            126         jz    Alarm_Ser_Tamper_Finish
+0055                 127         mov   SBUF1,A
+*** ___________________________________^
+*** ERROR #A45 IN 127 (Alarm.asm, LINE 127): UNDEFINED SYMBOL (PASS-2)
+                     128     
+0057                 129         mov   A,SCON1
+*** _____________________________________^
+*** ERROR #A45 IN 129 (Alarm.asm, LINE 129): UNDEFINED SYMBOL (PASS-2)
+0059 30E1FB          130         jnb   ACC.1,$ - 2
+005C                 131         mov   SCON1,#40h
+*** ___________________________________^
+*** ERROR #A45 IN 131 (Alarm.asm, LINE 131): UNDEFINED SYMBOL (PASS-2)
+005F A3              132         inc   DPTR
+                     133       
+0060 80EE            134         sjmp  Alarm_Ser_Tamper_Loop
+                     135       
+0062                 136     Alarm_Ser_Tamper_Finish:
+0062 22              137         ret
+                     138     
+                     139     ;=====================================================================
+                     140     ;   Sub routine - Serial routine for Door Alarm
+                     141     ;
+                     142     ;=====================================================================
+                     143     
+0063                 144     Alarm_Ser_Door:
+0063 9000A8          145         mov   DPTR,#Alarm_Door_Serial
+0066 7400            146         mov   A,#00h
+0068                 147     Alarm_Ser_Door_Loop:
+0068 7400            148         mov   A,#00h
+006A 93              149         movc  A,@A + DPTR
+006B 600D            150         jz    Alarm_Ser_Door_Finish
+006D                 151         mov   SBUF1,A
+*** ___________________________________^
+*** ERROR #A45 IN 151 (Alarm.asm, LINE 151): UNDEFINED SYMBOL (PASS-2)
+                     152     
+A51 MACRO ASSEMBLER  ALARM                                                                07/14/2008 20:54:23 PAGE     4
+
+006F                 153         mov   A,SCON1
+*** _____________________________________^
+*** ERROR #A45 IN 153 (Alarm.asm, LINE 153): UNDEFINED SYMBOL (PASS-2)
+0071 30E1FB          154         jnb   ACC.1,$ - 2
+0074                 155         mov   SCON1,#40h
+*** ___________________________________^
+*** ERROR #A45 IN 155 (Alarm.asm, LINE 155): UNDEFINED SYMBOL (PASS-2)
+0077 A3              156         inc   DPTR
+                     157       
+0078 80EE            158         sjmp  Alarm_Ser_Door_Loop
+                     159       
+007A                 160     Alarm_Ser_Door_Finish:
+007A 22              161         ret
+                     162     
+                     163     
+                     164     
+007B                 165     Alarm_Panic_Serial: 
+007B 50616E69        166         db "Panic Activated!!!",0Dh,0
+007F 63204163                
+0083 74697661                
+0087 74656421                
+008B 21210D00                
+                     167     
+008F                 168     Alarm_Tamper_Serial: 
+008F 416C6172        169         db "Alarm Tamper Tripped!!!",0Dh,0
+0093 6D205461                
+0097 6D706572                
+009B 20547269                
+009F 70706564                
+00A3 2121210D                
+00A7 00                      
+                     170     
+00A8                 171     Alarm_Door_Serial: 
+00A8 43617220        172         db "Car Door Open!!!",0Dh,0
+00AC 446F6F72                
+00B0 204F7065                
+00B4 6E212121                
+00B8 0D00                    
+*** WARNING #A41 IN 172 (Alarm.asm, LINE 172): MISSING 'END' STATEMENT
+A51 MACRO ASSEMBLER  ALARM                                                                07/14/2008 20:54:23 PAGE     5
+
+XREF SYMBOL TABLE LISTING
+---- ------ ----- -------
+
+
+N A M E                  T Y P E  V A L U E   ATTRIBUTES / REFERENCES
+
+ACC . . . . . . . . . .  D ADDR   00E0H   A      50 82 106 130 154
+ALARM_CHECK . . . . . .  C ADDR   0000H   A      44#
+ALARM_CHECK_ARMED . . .  C ADDR   0013H   A      54 60#
+ALARM_CHECK_DONE. . . .  C ADDR   0026H   A      58 61 64 71 77 79#
+ALARM_DOOR. . . . . . .  C ADDR   001FH   A      63 73#
+ALARM_DOOR_SERIAL . . .  C ADDR   00A8H   A      145 171#
+ALARM_PANIC . . . . . .  C ADDR   000CH   A      53#
+ALARM_PANIC_SERIAL. . .  C ADDR   007BH   A      97 165#
+ALARM_SER_DOOR. . . . .  C ADDR   0063H   A      76 144#
+ALARM_SER_DOOR_FINISH .  C ADDR   007AH   A      150 160#
+ALARM_SER_DOOR_LOOP . .  C ADDR   0068H   A      147# 158
+ALARM_SER_PANIC . . . .  C ADDR   0033H   A      57 96#
+ALARM_SER_PANIC_FINISH.  C ADDR   004AH   A      102 112#
+ALARM_SER_PANIC_LOOP. .  C ADDR   0038H   A      99# 110
+ALARM_SER_TAMPER. . . .  C ADDR   004BH   A      70 120#
+ALARM_SER_TAMPER_FINISH  C ADDR   0062H   A      126 136#
+ALARM_SER_TAMPER_LOOP .  C ADDR   0050H   A      123# 134
+ALARM_TAMPER. . . . . .  C ADDR   0018H   A      62 66#
+ALARM_TAMPER_SERIAL . .  C ADDR   008FH   A      121 168#
+B . . . . . . . . . . .  D ADDR   00F0H   A      51 81
+DPH . . . . . . . . . .  D ADDR   0083H   A      48 84
+DPL . . . . . . . . . .  D ADDR   0082H   A      49 83
+EX1 . . . . . . . . . .    ----   -----          56 69 75
+P1. . . . . . . . . . .    ----   -----          55 67 68 74
+P3. . . . . . . . . . .    ----   -----          54 62 63
+PSW . . . . . . . . . .  D ADDR   00D0H   A      47 85
+SBUF1 . . . . . . . . .    ----   -----          103 127 151
+SCON1 . . . . . . . . .    ----   -----          105 107 129 131 153 155
+TR1 . . . . . . . . . .    ----   -----          45 87
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  1 WARNING(S), 21 ERROR(S)

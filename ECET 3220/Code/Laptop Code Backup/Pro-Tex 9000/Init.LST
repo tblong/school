@@ -1,0 +1,194 @@
+A51 MACRO ASSEMBLER  INIT                                                                 07/04/2008 08:34:44 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.00d
+OBJECT MODULE PLACED IN Init.OBJ
+ASSEMBLER INVOKED BY: c:\SiLabs\MCU\IDEfiles\C51\BIN\a51.exe Init.asm XR GEN DB EP NOMOD51
+
+LOC  OBJ            LINE     SOURCE
+
+                       1     ;=====================================================================
+                       2     ;                                                                                          
+                                          Pro-Tex 9000
+                       3     ;
+                       4     ;Revision: R.07031336  (R.MMDDHHMM)
+                       5     ;
+                       6     ;Project Team Members:
+                       7     ; - Vince Watkins
+                       8     ; - Will Smith
+                       9     ; - Tyler Long
+                      10     ;
+                      11     ;
+                      12     ;Initialization Routines
+                      13     ;
+                      14     ;
+                      15     ;=====================================================================
+                      16     
+                      17     
+                      18     ;------------------------------------
+                      19     ;-  Generated Initialization File  --
+                      20     ;------------------------------------
+                      21     
+                      22     
+                      23     ; Peripheral specific initialization functions,
+                      24     ; Called from the Init_Device label
+0000                  25     Reset_Sources_Init:
+0000                  26         mov   WDTCN,#0DEh
+*** ___________________________________^
+*** ERROR #A45 IN 26 (Init.asm, LINE 26): UNDEFINED SYMBOL (PASS-2)
+0003                  27         mov   WDTCN,#0ADh
+*** ___________________________________^
+*** ERROR #A45 IN 27 (Init.asm, LINE 27): UNDEFINED SYMBOL (PASS-2)
+0006 22               28         ret
+                      29     
+0007                  30     Timer_Init:
+0007                  31         mov   TMOD,#001h
+*** ___________________________________^
+*** ERROR #A45 IN 31 (Init.asm, LINE 31): UNDEFINED SYMBOL (PASS-2)
+000A 22               32         ret
+                      33     
+000B                  34     EMI_Init:
+000B                  35         mov   EMI0CF,#02Fh
+*** ___________________________________^
+*** ERROR #A45 IN 35 (Init.asm, LINE 35): UNDEFINED SYMBOL (PASS-2)
+000E 22               36         ret
+                      37     
+000F                  38     Port_IO_Init:
+                      39         ; P0.0  -  INT0 (Tmr0), Push-Pull,  Digital
+                      40         ; P0.1  -  Unassigned,  Open-Drain, Digital
+                      41         ; P0.2  -  Unassigned,  Open-Drain, Digital
+                      42         ; P0.3  -  Unassigned,  Open-Drain, Digital
+                      43         ; P0.4  -  Unassigned,  Open-Drain, Digital
+                      44         ; P0.5  -  Unassigned,  Push-Pull,  Digital
+                      45         ; P0.6  -  Skipped,     Push-Pull,  Digital
+                      46         ; P0.7  -  Skipped,     Push-Pull,  Digital
+                      47     
+                      48         ; P1.0  -  Unassigned,  Open-Drain, Digital
+                      49         ; P1.1  -  Unassigned,  Open-Drain, Digital
+A51 MACRO ASSEMBLER  INIT                                                                 07/04/2008 08:34:44 PAGE     2
+
+                      50         ; P1.2  -  Unassigned,  Open-Drain, Digital
+                      51         ; P1.3  -  Unassigned,  Open-Drain, Digital
+                      52         ; P1.4  -  Unassigned,  Open-Drain, Digital
+                      53         ; P1.5  -  Unassigned,  Open-Drain, Digital
+                      54         ; P1.6  -  Unassigned,  Open-Drain, Digital
+                      55         ; P1.7  -  Unassigned,  Open-Drain, Digital
+                      56     
+                      57         ; P2.0  -  Unassigned,  Push-Pull,  Digital
+                      58         ; P2.1  -  Unassigned,  Push-Pull,  Digital
+                      59         ; P2.2  -  Unassigned,  Push-Pull,  Digital
+                      60         ; P2.3  -  Unassigned,  Push-Pull,  Digital
+                      61         ; P2.4  -  Unassigned,  Push-Pull,  Digital
+                      62         ; P2.5  -  Unassigned,  Push-Pull,  Digital
+                      63         ; P2.6  -  Unassigned,  Push-Pull,  Digital
+                      64         ; P2.7  -  Unassigned,  Push-Pull,  Digital
+                      65     
+                      66         ; P3.0  -  Unassigned,  Push-Pull,  Digital
+                      67         ; P3.1  -  Unassigned,  Push-Pull,  Digital
+                      68         ; P3.2  -  Unassigned,  Push-Pull,  Digital
+                      69         ; P3.3  -  Unassigned,  Push-Pull,  Digital
+                      70         ; P3.4  -  Unassigned,  Push-Pull,  Digital
+                      71         ; P3.5  -  Unassigned,  Push-Pull,  Digital
+                      72         ; P3.6  -  Unassigned,  Push-Pull,  Digital
+                      73         ; P3.7  -  Unassigned,  Push-Pull,  Digital
+                      74         
+000F                  75         mov  P74OUT,    #0FFh
+*** __________________________________^
+*** ERROR #A45 IN 75 (Init.asm, LINE 75): UNDEFINED SYMBOL (PASS-2)
+0012                  76         mov  P0MDOUT,   #0E1h
+*** __________________________________^
+*** ERROR #A45 IN 76 (Init.asm, LINE 76): UNDEFINED SYMBOL (PASS-2)
+0015                  77         mov  P2MDOUT,   #0FFh
+*** __________________________________^
+*** ERROR #A45 IN 77 (Init.asm, LINE 77): UNDEFINED SYMBOL (PASS-2)
+0018                  78         mov  P3MDOUT,   #0FFh
+*** __________________________________^
+*** ERROR #A45 IN 78 (Init.asm, LINE 78): UNDEFINED SYMBOL (PASS-2)
+001B                  79         mov  XBR1,      #004h
+*** __________________________________^
+*** ERROR #A45 IN 79 (Init.asm, LINE 79): UNDEFINED SYMBOL (PASS-2)
+001E                  80         mov  XBR2,      #040h
+*** __________________________________^
+*** ERROR #A45 IN 80 (Init.asm, LINE 80): UNDEFINED SYMBOL (PASS-2)
+0021 22               81         ret
+                      82     
+                      83     
+                      84     
+0022                  85     Oscillator_Init:
+0022                  86         mov   OSCXCN,#067h
+*** ___________________________________^
+*** ERROR #A45 IN 86 (Init.asm, LINE 86): UNDEFINED SYMBOL (PASS-2)
+0025 781E             87         mov   R0,#030       ; Wait 1ms for initialization
+0027                  88     Osc_Wait1:
+0027 E4               89         clr   A
+0028 D5E0FD           90         djnz  ACC,$
+002B D8FA             91         djnz  R0,Osc_Wait1
+002D                  92     Osc_Wait2:
+002D                  93         mov   A,OSCXCN
+*** _____________________________________^
+*** ERROR #A45 IN 93 (Init.asm, LINE 93): UNDEFINED SYMBOL (PASS-2)
+002F 30E7FB           94         jnb   ACC.7,Osc_Wait2
+0032                  95         mov   OSCICN,#008h
+*** ___________________________________^
+*** ERROR #A45 IN 95 (Init.asm, LINE 95): UNDEFINED SYMBOL (PASS-2)
+0035 22               96         ret
+                      97     
+A51 MACRO ASSEMBLER  INIT                                                                 07/04/2008 08:34:44 PAGE     3
+
+0036                  98     Interrupts_Init:
+0036                  99         mov   IE,#001h
+*** ___________________________________^
+*** ERROR #A45 IN 99 (Init.asm, LINE 99): UNDEFINED SYMBOL (PASS-2)
+0039 22              100         ret
+                     101     
+                     102     
+                     103     ; Initialization function for device,
+                     104     ; Call Init_Device from your main program
+003A                 105     Init_Device:
+003A 120000          106         lcall Reset_Sources_Init
+003D 120007          107         lcall Timer_Init
+0040 12000B          108         lcall EMI_Init
+0043 12000F          109         lcall Port_IO_Init
+0046 120022          110         lcall Oscillator_Init
+0049 120036          111         lcall Interrupts_Init
+004C 22              112         ret
+                     113     
+                     114     
+                     115     
+*** WARNING #A41 IN 115 (Init.asm, LINE 115): MISSING 'END' STATEMENT
+A51 MACRO ASSEMBLER  INIT                                                                 07/04/2008 08:34:44 PAGE     4
+
+XREF SYMBOL TABLE LISTING
+---- ------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES / REFERENCES
+
+ACC. . . . . . . .  D ADDR   00E0H   A      90 94
+EMI0CF . . . . . .    ----   -----          35
+EMI_INIT . . . . .  C ADDR   000BH   A      34# 108
+IE . . . . . . . .    ----   -----          99
+INIT_DEVICE. . . .  C ADDR   003AH   A      105#
+INTERRUPTS_INIT. .  C ADDR   0036H   A      98# 111
+OSCICN . . . . . .    ----   -----          95
+OSCILLATOR_INIT. .  C ADDR   0022H   A      85# 110
+OSCXCN . . . . . .    ----   -----          86 93
+OSC_WAIT1. . . . .  C ADDR   0027H   A      88# 91
+OSC_WAIT2. . . . .  C ADDR   002DH   A      92# 94
+P0MDOUT. . . . . .    ----   -----          76
+P2MDOUT. . . . . .    ----   -----          77
+P3MDOUT. . . . . .    ----   -----          78
+P74OUT . . . . . .    ----   -----          75
+PORT_IO_INIT . . .  C ADDR   000FH   A      38# 109
+RESET_SOURCES_INIT  C ADDR   0000H   A      25# 106
+TIMER_INIT . . . .  C ADDR   0007H   A      30# 107
+TMOD . . . . . . .    ----   -----          31
+WDTCN. . . . . . .    ----   -----          26 27
+XBR1 . . . . . . .    ----   -----          79
+XBR2 . . . . . . .    ----   -----          80
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  1 WARNING(S), 14 ERROR(S)

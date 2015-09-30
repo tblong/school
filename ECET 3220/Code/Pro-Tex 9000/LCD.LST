@@ -1,0 +1,397 @@
+A51 MACRO ASSEMBLER  LCD                                                                  07/16/2008 23:38:07 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.00d
+OBJECT MODULE PLACED IN LCD.OBJ
+ASSEMBLER INVOKED BY: c:\SiLabs\MCU\IDEfiles\C51\BIN\a51.exe LCD.asm XR GEN DB EP NOMOD51
+
+LOC  OBJ            LINE     SOURCE
+
+                       1     ;=====================================================================
+                       2     ;                             Pro-Tex 9000
+                       3     ;
+                       4     ;Revision: R.07031336  (R.MMDDHHMM)
+                       5     ;
+                       6     ;Project Team Members:
+                       7     ; - Vince Watkins
+                       8     ; - Will Smith
+                       9     ; - Tyler Long
+                      10     ;
+                      11     ;LCD Subroutines
+                      12     ;
+                      13     ;
+                      14     ;
+                      15     ;=====================================================================
+                      16     
+                      17     
+                      18     ;=====================================================================
+                      19     ;   Variable declarations
+                      20     ;=====================================================================
+                      21     
+                      22     ;LCD Commands
+  0001                23     DISP_CLR              EQU 00000001b ;Clears Disp & sets DDRAM addy to zero
+  0038                24     DISP_FUNCTION_CMD     EQU 00111000b ;Sets disp to 8-bit & 5x10 chars.
+  000C                25     DISP_ON               EQU 00001100b ;Turns disp ON,
+  000F                26     DISP_CURSOR           EQU 00001111b ;Turns disp & cursor ON, cursor flashing
+  0006                27     DISP_ENTRY_MODE       EQU 00000110b ;Sets cursor move direction
+  0014                28     DISP_AUTOSHIFT_CURSOR EQU 00010100b ;Automatic move cursor right after send
+  0010                29     DISP_BACKSPACE        EQU 00010000b ;Shifts cursor left
+  001C                30     DISP_SHIFTRT          EQU 00011100b ;Shifts entire display Right
+                      31     
+  1000                32     LCD_WRITE             EQU 1000h     ;LCD Write address RS=1 & RW=0
+  1100                33     LCD_READ              EQU 1100h     ;LCD Read busy address RS=0 & RW =1
+  1200                34     LCD_CMD               EQU 1200h     ;LCD Command address RS=0 & RW =0
+                      35     
+                      36     
+                      37     ;=====================================================================
+                      38     ;   Sub routine - Initialize LCD
+                      39     ;=====================================================================
+                      40     
+0000                  41     LCD_Init:
+0000 901200           42         mov   DPTR,#LCD_CMD
+0003 75E038           43         mov   ACC,#DISP_FUNCTION_CMD
+0006 F0               44         movx  @DPTR,A
+0007 12006E           45         lcall LCD_Busy
+                      46     
+000A 901200           47         mov   DPTR,#LCD_CMD
+000D 75E00C           48         mov   ACC,#DISP_ON
+0010 F0               49         movx  @DPTR,A
+0011 12006E           50         lcall LCD_Busy
+                      51     
+0014 901200           52         mov   DPTR,#LCD_CMD
+0017 75E006           53         mov   ACC,#DISP_ENTRY_MODE
+001A F0               54         movx  @DPTR,A
+001B 12006E           55         lcall LCD_Busy      
+                      56     
+001E 120063           57         lcall LCD_Clear
+                      58     
+A51 MACRO ASSEMBLER  LCD                                                                  07/16/2008 23:38:07 PAGE     2
+
+0021 22               59         ret
+                      60     
+                      61                     
+                      62     ;=====================================================================
+                      63     ;   Sub routine - Prints string to LCD
+                      64     ;
+                      65     ;Enter subroutine with cursor in correct location, DPTR pointing at
+                      66     ;string to print, and ACC pointing to first location of string.
+                      67     ;
+                      68     ;=====================================================================
+                      69     
+                      70                     
+0022                  71     LCD_Print:
+0022 C0D0             72         push  PSW
+0024 C083             73         push  DPH
+0026 C082             74         push  DPL
+0028 C0E0             75         push  ACC
+002A C0F0             76         push  B
+002C 93               77         movc  A,@A + DPTR
+002D 6014             78         jz    LCD_Return      ;Null Character Reached
+002F 901000           79         mov   DPTR,#LCD_WRITE
+0032 F0               80         movx  @DPTR,A
+0033 12006E           81         lcall LCD_Busy
+                      82     
+0036                  83     LCD_Restore:
+0036 D0F0             84         pop   B
+0038 D0E0             85         pop   ACC
+003A D082             86         pop   DPL
+003C D083             87         pop   DPH
+003E D0D0             88         pop   PSW
+0040 A3               89         inc   DPTR
+                      90     
+0041 80DF             91         jmp   LCD_Print
+                      92     
+0043                  93     LCD_Return:
+0043 D0F0             94         pop   B
+0045 D0E0             95         pop   ACC
+0047 D082             96         pop   DPL
+0049 D083             97         pop   DPH
+004B D0D0             98         pop   PSW
+004D A3               99         inc   DPTR       ;Leave sub with DPTR at next string in db
+                     100     
+004E 22              101         ret
+                     102     
+                     103     ;=====================================================================
+                     104     ;   Sub routine - 3.0 second wait delay for screen transitions
+                     105     ;
+                     106     ;Registers used:
+                     107     ; - R2
+                     108     ;
+                     109     ;Timers used:
+                     110     ; - Timer0
+                     111     ;
+                     112     ;=====================================================================
+                     113     
+004F                 114     LCD_Wait_3sec:
+004F 7A3C            115         mov     R2,#60    ;15=1sec.
+0051                 116         mov     TH0,#00h
+*** _____________________________________^
+*** ERROR #A45 IN 116 (LCD.asm, LINE 116): UNDEFINED SYMBOL (PASS-2)
+0054                 117         mov     TL0,#00h
+*** _____________________________________^
+*** ERROR #A45 IN 117 (LCD.asm, LINE 117): UNDEFINED SYMBOL (PASS-2)
+0057                 118         setb    TR0
+*** _____________________________________^
+*** ERROR #A45 IN 118 (LCD.asm, LINE 118): UNDEFINED SYMBOL (PASS-2)
+A51 MACRO ASSEMBLER  LCD                                                                  07/16/2008 23:38:07 PAGE     3
+
+                     119     
+0059                 120     LCD_Timer0_OV:
+0059                 121         jnb     TF0,LCD_Timer0_OV
+*** _____________________________________^
+*** ERROR #A45 IN 121 (LCD.asm, LINE 121): UNDEFINED SYMBOL (PASS-2)
+005C                 122         clr     TF0
+*** _____________________________________^
+*** ERROR #A45 IN 122 (LCD.asm, LINE 122): UNDEFINED SYMBOL (PASS-2)
+005E DAF9            123         djnz    R2,LCD_Timer0_OV
+0060                 124         clr     TR0
+*** _____________________________________^
+*** ERROR #A45 IN 124 (LCD.asm, LINE 124): UNDEFINED SYMBOL (PASS-2)
+0062 22              125         ret
+                     126     
+                     127     
+                     128     
+                     129     ;=====================================================================
+                     130     ;  Sub routine - Clear LCD
+                     131     ;=====================================================================
+                     132     
+0063                 133     LCD_Clear:
+0063 901200          134         mov   DPTR,#LCD_CMD
+0066 75E001          135         mov   ACC,#DISP_CLR
+0069 F0              136         movx  @DPTR,A
+006A 12006E          137         lcall LCD_Busy
+006D 22              138         ret
+                     139     
+                     140     ;=====================================================================
+                     141     ;  Sub routine - Wait for LCD
+                     142     ;=====================================================================
+                     143     
+006E                 144     LCD_Busy:
+006E 901100          145         mov   DPTR,#LCD_READ
+0071 E0              146         movx  A,@DPTR
+0072 20E7F9          147         JB    ACC.7,LCD_Busy  ;If bit 7 high, LCD still busy
+0075 22              148         ret
+                     149     
+                     150     
+                     151     
+                     152     ;------------------------------------
+                     153     ;-  LCD Screen Strings  --
+                     154     ;------------------------------------
+                     155     
+0076                 156     LCD_First:   ;State_00h
+0076 45434554        157         db "ECET 3220 Summer 08",0
+007A 20333232                
+007E 30205375                
+0082 6D6D6572                
+0086 20303800                
+008A 54796C65        158         db "Tyler Long",0
+008E 72204C6F                
+0092 6E6700                  
+0095 57696C20        159         db "Wil Smith",0
+0099 536D6974                
+009D 6800                    
+009F 56696E63        160         db "Vincent Watkins",0
+00A3 656E7420                
+00A7 5761746B                
+00AB 696E7300                
+                     161     
+00AF                 162     LCD_Pro_Tex:        ;State_01h
+00AF 50726F2D        163         db "Pro-Tex 9000",0
+00B3 54657820                
+00B7 39303030                
+00BB 00                      
+                     164     
+A51 MACRO ASSEMBLER  LCD                                                                  07/16/2008 23:38:07 PAGE     4
+
+00BC                 165     LCD_Password_Entry: ;State_02h & 0Ah
+00BC 456E7465        166         db "Enter PW:",0
+00C0 72205057                
+00C4 3A00                    
+                     167     
+00C6                 168     LCD_PW_Bad:         ;State_03h,04h,0Ch, & 0Dh
+00C6 496E7661        169         db "Invalid PW",0
+00CA 6C696420                
+00CE 505700                  
+00D1 54727920        170         db "Try Again:",0
+00D5 41676169                
+00D9 6E3A00                  
+                     171     
+00DC                 172     LCD_SysLocked:      ;State_05h
+00DC 53797374        173         db "System  Locked",0
+00E0 656D2020                
+00E4 4C6F636B                
+00E8 656400                  
+                     174     
+00EB                 175     LCD_Home:       ;State_06h
+00EB 486F6D65        176         db "Home",0
+00EF 00                      
+00F0 41636365        177         db "Accel:      ",0
+00F4 6C3A2020                
+00F8 20202020                
+00FC 00                      
+00FD 41636365        178         db "Accel STPT:     ",0
+0101 6C205354                
+0105 50543A20                
+0109 20202020                
+010D 00                      
+010E 50726573        179         db "Press ",22h,"ENT",22h," for Menu",0
+0112 73202245                
+0116 4E542220                
+011A 666F7220                
+011E 4D656E75                
+0122 00                      
+                     180     
+0123                 181     LCD_Main_Menu:  ;State_07h
+0123 4D656E75        182         db "Menu  ",22h,"ENT",22h,"=","Home",0
+0127 20202245                
+012B 4E54223D                
+012F 486F6D65                
+0133 00                      
+0134 312E2041        183         db "1. Arm/Dis",0
+0138 726D2F44                
+013C 697300                  
+013F 322E2043        184         db "2. Change Acc STPT",0
+0143 68616E67                
+0147 65204163                
+014B 63205354                
+014F 505400                  
+0152 332E2043        185         db "3. Change PW",0
+0156 68616E67                
+015A 65205057                
+015E 00                      
+                     186     
+015F                 187     LCD_ArmDis:     ;State_08h
+015F 312E2041        188         db "1. Arm",0
+0163 726D00                  
+0166 322E2044        189         db "2. Disarm",0
+016A 69736172                
+016E 6D00                    
+0170 50726573        190         db "Press ",22h,"ENT",22h," for Menu",0
+0174 73202245                
+0178 4E542220                
+A51 MACRO ASSEMBLER  LCD                                                                  07/16/2008 23:38:07 PAGE     5
+
+017C 666F7220                
+0180 4D656E75                
+0184 00                      
+                     191     
+0185                 192     LCD_SysArmed:   ;State_09h
+0185 53797374        193         db "System Armed",0
+0189 656D2041                
+018D 726D6564                
+0191 00                      
+                     194     
+0192                 195     LCD_SysDisArmed:   ;State_0Bh
+0192 53797374        196         db "System  Disarmed",0
+0196 656D2020                
+019A 44697361                
+019E 726D6564                
+01A2 00                      
+                     197     
+01A3                 198     LCD_AccStpt:     ;State_0Eh
+01A3 456E7465        199         db "Enter New Acc STPT",0
+01A7 72204E65                
+01AB 77204163                
+01AF 63205354                
+01B3 505400                  
+01B6 20307E31        200         db " 0",7Eh,"120 ","= ","0",7Eh,"+/-","1.20g ",0
+01BA 3230203D                
+01BE 20307E2B                
+01C2 2F2D312E                
+01C6 32306720                
+01CA 00                      
+01CB 7E00            201         db 7Eh,0
+                     202     
+01CD                 203     LCD_Valid_STPT:   ;State_0Fh
+01CD 53657470        204         db "Setpoint Changed",0
+01D1 6F696E74                
+01D5 20436861                
+01D9 6E676564                
+01DD 00                      
+                     205     
+01DE                 206     LCD_Invalid_STPT:   ;State_10h
+01DE 496E7661        207         db "Invalid Setpoint",0
+01E2 6C696420                
+01E6 53657470                
+01EA 6F696E74                
+01EE 00                      
+                     208     
+                     209     
+01EF                 210     LCD_Current_PW:   ;State_11h
+01EF 456E7465        211         db "Enter Curr PW:",0
+01F3 72204375                
+01F7 72722050                
+01FB 573A00                  
+                     212     
+01FE                 213     LCD_New_PW:   ;State_14h
+01FE 456E7465        214         db "Enter New PW:",0
+0202 72204E65                
+0206 77205057                
+020A 3A00                    
+                     215     
+020C                 216     LCD_Changed_PW:   ;State_15h
+020C 50617373        217         db "Password Changed",0
+0210 776F7264                
+0214 20436861                
+0218 6E676564                
+021C 00                      
+                     218     
+*** WARNING #A41 IN 218 (LCD.asm, LINE 218): MISSING 'END' STATEMENT
+A51 MACRO ASSEMBLER  LCD                                                                  07/16/2008 23:38:07 PAGE     6
+
+XREF SYMBOL TABLE LISTING
+---- ------ ----- -------
+
+
+N A M E                T Y P E  V A L U E   ATTRIBUTES / REFERENCES
+
+ACC . . . . . . . . .  D ADDR   00E0H   A      43 48 53 75 85 95 135 147
+B . . . . . . . . . .  D ADDR   00F0H   A      76 84 94
+DISP_AUTOSHIFT_CURSOR  N NUMB   0014H   A      28#
+DISP_BACKSPACE. . . .  N NUMB   0010H   A      29#
+DISP_CLR. . . . . . .  N NUMB   0001H   A      23# 135
+DISP_CURSOR . . . . .  N NUMB   000FH   A      26#
+DISP_ENTRY_MODE . . .  N NUMB   0006H   A      27# 53
+DISP_FUNCTION_CMD . .  N NUMB   0038H   A      24# 43
+DISP_ON . . . . . . .  N NUMB   000CH   A      25# 48
+DISP_SHIFTRT. . . . .  N NUMB   001CH   A      30#
+DPH . . . . . . . . .  D ADDR   0083H   A      73 87 97
+DPL . . . . . . . . .  D ADDR   0082H   A      74 86 96
+LCD_ACCSTPT . . . . .  C ADDR   01A3H   A      198#
+LCD_ARMDIS. . . . . .  C ADDR   015FH   A      187#
+LCD_BUSY. . . . . . .  C ADDR   006EH   A      45 50 55 81 137 144# 147
+LCD_CHANGED_PW. . . .  C ADDR   020CH   A      216#
+LCD_CLEAR . . . . . .  C ADDR   0063H   A      57 133#
+LCD_CMD . . . . . . .  N NUMB   1200H   A      34# 42 47 52 134
+LCD_CURRENT_PW. . . .  C ADDR   01EFH   A      210#
+LCD_FIRST . . . . . .  C ADDR   0076H   A      156#
+LCD_HOME. . . . . . .  C ADDR   00EBH   A      175#
+LCD_INIT. . . . . . .  C ADDR   0000H   A      41#
+LCD_INVALID_STPT. . .  C ADDR   01DEH   A      206#
+LCD_MAIN_MENU . . . .  C ADDR   0123H   A      181#
+LCD_NEW_PW. . . . . .  C ADDR   01FEH   A      213#
+LCD_PASSWORD_ENTRY. .  C ADDR   00BCH   A      165#
+LCD_PRINT . . . . . .  C ADDR   0022H   A      71# 91
+LCD_PRO_TEX . . . . .  C ADDR   00AFH   A      162#
+LCD_PW_BAD. . . . . .  C ADDR   00C6H   A      168#
+LCD_READ. . . . . . .  N NUMB   1100H   A      33# 145
+LCD_RESTORE . . . . .  C ADDR   0036H   A      83#
+LCD_RETURN. . . . . .  C ADDR   0043H   A      78 93#
+LCD_SYSARMED. . . . .  C ADDR   0185H   A      192#
+LCD_SYSDISARMED . . .  C ADDR   0192H   A      195#
+LCD_SYSLOCKED . . . .  C ADDR   00DCH   A      172#
+LCD_TIMER0_OV . . . .  C ADDR   0059H   A      120# 121 123
+LCD_VALID_STPT. . . .  C ADDR   01CDH   A      203#
+LCD_WAIT_3SEC . . . .  C ADDR   004FH   A      114#
+LCD_WRITE . . . . . .  N NUMB   1000H   A      32# 79
+PSW . . . . . . . . .  D ADDR   00D0H   A      72 88 98
+TF0 . . . . . . . . .    ----   -----          121 122
+TH0 . . . . . . . . .    ----   -----          116
+TL0 . . . . . . . . .    ----   -----          117
+TR0 . . . . . . . . .    ----   -----          118 124
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  1 WARNING(S), 6 ERROR(S)
